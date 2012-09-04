@@ -1,17 +1,27 @@
 {
-  "author": "jamuhl"
-  , "name": "i18next-gettext-converter"
+    "author": "jamuhl"
+  , "name": "i18next-conv"
+  , "description": "converts .mo and .po files to i18next's json format and vice versa."
+  , "keywords": ["i18next", "gettext"]
   , "version": "0.0.1"
   , "private": false
-  , "main": "server.js"
+  , "preferGlobal": "true"
+  , "main": "index.js"
+  , "repository": {
+      "type": "git",
+      "url": "https://github.com/jamuhl/i18next-gettext-converter.git"
+    }
   , "engines": {
         "node": ">= 0.6.0"
     }
-  , "dependencies": { }
-  , "devDependencies": {
+  , "dependencies": {
       "node-gettext": "*"
     , "commander": "*"
+    , "i18next": "*"
+    , "express": "*"
+    , "colors": "*"
   }
   , "scripts": {
   }
+  , "bin": { "i18next-conv": "index.js" }
 }
