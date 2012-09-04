@@ -1,0 +1,17 @@
+{
+  "author": "jamuhl"
+  , "name": "i18next-gettext-converter"
+  , "version": "0.0.1"
+  , "private": false
+  , "main": "server.js"
+  , "engines": {
+        "node": ">= 0.6.0"
+    }
+  , "dependencies": { }
+  , "devDependencies": {
+      "node-gettext": "*"
+    , "commander": "*"
+  }
+  , "scripts": {
+  }
+}
