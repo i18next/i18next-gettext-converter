@@ -32,7 +32,7 @@ eg.: i18next-conv -l en -s ./locales/en.po -t ./locales/en/translation.json
 _if no target (-t) is specified file will be stored to [sourceDir]/[domain]/translation.json._
 
 
-# All credits got to
+# All credits go to
 
 - [andri9's node-gettext](https://github.com/andris9/node-gettext) for parsing .mo and .po files
 - [TJ Holowaychuk's commander.js](https://github.com/visionmedia/commander.js/) for console program
