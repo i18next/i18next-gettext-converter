@@ -13,18 +13,21 @@ Project goal is to convert files from gettext to i18next json format and vice ve
 
 in your console type:
 
+
+__for help:__
+
 ````
-for help:
-
 i18next-conv -h
+````
 
-to convert a .mo or .po file to json: 
+__to convert a .mo or .po file to json:__
 
+````
 i18next-conv -l [domain] -s [sourcePath] -t [targetPath]
+````
 
 eg.: i18next-conv -l en -s ./locales/en.po -t ./locales/en/translation.json
 
-````
 
 _if no target (-t) is specified file will be stored to [sourceDir]/[domain]/translation.json._
 
