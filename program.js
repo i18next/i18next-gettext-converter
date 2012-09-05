@@ -6,8 +6,8 @@ var program = require('commander')
 
 // test calls:
 
-// node index.js -l es -s ./testfiles/utf8.po
-// node index.js -l es -s ./testfiles/utf8.po -t ./testfiles/translation.es.json
+// node program.js -l es -s ./testfiles/utf8.po
+// node program.js -l es -s ./testfiles/utf8.po -t ./testfiles/translation.es.json
 
 // program
 program
