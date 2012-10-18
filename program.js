@@ -15,12 +15,17 @@ program
   .option('-s, --source [path]', 'Specify path to read from')
   .option('-t, --target [path]', 'Specify path to write to', '')
   .option('-l, --language [domain]', 'Specify the language code, eg. \'en\'')
+  .option('-ks, --keyseparator [path]', 'Specify keyseparator you want to use, defaults to ##', '##')
   .parse(process.argv);
 
 if (program.source && program.language) {
-	console.log('\nstarting converting'.red);
+	console.log('\nstart converting'.yellow);
 
-	converter.gettextToI18next(program.language, program.source, program.target, function(err) {
+	var options = {
+		keyseparator: program.keyseparator
+	};
+
+	converter.process(program.language, program.source, program.target, options, function(err) {
 		if (err) {
 			console.log('\nfailed writing file\n\n'.red);
 		} else {

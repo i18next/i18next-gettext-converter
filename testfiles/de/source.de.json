@@ -1,0 +1,248 @@
+{
+    "memberProfile": {
+        "tooltip": {
+            "memberProfile": "Mein $t(ns.common:userProfile)",
+            "password": "$t(ns.common:password) / $t(ns.common:username) $t(ns.common:change)"
+        },
+        "password": {
+            "title": "$t(ns.common:password) $t(ns.common:change)",
+            "old": "altes $t(ns.common:password)",
+            "new": "neues $t(ns.common:password)",
+            "confirm": "$t(ns.common:password) bestätigen"
+        },
+        "username": {
+            "title": "$t(ns.common:username) $t(ns.common:change)",
+            "username": "neuer $t(ns.common:username)"
+        }
+    },
+    "profile": {
+        "hint": {
+            "empty": {
+                "title": "Hinweis",
+                "content": "Erstellen Sie einen $t(ns.common:organisation) oder warten Sie bis Sie jemand zu einem $t(ns.common:organisation) hinzufügt."
+            }
+        },
+        "addOrganisation": "$t(ns.common:organisation) $t(ns.common:add)",
+        "organisation": {
+            "name": "Name"
+        },
+        "organisationItem": {
+            "tooltip": {
+                "blocked": "$t(ns.common:organisation) blockiert!"
+            }
+        }
+    },
+    "payment": {
+        "tooltip": {
+            "buyCredits": "$t(ns.common:credits) kaufen",
+            "boughtBundles": "gekaufte $t(ns.common:bundles)"
+        },
+        "purchaseNow": "Jetzt kaufen!",
+        "payed": "bezahlt",
+        "once": "einmalig",
+        "emptyOrdersResult": "Noch keine $t(ns.common:bundles) gekauft.",
+        "pricing": {
+            "title": "Kaufen Sie $t(ns.common:credits)",
+            "text": [
+                "<p>",
+                "$t(ns.common:credits) sind für die Aktivierung von $t(ns.common:children).",
+                "<br />",
+                "Sie können jedes $t(ns.common:child) gratis erfassen. Sobald Sie mit dem $t(ns.common:child) arbeiten müssen Sie ein $t(ns.common:credit) einsetzen.",
+                "</p>",
+                "<p>",
+                "Kaufen Sie eines der $t(ns.common:bundles) um vom Rabatt zu profitieren.",
+                "<br />",
+                "Da die $t(ns.common:credits) nicht verfallen, müssen Sie sich keine Sorge um die richtige Anzahl machen.",
+                "</p>"
+            ]
+        }
+    },
+    "organisation": {
+        "tooltip": {
+            "addAdminRights": "$t(ns.common:adminrights) $t(ns.common:add)",
+            "removeAdminRights": "$t(ns.common:adminrights) $t(ns.common:remove)",
+            "creditsAndBundles": "$t(ns.common:credits) / $t(ns.common:bundles)"
+        },
+        "archive": {
+            "archivedChildren": "Ehemalige $t(ns.common:children)"
+        },
+        "openPaymentOver": "(ausstehende Zahlung über CHF __openCosts__.-)",
+        "addChild": "$t(ns.common:child) $t(ns.common:add)",
+        "hintMessageChild": [
+            "<p>",
+            "Dokumentieren Sie Ihre Beobachtungen. Decken Sie Stärken und Schwächen auf.",
+            "</p>",
+            "<p>",
+            "Erst bei der Dokumentation wird ein Credit zur Aktivierung benötigt. Adressdaten können vorab ergänzt werden.",
+            "</p>",
+            "<p>",
+            "Erfassen Sie ein Kind, indem sie auf Kind hinzufügen klicken.",
+            "</p>"
+        ],
+        "hintMessageChildAdd": [
+            "Adressdaten können im Anschluss in der Detailansicht erfasst werden. Klicken ",
+            "Sie dazu, nach dem hinzufügen, den neu erstellten Eintrag an."
+        ],
+        "addGroup": "$t(ns.common:group) $t(ns.common:add)",
+        "hintMessageGroup": [
+            "<p>",
+            "Beurteilen Sie Kinder innerhalb der Gruppe. Die Gruppe ermöglicht Ihnen die ",
+            "Auswertung über alle Kinder der Gruppe. Im weiteren stehen Ihnen für Gruppen ",
+            "verschiedene Listen zu verfügung.",
+            "</p>",
+            "<p>",
+            "Erfassen Sie eine Gruppe, indem sie auf Gruppe hinzufügen klicken.",
+            "</p>"
+        ],
+        "hintMessageGroupAdd": [
+            "Kinder können im Anschluss in der Detailansicht zur Gruppe hinzugefügt werden. Klicken ",
+            "Sie dazu, nach dem hinzufügen, den neu erstellten Eintrag an."
+        ],
+        "addMember": "$t(ns.common:member) $t(ns.common:add)",
+        "searchMember": "$t(ns.common:member) $t(ns.common:search)",
+        "hintMessageMemberAdd": [
+            "<p>",
+            "Suchen nach Name oder Emailadresse.",
+            "</p>",
+            "<p>",
+            "Bei Eingabe einer Emailadresse besteht die Möglichkeit, falls kein ",
+            "Betreuer gefunden wurde, eine Einladung zu versenden.",
+            "</p>"
+        ]
+    },
+    "child": {
+        "tooltip": {
+            "createBookmark": "$t(ns.common:bookmark) $t(ns.common:create)",
+            "removeBookmark": "$t(ns.common:bookmark) $t(ns.common:remove)",
+            "groupOverview": "$t(ns.common:overview) $t(ns.common:group)"
+        }
+    },
+    "common": {
+        "image": {
+            "notSupported": "Bildupload wird von Ihrem Browser nicht unterstützt. Benutzen Sie bitte einen der folgenden Browser:",
+            "moveHere": "Bild hierhin ziehen",
+            "or": "oder",
+            "choose": "Bild auswählen",
+            "click": "klick"
+        },
+        "organisation": {
+            "name": "Name"
+        },
+        "group": {
+            "name": "$t(ns.app:common.organisation.name)",
+            "description": "Beschreibung"
+        },
+        "personData": {
+            "title": "Personalien",
+            "birthday": "Geburtstag"
+        },
+        "address": {
+            "title": "Adresse",
+            "street1": "Strasse / Nr.",
+            "street2": "Zusatz",
+            "plz": "Plz",
+            "city": "Ort",
+            "postalcode": "$t(ns.app:common.address.plz) / $t(ns.app:common.address.city)"
+        },
+        "contact": {
+            "title": "Kontakt",
+            "name": "Vormund",
+            "mobile": "Mobile",
+            "phoneHome": "Festnetz",
+            "phoneWork": "Arbeit"
+        }
+    },
+    "auth": {
+        "register": {
+            "title": "$t(ns.common:userProfile) erstellen",
+            "info": "Erstellen sie ihren gratis $t(ns.common:userProfile):",
+            "confirmPassword": "$t(ns.common:password) bestätigen",
+            "terms": [
+                "Ich habe die ",
+                "<a href='/terms' target='_new'>$t(ns.common:terms)</a>",
+                "gelesen und stimme ihnen zu."
+            ],
+            "confirmTermsError": "Muss akzeptiert werden.",
+            "appendix": [
+                "Haben Sie bereits ein $t(ns.common:userProfile)? ",
+                "<a href='#login'>$t(ns.common:login)</a>"
+            ]
+        },
+        "passwordReset": {
+            "title": "$t(ns.common:password) zurücksetzen",
+            "hint": {
+                "noId": "$t(ns.common:username) oder $t(ns.common:email) müssen angegeben werden!",
+                "noUser": "Kein Benutzer gefunden!",
+                "emailError": "Beim senden der $t(ns.common:email) ist ein Fehler aufgetreten!"
+            },
+            "info": "Geben Sie Ihr t(ns.common:username) oder Ihre $t(ns.common:email) an:",
+            "reset": "zurücksetzen",
+            "appendix": [
+                "Ist Ihnen das $t(ns.common:password) doch eingefallen? ",
+                "<a href='#login'>$t(ns.common:login)</a>"
+            ]
+        },
+        "login": {
+            "title": "Anmelden",
+            "hint": {
+                "loginFailed": "Die Anmeldung ist fehlgeschlagen!",
+                "newUser": "Die Registrierung war erfolgreich!",
+                "passwordReset": "Ein neues $t(ns.common:password) wurde auf Ihre $t(ns.common:email) geschickt!"
+            },
+            "info": "Melden sie sich mit ihrem $t(ns.common:userProfile) an:",
+            "login": "anmelden",
+            "appendix": [
+                "Haben Sie noch kein $t(ns.common:userProfile)? ",
+                "<a href='#register'>$t(ns.common:register)</a>",
+                "</br>",
+                "<a href='#passwordReset'>$t(ns.common:password)</a>",
+                " vergessen?"
+            ]
+        }
+    },
+    "group": {
+        "tooltip": {
+            "toArchive": "archivieren",
+            "addOrRemove": "$t(ns.common:add) / $t(ns.common:remove)",
+            "listPhone": "Telefonliste",
+            "listAddress": "Adressliste",
+            "listGroup": "Klassenliste",
+            "listPhoneAlarm": "Telefon Alarm"
+        },
+        "importanthint": "Wichtiger $t(ns.common:hint)",
+        "archiveGroup": "$t(ns.common:group) archivieren",
+        "ratingGroupEmpty": "Es sind keine Kinder in dieser Gruppe!",
+        "hintMessageChild": [
+            "Fügen Sie dieser Gruppe ein Kind hinzu, indem Sie auf ",
+            "<i class='icon-plus-sign'></i>",
+            "klicken."
+        ],
+        "hintMessageArchiveChildren": [
+            "<p>",
+            "Kinder werden beim anklicken ohne Bestätigungsaufforderung ",
+            "ins Archiv verschoben und können von dort jederzeit wieder zurückverschoben werden.",
+            "</p>",
+            "<p>",
+            "Wenn Sie die ganze Gruppe archivieren möchten, klicken Sie hier: ",
+            "<small class.commands>",
+            "<i class='archiveGroup icon-folder-open' rel='tooltip' title='$t(group.archiveGroup)'></i>",
+            "</small>",
+            "</p>"
+        ],
+        "hintMessageMember": [
+            "Welcher Betreuer ist verantwortlich für diese Gruppe?",
+            "Bestimmen Sie einen oder mehrere Betreuer, indem Sie auf ",
+            "<i class='icon-plus-sign'></i>",
+            "klicken."
+        ]
+    },
+    "app": {
+      "name": "i18n",
+      "insert": "you are __youAre__",
+      "child": "__count__ child",
+      "child_plural": "__count__ children",
+      "friend_context": "A friend",
+      "friend_context_male": "A boyfriend",
+      "friend_context_female": "A girlfriend"
+    }
+}
