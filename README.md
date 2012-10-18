@@ -20,7 +20,7 @@ __for help:__
 i18next-conv -h
 ````
 
-__to convert a .mo or .po file to json:__
+__to convert a .mo or .po file to i8next json:__
 
 ````
 i18next-conv -l [domain] -s [sourcePath] -t [targetPath]
@@ -30,6 +30,16 @@ eg.: i18next-conv -l en -s ./locales/en.po -t ./locales/en/translation.json
 
 
 _if no target (-t) is specified file will be stored to [sourceDir]/[domain]/translation.json._
+
+__to convert i18next json to a .mo or .po file:__
+
+````
+i18next-conv -l [domain] -s [sourcePath] -t [targetPath]
+````
+
+eg.: i18next-conv -l en -s ./locales/en.translation.json -t ./locales/en/translation.mo (or .po)
+
+_if no target (-t) is specified file will be stored to [sourceDir]/[domain]/translation.po._
 
 
 # All credits go to

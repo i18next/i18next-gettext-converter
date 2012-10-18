@@ -1,0 +1,606 @@
+{
+    "memberProfile##tooltip##memberProfile": {
+        "key": "memberProfile##tooltip##memberProfile",
+        "value": "Mein $t(ns.common:userProfile)",
+        "isPlural": false,
+        "context": ""
+    },
+    "memberProfile##tooltip##password": {
+        "key": "memberProfile##tooltip##password",
+        "value": "$t(ns.common:password) / $t(ns.common:username) $t(ns.common:change)",
+        "isPlural": false,
+        "context": ""
+    },
+    "memberProfile##password##title": {
+        "key": "memberProfile##password##title",
+        "value": "$t(ns.common:password) $t(ns.common:change)",
+        "isPlural": false,
+        "context": ""
+    },
+    "memberProfile##password##old": {
+        "key": "memberProfile##password##old",
+        "value": "altes $t(ns.common:password)",
+        "isPlural": false,
+        "context": ""
+    },
+    "memberProfile##password##new": {
+        "key": "memberProfile##password##new",
+        "value": "neues $t(ns.common:password)",
+        "isPlural": false,
+        "context": ""
+    },
+    "memberProfile##password##confirm": {
+        "key": "memberProfile##password##confirm",
+        "value": "$t(ns.common:password) bestätigen",
+        "isPlural": false,
+        "context": ""
+    },
+    "memberProfile##username##title": {
+        "key": "memberProfile##username##title",
+        "value": "$t(ns.common:username) $t(ns.common:change)",
+        "isPlural": false,
+        "context": ""
+    },
+    "memberProfile##username##username": {
+        "key": "memberProfile##username##username",
+        "value": "neuer $t(ns.common:username)",
+        "isPlural": false,
+        "context": ""
+    },
+    "profile##hint##empty##title": {
+        "key": "profile##hint##empty##title",
+        "value": "Hinweis",
+        "isPlural": false,
+        "context": ""
+    },
+    "profile##hint##empty##content": {
+        "key": "profile##hint##empty##content",
+        "value": "Erstellen Sie einen $t(ns.common:organisation) oder warten Sie bis Sie jemand zu einem $t(ns.common:organisation) hinzufügt.",
+        "isPlural": false,
+        "context": ""
+    },
+    "profile##addOrganisation": {
+        "key": "profile##addOrganisation",
+        "value": "$t(ns.common:organisation) $t(ns.common:add)",
+        "isPlural": false,
+        "context": ""
+    },
+    "profile##organisation##name": {
+        "key": "profile##organisation##name",
+        "value": "Name",
+        "isPlural": false,
+        "context": ""
+    },
+    "profile##organisationItem##tooltip##blocked": {
+        "key": "profile##organisationItem##tooltip##blocked",
+        "value": "$t(ns.common:organisation) blockiert!",
+        "isPlural": false,
+        "context": ""
+    },
+    "payment##tooltip##buyCredits": {
+        "key": "payment##tooltip##buyCredits",
+        "value": "$t(ns.common:credits) kaufen",
+        "isPlural": false,
+        "context": ""
+    },
+    "payment##tooltip##boughtBundles": {
+        "key": "payment##tooltip##boughtBundles",
+        "value": "gekaufte $t(ns.common:bundles)",
+        "isPlural": false,
+        "context": ""
+    },
+    "payment##purchaseNow": {
+        "key": "payment##purchaseNow",
+        "value": "Jetzt kaufen!",
+        "isPlural": false,
+        "context": ""
+    },
+    "payment##payed": {
+        "key": "payment##payed",
+        "value": "bezahlt",
+        "isPlural": false,
+        "context": ""
+    },
+    "payment##once": {
+        "key": "payment##once",
+        "value": "einmalig",
+        "isPlural": false,
+        "context": ""
+    },
+    "payment##emptyOrdersResult": {
+        "key": "payment##emptyOrdersResult",
+        "value": "Noch keine $t(ns.common:bundles) gekauft.",
+        "isPlural": false,
+        "context": ""
+    },
+    "payment##pricing##title": {
+        "key": "payment##pricing##title",
+        "value": "Kaufen Sie $t(ns.common:credits)",
+        "isPlural": false,
+        "context": ""
+    },
+    "payment##pricing##text": {
+        "key": "payment##pricing##text",
+        "value": "<p>\n$t(ns.common:credits) sind für die Aktivierung von $t(ns.common:children).\n<br />\nSie können jedes $t(ns.common:child) gratis erfassen. Sobald Sie mit dem $t(ns.common:child) arbeiten müssen Sie ein $t(ns.common:credit) einsetzen.\n</p>\n<p>\nKaufen Sie eines der $t(ns.common:bundles) um vom Rabatt zu profitieren.\n<br />\nDa die $t(ns.common:credits) nicht verfallen, müssen Sie sich keine Sorge um die richtige Anzahl machen.\n</p>",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##tooltip##addAdminRights": {
+        "key": "organisation##tooltip##addAdminRights",
+        "value": "$t(ns.common:adminrights) $t(ns.common:add)",
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##tooltip##removeAdminRights": {
+        "key": "organisation##tooltip##removeAdminRights",
+        "value": "$t(ns.common:adminrights) $t(ns.common:remove)",
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##tooltip##creditsAndBundles": {
+        "key": "organisation##tooltip##creditsAndBundles",
+        "value": "$t(ns.common:credits) / $t(ns.common:bundles)",
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##archive##archivedChildren": {
+        "key": "organisation##archive##archivedChildren",
+        "value": "Ehemalige $t(ns.common:children)",
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##openPaymentOver": {
+        "key": "organisation##openPaymentOver",
+        "value": "(ausstehende Zahlung über CHF __openCosts__.-)",
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##addChild": {
+        "key": "organisation##addChild",
+        "value": "$t(ns.common:child) $t(ns.common:add)",
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##hintMessageChild": {
+        "key": "organisation##hintMessageChild",
+        "value": "<p>\nDokumentieren Sie Ihre Beobachtungen. Decken Sie Stärken und Schwächen auf.\n</p>\n<p>\nErst bei der Dokumentation wird ein Credit zur Aktivierung benötigt. Adressdaten können vorab ergänzt werden.\n</p>\n<p>\nErfassen Sie ein Kind, indem sie auf Kind hinzufügen klicken.\n</p>",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##hintMessageChildAdd": {
+        "key": "organisation##hintMessageChildAdd",
+        "value": "Adressdaten können im Anschluss in der Detailansicht erfasst werden. Klicken \nSie dazu, nach dem hinzufügen, den neu erstellten Eintrag an.",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##addGroup": {
+        "key": "organisation##addGroup",
+        "value": "$t(ns.common:group) $t(ns.common:add)",
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##hintMessageGroup": {
+        "key": "organisation##hintMessageGroup",
+        "value": "<p>\nBeurteilen Sie Kinder innerhalb der Gruppe. Die Gruppe ermöglicht Ihnen die \nAuswertung über alle Kinder der Gruppe. Im weiteren stehen Ihnen für Gruppen \nverschiedene Listen zu verfügung.\n</p>\n<p>\nErfassen Sie eine Gruppe, indem sie auf Gruppe hinzufügen klicken.\n</p>",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##hintMessageGroupAdd": {
+        "key": "organisation##hintMessageGroupAdd",
+        "value": "Kinder können im Anschluss in der Detailansicht zur Gruppe hinzugefügt werden. Klicken \nSie dazu, nach dem hinzufügen, den neu erstellten Eintrag an.",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##addMember": {
+        "key": "organisation##addMember",
+        "value": "$t(ns.common:member) $t(ns.common:add)",
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##searchMember": {
+        "key": "organisation##searchMember",
+        "value": "$t(ns.common:member) $t(ns.common:search)",
+        "isPlural": false,
+        "context": ""
+    },
+    "organisation##hintMessageMemberAdd": {
+        "key": "organisation##hintMessageMemberAdd",
+        "value": "<p>\nSuchen nach Name oder Emailadresse.\n</p>\n<p>\nBei Eingabe einer Emailadresse besteht die Möglichkeit, falls kein \nBetreuer gefunden wurde, eine Einladung zu versenden.\n</p>",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "child##tooltip##createBookmark": {
+        "key": "child##tooltip##createBookmark",
+        "value": "$t(ns.common:bookmark) $t(ns.common:create)",
+        "isPlural": false,
+        "context": ""
+    },
+    "child##tooltip##removeBookmark": {
+        "key": "child##tooltip##removeBookmark",
+        "value": "$t(ns.common:bookmark) $t(ns.common:remove)",
+        "isPlural": false,
+        "context": ""
+    },
+    "child##tooltip##groupOverview": {
+        "key": "child##tooltip##groupOverview",
+        "value": "$t(ns.common:overview) $t(ns.common:group)",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##image##notSupported": {
+        "key": "common##image##notSupported",
+        "value": "Bildupload wird von Ihrem Browser nicht unterstützt. Benutzen Sie bitte einen der folgenden Browser:",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##image##moveHere": {
+        "key": "common##image##moveHere",
+        "value": "Bild hierhin ziehen",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##image##or": {
+        "key": "common##image##or",
+        "value": "oder",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##image##choose": {
+        "key": "common##image##choose",
+        "value": "Bild auswählen",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##image##click": {
+        "key": "common##image##click",
+        "value": "klick",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##organisation##name": {
+        "key": "common##organisation##name",
+        "value": "Name",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##group##name": {
+        "key": "common##group##name",
+        "value": "$t(ns.app:common.organisation.name)",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##group##description": {
+        "key": "common##group##description",
+        "value": "Beschreibung",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##personData##title": {
+        "key": "common##personData##title",
+        "value": "Personalien",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##personData##birthday": {
+        "key": "common##personData##birthday",
+        "value": "Geburtstag",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##address##title": {
+        "key": "common##address##title",
+        "value": "Adresse",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##address##street1": {
+        "key": "common##address##street1",
+        "value": "Strasse / Nr.",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##address##street2": {
+        "key": "common##address##street2",
+        "value": "Zusatz",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##address##plz": {
+        "key": "common##address##plz",
+        "value": "Plz",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##address##city": {
+        "key": "common##address##city",
+        "value": "Ort",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##address##postalcode": {
+        "key": "common##address##postalcode",
+        "value": "$t(ns.app:common.address.plz) / $t(ns.app:common.address.city)",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##contact##title": {
+        "key": "common##contact##title",
+        "value": "Kontakt",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##contact##name": {
+        "key": "common##contact##name",
+        "value": "Vormund",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##contact##mobile": {
+        "key": "common##contact##mobile",
+        "value": "Mobile",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##contact##phoneHome": {
+        "key": "common##contact##phoneHome",
+        "value": "Festnetz",
+        "isPlural": false,
+        "context": ""
+    },
+    "common##contact##phoneWork": {
+        "key": "common##contact##phoneWork",
+        "value": "Arbeit",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##register##title": {
+        "key": "auth##register##title",
+        "value": "$t(ns.common:userProfile) erstellen",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##register##info": {
+        "key": "auth##register##info",
+        "value": "Erstellen sie ihren gratis $t(ns.common:userProfile):",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##register##confirmPassword": {
+        "key": "auth##register##confirmPassword",
+        "value": "$t(ns.common:password) bestätigen",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##register##terms": {
+        "key": "auth##register##terms",
+        "value": "Ich habe die \n<a href='/terms' target='_new'>$t(ns.common:terms)</a>\ngelesen und stimme ihnen zu.",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##register##confirmTermsError": {
+        "key": "auth##register##confirmTermsError",
+        "value": "Muss akzeptiert werden.",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##register##appendix": {
+        "key": "auth##register##appendix",
+        "value": "Haben Sie bereits ein $t(ns.common:userProfile)? \n<a href='#login'>$t(ns.common:login)</a>",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##passwordReset##title": {
+        "key": "auth##passwordReset##title",
+        "value": "$t(ns.common:password) zurücksetzen",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##passwordReset##hint##noId": {
+        "key": "auth##passwordReset##hint##noId",
+        "value": "$t(ns.common:username) oder $t(ns.common:email) müssen angegeben werden!",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##passwordReset##hint##noUser": {
+        "key": "auth##passwordReset##hint##noUser",
+        "value": "Kein Benutzer gefunden!",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##passwordReset##hint##emailError": {
+        "key": "auth##passwordReset##hint##emailError",
+        "value": "Beim senden der $t(ns.common:email) ist ein Fehler aufgetreten!",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##passwordReset##info": {
+        "key": "auth##passwordReset##info",
+        "value": "Geben Sie Ihr t(ns.common:username) oder Ihre $t(ns.common:email) an:",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##passwordReset##reset": {
+        "key": "auth##passwordReset##reset",
+        "value": "zurücksetzen",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##passwordReset##appendix": {
+        "key": "auth##passwordReset##appendix",
+        "value": "Ist Ihnen das $t(ns.common:password) doch eingefallen? \n<a href='#login'>$t(ns.common:login)</a>",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##login##title": {
+        "key": "auth##login##title",
+        "value": "Anmelden",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##login##hint##loginFailed": {
+        "key": "auth##login##hint##loginFailed",
+        "value": "Die Anmeldung ist fehlgeschlagen!",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##login##hint##newUser": {
+        "key": "auth##login##hint##newUser",
+        "value": "Die Registrierung war erfolgreich!",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##login##hint##passwordReset": {
+        "key": "auth##login##hint##passwordReset",
+        "value": "Ein neues $t(ns.common:password) wurde auf Ihre $t(ns.common:email) geschickt!",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##login##info": {
+        "key": "auth##login##info",
+        "value": "Melden sie sich mit ihrem $t(ns.common:userProfile) an:",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##login##login": {
+        "key": "auth##login##login",
+        "value": "anmelden",
+        "isPlural": false,
+        "context": ""
+    },
+    "auth##login##appendix": {
+        "key": "auth##login##appendix",
+        "value": "Haben Sie noch kein $t(ns.common:userProfile)? \n<a href='#register'>$t(ns.common:register)</a>\n</br>\n<a href='#passwordReset'>$t(ns.common:password)</a>\n vergessen?",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "group##tooltip##toArchive": {
+        "key": "group##tooltip##toArchive",
+        "value": "archivieren",
+        "isPlural": false,
+        "context": ""
+    },
+    "group##tooltip##addOrRemove": {
+        "key": "group##tooltip##addOrRemove",
+        "value": "$t(ns.common:add) / $t(ns.common:remove)",
+        "isPlural": false,
+        "context": ""
+    },
+    "group##tooltip##listPhone": {
+        "key": "group##tooltip##listPhone",
+        "value": "Telefonliste",
+        "isPlural": false,
+        "context": ""
+    },
+    "group##tooltip##listAddress": {
+        "key": "group##tooltip##listAddress",
+        "value": "Adressliste",
+        "isPlural": false,
+        "context": ""
+    },
+    "group##tooltip##listGroup": {
+        "key": "group##tooltip##listGroup",
+        "value": "Klassenliste",
+        "isPlural": false,
+        "context": ""
+    },
+    "group##tooltip##listPhoneAlarm": {
+        "key": "group##tooltip##listPhoneAlarm",
+        "value": "Telefon Alarm",
+        "isPlural": false,
+        "context": ""
+    },
+    "group##importanthint": {
+        "key": "group##importanthint",
+        "value": "Wichtiger $t(ns.common:hint)",
+        "isPlural": false,
+        "context": ""
+    },
+    "group##archiveGroup": {
+        "key": "group##archiveGroup",
+        "value": "$t(ns.common:group) archivieren",
+        "isPlural": false,
+        "context": ""
+    },
+    "group##ratingGroupEmpty": {
+        "key": "group##ratingGroupEmpty",
+        "value": "Es sind keine Kinder in dieser Gruppe!",
+        "isPlural": false,
+        "context": ""
+    },
+    "group##hintMessageChild": {
+        "key": "group##hintMessageChild",
+        "value": "Fügen Sie dieser Gruppe ein Kind hinzu, indem Sie auf \n<i class='icon-plus-sign'></i>\nklicken.",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "group##hintMessageArchiveChildren": {
+        "key": "group##hintMessageArchiveChildren",
+        "value": "<p>\nKinder werden beim anklicken ohne Bestätigungsaufforderung \nins Archiv verschoben und können von dort jederzeit wieder zurückverschoben werden.\n</p>\n<p>\nWenn Sie die ganze Gruppe archivieren möchten, klicken Sie hier: \n<small class.commands>\n<i class='archiveGroup icon-folder-open' rel='tooltip' title='$t(group.archiveGroup)'></i>\n</small>\n</p>",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "group##hintMessageMember": {
+        "key": "group##hintMessageMember",
+        "value": "Welcher Betreuer ist verantwortlich für diese Gruppe?\nBestimmen Sie einen oder mehrere Betreuer, indem Sie auf \n<i class='icon-plus-sign'></i>\nklicken.",
+        "isArray": true,
+        "isPlural": false,
+        "context": ""
+    },
+    "app##name": {
+        "key": "app##name",
+        "value": "i18n",
+        "isPlural": false,
+        "context": ""
+    },
+    "app##insert": {
+        "key": "app##insert",
+        "value": "you are __youAre__",
+        "isPlural": false,
+        "context": ""
+    },
+    "app##child": {
+        "key": "app##child",
+        "value": "__count__ child",
+        "isPlural": false,
+        "context": "",
+        "plurals": [
+            {
+                "key": "app##child_plural",
+                "value": "__count__ children",
+                "isPlural": true,
+                "context": "app##child",
+                "pluralNumber": "1"
+            }
+        ]
+    },
+    "app##friend_context": {
+        "key": "app##friend_context",
+        "value": "A friend",
+        "isPlural": false,
+        "context": "_context"
+    },
+    "app##friend_context_male": {
+        "key": "app##friend_context_male",
+        "value": "A boyfriend",
+        "isPlural": false,
+        "context": "context_male"
+    },
+    "app##friend_context_female": {
+        "key": "app##friend_context_female",
+        "value": "A girlfriend",
+        "isPlural": false,
+        "context": "context_female"
+    }
+}

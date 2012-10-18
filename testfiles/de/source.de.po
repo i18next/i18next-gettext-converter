@@ -353,11 +353,9 @@ msgid "app##insert"
 msgstr "you are __youAre__"
 
 msgid "app##child"
-msgstr "__count__ child"
-
-msgctxt "app##child"
-msgid "app##child_plural"
-msgstr "__count__ children"
+msgid_plural "app##child"
+msgstr[0] "__count__ children"
+msgstr[1] "__count__ child"
 
 msgctxt "_context"
 msgid "app##friend_context"

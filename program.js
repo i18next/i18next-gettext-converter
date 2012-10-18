@@ -6,8 +6,15 @@ var program = require('commander')
 
 // test calls:
 
+// gettext -> i18next
 // node program.js -l es -s ./testfiles/utf8.po
 // node program.js -l es -s ./testfiles/utf8.po -t ./testfiles/translation.es.json
+
+// i18next -> gettext
+// node program.js -l de -s ./testfiles/de/source.de.json 
+// node program.js -l de -s ./testfiles/de/source.de.json -t ./testfiles/de/translation.de.po
+// and back
+// node program.js -l de -s ./testfiles/de/translation.de.po
 
 // program
 program
