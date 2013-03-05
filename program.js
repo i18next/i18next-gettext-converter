@@ -23,19 +23,21 @@ program
   .option('-t, --target [path]', 'Specify path to write to', '')
   .option('-l, --language [domain]', 'Specify the language code, eg. \'en\'')
   .option('-ks, --keyseparator [path]', 'Specify keyseparator you want to use, defaults to ##', '##')
+  .option('--quiet', 'Silence output', false)
   .parse(process.argv);
 
 if (program.source && program.language) {
-	console.log('\nstart converting'.yellow);
-
 	var options = {
-		keyseparator: program.keyseparator
+		keyseparator: program.keyseparator,
+		quiet: program.quiet
 	};
+
+	if (!options.quiet) console.log('\nstart converting'.yellow);
 
 	converter.process(program.language, program.source, program.target, options, function(err) {
 		if (err) {
 			console.log('\nfailed writing file\n\n'.red);
-		} else {
+		} else if (!options.quiet) {
 			console.log('\nfile written\n\n'.green);
 		}
 	});
