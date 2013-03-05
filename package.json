@@ -3,7 +3,7 @@
   , "name": "i18next-conv"
   , "description": "converts .mo and .po files to i18next's json format and vice versa."
   , "keywords": ["i18next", "gettext"]
-  , "version": "0.1.1"
+  , "version": "0.1.2"
   , "private": false
   , "preferGlobal": "true"
   , "main": "index.js"
