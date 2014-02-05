@@ -42,6 +42,15 @@ eg.: i18next-conv -l en -s ./locales/en.translation.json -t ./locales/en/transla
 _if no target (-t) is specified file will be stored to [sourceDir]/[domain]/translation.po._
 
 
+__for utf8-encoded po-files add these lines to your po file:__
+
+````
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+````
+
+It is necessary if you get corrupted output from the command above.
+
 # All credits go to
 
 - [andri9's node-gettext](https://github.com/andris9/node-gettext) for parsing .mo and .po files
