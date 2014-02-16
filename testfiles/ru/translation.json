@@ -1,0 +1,17 @@
+{
+    "a": {
+        "apple": "У меня есть яблоко",
+        "apple_plural_2": "У меня {count} яблока",
+        "apple_plural_5": "У меня {count} яблок",
+        "apple_negative__negative": "У меня нет яблока"
+    },
+    "friend": "Друг",
+    "friend_plural_2": "{count} друга",
+    "friend_plural_5": "{count} друзей",
+    "friend_male": "Парень",
+    "friend_male_plural_2": "{count} парня",
+    "friend_male_plural_5": "{count} парней",
+    "friend_female": "Подруга",
+    "friend_female_plural_2": "{count} подруги",
+    "friend_female_plural_5": "{count} подруг"
+}

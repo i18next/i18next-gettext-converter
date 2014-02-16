@@ -5,6 +5,10 @@ $ cat .gitignore
 .monitor
 .DS_Store
 
+*.iml
+*.ipr
+*.iws
+
 # Use wildcards as well
 *~
 #*.swp
