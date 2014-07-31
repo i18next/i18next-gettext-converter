@@ -1,25 +1,30 @@
 {
-    "author": "jamuhl"
-  , "name": "i18next-conv"
-  , "description": "converts .mo and .po files to i18next's json format and vice versa."
-  , "keywords": ["i18next", "gettext"]
-  , "version": "0.1.2"
-  , "private": false
-  , "preferGlobal": "true"
-  , "main": "index.js"
-  , "repository": {
-      "type": "git",
-      "url": "https://github.com/jamuhl/i18next-gettext-converter.git"
-    }
-  , "engines": {
-        "node": ">= 0.6.0"
-    }
-  , "dependencies": {
-      "node-gettext": "*"
-    , "commander": "*"
-    , "colors": "*"
+  "author": "jamuhl",
+  "name": "i18next-conv",
+  "description": "converts .mo and .po files to i18next's json format and vice versa.",
+  "keywords": [
+    "i18next",
+    "gettext"
+  ],
+  "version": "0.1.2",
+  "private": false,
+  "preferGlobal": "true",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamuhl/i18next-gettext-converter.git"
+  },
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "dependencies": {
+    "node-gettext": "*",
+    "commander": "*",
+    "colors": "*",
+    "mkdirp": "^0.5.0"
+  },
+  "scripts": {},
+  "bin": {
+    "i18next-conv": "program.js"
   }
-  , "scripts": {
-  }
-  , "bin": { "i18next-conv": "program.js" }
 }
