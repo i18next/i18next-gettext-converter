@@ -15,7 +15,6 @@ module.exports = function filter(gt, callback) {
 	gt.listKeys("et").forEach(function(key) {
 		var comment = gt.getComment("et", "", key);
 		if (comment) {
-			console.log(comment);
 			if (comment.code && comment.code.indexOf(clientSideSource) === -1) {
 				gt.deleteTranslation("et", "", key);
 			}
