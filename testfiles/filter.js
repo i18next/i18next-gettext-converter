@@ -3,6 +3,8 @@
  * should invoke the callback with an error object and the modified translation
  * table.
  *
+ * This filter removes translations that are used only in backend templates.
+ *
  * @param gt
  * @param callback
  */
