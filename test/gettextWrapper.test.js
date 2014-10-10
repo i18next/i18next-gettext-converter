@@ -1,10 +1,10 @@
 var fs = require('fs')
   , path = require('path')
   , chai = require('chai')
-  , expect = chai.expect;
+  , expect = chai.expect
+  , wrapper = require('../lib/gettextWrapper');
 
-var wrapper = require('../lib/gettextWrapper');
-
+// Test PO files
 var testFiles = {
 	utf8: './test/_data/po/utf8.po',
 	latin13: './test/_data/po/latin13.po',
@@ -16,11 +16,14 @@ var testFiles = {
 	bad_format: './test/_data/po/bad_format.po.js'
 };
 
+// Expected JSON results
 var expectedResults = {
 	translation: require('./_data/json/translation.et.json'),
 	filtered_translation: require('./_data/json/translation.et.filtered.json')
 };
 
+// Test filter; removes all translations with a code comment that does
+// not include the string '/frontend/'
 function _filter(gt, domain, callback) {
 	var clientSideSource = '/frontend/';
 	var err;
@@ -96,7 +99,7 @@ describe('the gettext wrapper', function() {
 			});
 		});
 
-		it('should pass through all keys unfiltered, when the PO has no comments', function(next) {
+		it('should pass all keys unfiltered, when the PO has no comments', function(next) {
 			var output = './test/_tmp/utf8_filtered_no_comments.json';
 
 			if (fs.existsSync(output)) {
@@ -108,7 +111,7 @@ describe('the gettext wrapper', function() {
 				filter: _filter
 			};
 
-			// Should filter all but the col* keys
+			// Should filter none of the keys
 			wrapper.gettextToI18next('en', testFiles.utf8_unfiltered_no_comments, output, options, function(){
 				var result = require(path.join('..', output));
 				expect(result).to.deep.equal(expectedResults.translation);
@@ -129,7 +132,7 @@ describe('the gettext wrapper', function() {
 				filter: _filter
 			};
 
-			// Should filter all but the col* keys
+			// Should filter all the keys
 			wrapper.gettextToI18next('en', testFiles.utf8_unfiltered_no_match, output, options, function(){
 				var result = require(path.join('..', output));
 				expect(result).to.deep.equal({});
@@ -149,7 +152,6 @@ describe('the gettext wrapper', function() {
 					fs.unlinkSync(output);
 				}
 
-				// English
 				wrapper.gettextToI18next('en', testFiles.missing, output, {quiet: true}, function(err){
 					var result = require(path.join('..', output));
 					expect(result).to.deep.equal({});

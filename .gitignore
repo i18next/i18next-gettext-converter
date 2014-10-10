@@ -4,6 +4,7 @@ $ cat .gitignore
 .settings.xml
 .monitor
 .DS_Store
+.idea
 
 # Use wildcards as well
 *~
@@ -16,5 +17,3 @@ bin
 
 # Ignore all test artifacts
 _tmp/*.json
-
-.idea

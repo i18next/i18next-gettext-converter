@@ -10,6 +10,7 @@ var program = require('commander')
 // gettext -> i18next
 // node program.js -l es -s ./testfiles/utf8.po
 // node program.js -l es -s ./testfiles/utf8.po -t ./testfiles/translation.es.json
+// node program.js -l es -s ./testfiles/utf8.po -t ./testfiles/translation.es.json -f path/to/filter.js
 
 // i18next -> gettext
 // node program.js -l de -s ./testfiles/de/source.de.json 
