@@ -10,6 +10,7 @@ var testFiles = {
 	latin13: './test/_data/po/latin13.po',
 	utf8_unfiltered: './test/_data/po/utf8_unfiltered.po',
 	utf8_unfiltered_no_comments: './test/_data/po/utf8_unfiltered_no_comments.po',
+	utf8_unfiltered_no_match: './test/_data/po/utf8_unfiltered_no_match.po',
 	missing: './test/_data/po/missing.po',
 	empty: './test/_data/po/empty.po',
 	bad_format: './test/_data/po/bad_format.po.js'
@@ -111,6 +112,27 @@ describe('the gettext wrapper', function() {
 			wrapper.gettextToI18next('en', testFiles.utf8_unfiltered_no_comments, output, options, function(){
 				var result = require(path.join('..', output));
 				expect(result).to.deep.equal(expectedResults.translation);
+				fs.unlinkSync(output);
+				next();
+			});
+		});
+
+		it('should return an empty JSON file if nothing matches the given filter', function(next) {
+			var output = './test/_tmp/utf8_filtered_no_match.json';
+
+			if (fs.existsSync(output)) {
+				fs.unlinkSync(output);
+			}
+
+			var options = {
+				quiet: true,
+				filter: _filter
+			};
+
+			// Should filter all but the col* keys
+			wrapper.gettextToI18next('en', testFiles.utf8_unfiltered_no_match, output, options, function(){
+				var result = require(path.join('..', output));
+				expect(result).to.deep.equal({});
 				fs.unlinkSync(output);
 				next();
 			});
