@@ -1,0 +1,5 @@
+function test() {
+
+}
+
+var testVar;

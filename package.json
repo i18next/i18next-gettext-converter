@@ -19,6 +19,11 @@
     , "commander": "*"
     , "colors": "*"
   }
+  , "devDependencies": {
+	 "grunt": "*",
+	 "grunt-mocha-test": "*",
+	 "chai": "*"
+  }
   , "scripts": {
   }
   , "bin": { "i18next-conv": "program.js" }
