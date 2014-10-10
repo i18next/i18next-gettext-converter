@@ -14,4 +14,7 @@ node_modules
 node_modules/**/*
 bin
 
+# Ignore all test artifacts
+_tmp/*.json
+
 .idea
