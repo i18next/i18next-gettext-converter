@@ -37,7 +37,7 @@ function _filter(gt, domain, callback) {
 		}
 	});
 
-	callback(err, gt._domains[gt._textdomain]._translationTable);
+	callback(err, gt._domains[domain]._translationTable);
 }
 
 describe('the gettext wrapper', function() {
