@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var program = require('commander')
+  , fs = require('fs')
   , converter = require("./lib/gettextWrapper")
   , colors = require("colors");
 
@@ -9,6 +10,7 @@ var program = require('commander')
 // gettext -> i18next
 // node program.js -l es -s ./testfiles/utf8.po
 // node program.js -l es -s ./testfiles/utf8.po -t ./testfiles/translation.es.json
+// node program.js -l es -s ./testfiles/utf8.po -t ./testfiles/translation.es.json -f path/to/filter.js
 
 // i18next -> gettext
 // node program.js -l de -s ./testfiles/de/source.de.json 
@@ -23,6 +25,7 @@ program
   .option('-t, --target [path]', 'Specify path to write to', '')
   .option('-l, --language [domain]', 'Specify the language code, eg. \'en\'')
   .option('-ks, --keyseparator [path]', 'Specify keyseparator you want to use, defaults to ##', '##')
+  .option('-f, --filter [path]', 'Specify path to gettext filter')
   .option('-P, --plurals [path]', 'Specify path to plural forms definitions')
   .option('--quiet', 'Silence output', false)
   .parse(process.argv);
@@ -33,6 +36,10 @@ if (program.source && program.language) {
 		plurals: program.plurals,
 		quiet: program.quiet
 	};
+
+	if (program.filter && fs.existsSync(program.filter)) {
+		options.filter = require(program.filter);
+	}
 
 	if (!options.quiet) console.log('\nstart converting'.yellow);
 

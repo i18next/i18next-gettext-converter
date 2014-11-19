@@ -51,6 +51,36 @@ __for utf8-encoded po-files add these lines to your po file:__
 
 It is necessary if you get corrupted output from the command above.
 
+__to filter incoming po-file translations, pass the path to a module that exports a filter function:__
+
+````
+i18next-conv -l [domain] -s [sourcePath] -t [targetPath] -f [filterPath]
+````
+
+eg.: i18next-conv -l en -s ./locales/en.po -t ./locales/en/translation.json -f ./filter.js
+
+The filter module should export a single function that accepts the gettext object, the domain and a callback 
+as its arguments. The function can then add/edit/delete translations, invoking the callback with an error object
+and the translation table.
+
+eg.
+
+```javascript
+module.exports = function(gt, domain, callback) {
+ 	var err;
+ 
+ 	// Delete all keys without comments
+ 	gt.listKeys(domain).forEach(function(key) {
+ 		var comment = gt.getComment(domain, "", key);
+ 		if (!comment) {
+ 			gt.deleteTranslation(domain, "", key);
+ 		}
+ 	});
+ 
+ 	callback(err, gt._domains[gt._textdomain]._translationTable);
+};
+```
+
 # All credits go to
 
 - [andri9's node-gettext](https://github.com/andris9/node-gettext) for parsing .mo and .po files
