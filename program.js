@@ -26,12 +26,14 @@ program
   .option('-l, --language [domain]', 'Specify the language code, eg. \'en\'')
   .option('-ks, --keyseparator [path]', 'Specify keyseparator you want to use, defaults to ##', '##')
   .option('-f, --filter [path]', 'Specify path to gettext filter')
+  .option('-P, --plurals [path]', 'Specify path to plural forms definitions')
   .option('--quiet', 'Silence output', false)
   .parse(process.argv);
 
 if (program.source && program.language) {
 	var options = {
 		keyseparator: program.keyseparator,
+		plurals: program.plurals,
 		quiet: program.quiet
 	};
 

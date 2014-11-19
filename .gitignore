@@ -6,6 +6,10 @@ $ cat .gitignore
 .DS_Store
 .idea
 
+*.iml
+*.ipr
+*.iws
+
 # Use wildcards as well
 *~
 #*.swp
