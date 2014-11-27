@@ -5,14 +5,20 @@ var fs = require('fs')
   , expect = chai.expect
   , wrapper = require('../lib/gettextWrapper');
 
-// Test PO files
 var testFiles = {
-
 	en: {
 		utf8: './test/_testfiles/en/translation.utf8.po',
 		utf8_expected: './test/_testfiles/en/translation.utf8.json',
 		latin13: './test/_testfiles/en/translation.latin13.po',
-		latin13_expected: './test/_testfiles/en/translation.latin13.json'
+		latin13_expected: './test/_testfiles/en/translation.latin13.json',
+		unfiltered: './test/_testfiles/en/translation.unfiltered.po',
+		unfiltered_no_comments: './test/_testfiles/en/translation.unfiltered_no_comments.po',
+		unfiltered_no_match: './test/_testfiles/en/translation.unfiltered_no_match.po',
+		filtered: './test/_testfiles/en/translation.filtered.json',
+		filtered_no_comments: './test/_testfiles/en/translation.filtered_no_comments.json',
+		empty: './test/_testfiles/en/translation.empty.po',
+		missing: './test/_testfiles/en/translation.missing.po',
+		bad_format: './test/_testfiles/en/translation.bad_format.po.js'
 	},
 
 	de: {
@@ -23,26 +29,19 @@ var testFiles = {
 	ru: {
 		utf8: './test/_testfiles/ru/translation.utf8.po',
 		utf8_expected: './test/_testfiles/ru/translation.utf8.json'
-	},
-
-	utf8: './test/_testfiles/po/utf8.po',
-	latin13: './test/_testfiles/po/latin13.po',
-	utf8_unfiltered: './test/_testfiles/po/utf8_unfiltered.po',
-	utf8_unfiltered_no_comments: './test/_testfiles/po/utf8_unfiltered_no_comments.po',
-	utf8_unfiltered_no_match: './test/_testfiles/po/utf8_unfiltered_no_match.po',
-	missing: './test/_testfiles/po/missing.po',
-	empty: './test/_testfiles/po/empty.po',
-	bad_format: './test/_testfiles/po/bad_format.po.js'
+	}
 };
 
-// Expected JSON results
-var expectedResults = {
-	translation: require('./_testfiles/json/translation.et.json'),
-	filtered_translation: require('./_testfiles/json/translation.et.filtered.json')
-};
 
-// Test filter; removes all translations with a code comment that does
-// not include the string '/frontend/'
+/**
+ * Test filter; removes all translations with a code comment that does
+ * not include the string '/frontend/'
+ *
+ * @param gt
+ * @param domain
+ * @param callback
+ * @private
+ */
 function _filter(gt, domain, callback) {
 	var clientSideSource = '/frontend/';
 	var err;
@@ -119,7 +118,7 @@ describe('the gettext wrapper', function() {
 		});
 
 		it('should filter incoming PO translations if a filter function is passed to options', function(next) {
-			var output = './test/_tmp/utf8_filtered.json';
+			var output = './test/_tmp/translation.filtered.json';
 
 			var options = {
 				quiet: true,
@@ -127,20 +126,17 @@ describe('the gettext wrapper', function() {
 			};
 
 			// Should filter all but the col* keys
-			wrapper.gettextToI18next('en', testFiles.utf8_unfiltered, output, options, function(){
+			wrapper.gettextToI18next('en', testFiles.en.unfiltered, output, options, function(){
 				var result = require(path.join('..', output));
-				expect(result).to.deep.equal(expectedResults.filtered_translation);
+				var expected = require(path.join('..', testFiles.en.filtered));
+				expect(result).to.deep.equal(expected);
 				fs.unlinkSync(output);
 				next();
 			});
 		});
 
-		xit('should pass all keys unfiltered, when the PO has no comments', function(next) {
-			var output = './test/_tmp/utf8_filtered_no_comments.json';
-
-			if (fs.existsSync(output)) {
-				fs.unlinkSync(output);
-			}
+		it('should pass all keys unfiltered, when the PO has no comments', function(next) {
+			var output = './test/_tmp/translation.nocomments.json';
 
 			var options = {
 				quiet: true,
@@ -148,20 +144,17 @@ describe('the gettext wrapper', function() {
 			};
 
 			// Should filter none of the keys
-			wrapper.gettextToI18next('en', testFiles.utf8_unfiltered_no_comments, output, options, function(){
+			wrapper.gettextToI18next('en', testFiles.en.unfiltered_no_comments, output, options, function(){
 				var result = require(path.join('..', output));
-				expect(result).to.deep.equal(expectedResults.translation);
+				var expected = require(path.join('..', testFiles.en.filtered_no_comments));
+				expect(result).to.deep.equal(expected);
 				fs.unlinkSync(output);
 				next();
 			});
 		});
 
-		xit('should return an empty JSON file if nothing matches the given filter', function(next) {
-			var output = './test/_tmp/utf8_filtered_no_match.json';
-
-			if (fs.existsSync(output)) {
-				fs.unlinkSync(output);
-			}
+		it('should return an empty JSON file if nothing matches the given filter', function(next) {
+			var output = './test/_tmp/translation.nomatch.json';
 
 			var options = {
 				quiet: true,
@@ -169,7 +162,7 @@ describe('the gettext wrapper', function() {
 			};
 
 			// Should filter all the keys
-			wrapper.gettextToI18next('en', testFiles.utf8_unfiltered_no_match, output, options, function(){
+			wrapper.gettextToI18next('en', testFiles.en.unfiltered_no_match, output, options, function(){
 				var result = require(path.join('..', output));
 				expect(result).to.deep.equal({});
 				fs.unlinkSync(output);
@@ -179,16 +172,12 @@ describe('the gettext wrapper', function() {
 
 		// -- Error States & Invalid Data --
 
-		xdescribe('error states', function() {
+		describe('error states', function() {
 
 			it('should output an empty JSON file if the given PO does not exist', function(next) {
-				var output = './test/_tmp/missing.json';
+				var output = './test/_tmp/translation.missing.json';
 
-				if (fs.existsSync(output)) {
-					fs.unlinkSync(output);
-				}
-
-				wrapper.gettextToI18next('en', testFiles.missing, output, {quiet: true}, function(err){
+				wrapper.gettextToI18next('en', testFiles.en.missing, output, {quiet: true}, function(){
 					var result = require(path.join('..', output));
 					expect(result).to.deep.equal({});
 					fs.unlinkSync(output);
@@ -197,13 +186,9 @@ describe('the gettext wrapper', function() {
 			});
 
 			it('should output an empty JSON file if the given PO exists but is empty', function(next) {
-				var output = './test/_tmp/empty.json';
+				var output = './test/_tmp/translation.empty.json';
 
-				if (fs.existsSync(output)) {
-					fs.unlinkSync(output);
-				}
-
-				wrapper.gettextToI18next('en', testFiles.empty, output, {quiet: true}, function(){
+				wrapper.gettextToI18next('en', testFiles.en.empty, output, {quiet: true}, function(){
 					var result = require(path.join('..', output));
 					expect(result).to.deep.equal({});
 
@@ -213,13 +198,9 @@ describe('the gettext wrapper', function() {
 			});
 
 			it('should output an empty JSON file if passed something other than a PO', function(next) {
-				var output = './test/_tmp/bad_format.json';
+				var output = './test/_tmp/translation.bad_format.json';
 
-				if (fs.existsSync(output)) {
-					fs.unlinkSync(output);
-				}
-
-				wrapper.gettextToI18next('en', testFiles.bad_format, output, {quiet: true}, function(){
+				wrapper.gettextToI18next('en', testFiles.en.bad_format, output, {quiet: true}, function(){
 					var result = require(path.join('..', output));
 					expect(result).to.deep.equal({});
 

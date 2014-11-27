@@ -1,32 +1,38 @@
 {
-    "author": "jamuhl"
-  , "name": "i18next-conv"
-  , "description": "converts .mo and .po files to i18next's json format and vice versa."
-  , "keywords": ["i18next", "gettext"]
-  , "version": "0.1.3"
-  , "private": false
-  , "preferGlobal": "true"
-  , "main": "index.js"
-  , "repository": {
-      "type": "git",
-      "url": "https://github.com/jamuhl/i18next-gettext-converter.git"
-    }
-  , "engines": {
-        "node": ">= 0.6.0"
-    }
-  , "dependencies": {
-      "node-gettext": "*"
-    , "commander": "*"
-    , "colors": "*"
+  "author": "jamuhl",
+  "name": "i18next-conv",
+  "description": "converts .mo and .po files to i18next's json format and vice versa.",
+  "keywords": [
+    "i18next",
+    "gettext"
+  ],
+  "version": "0.1.3",
+  "private": false,
+  "preferGlobal": "true",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamuhl/i18next-gettext-converter.git"
+  },
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "dependencies": {
+    "colors": "^1.0.3",
+    "commander": "^2.5.0",
+    "mkdirp": "^0.5.0"
+  },
+  "devDependencies": {
+    "async": "^0.9.0",
+    "chai": "^1.10.0",
+    "grunt": "^0.4.5",
+    "grunt-mocha-test": "^0.12.4",
+    "node-gettext": "^0.2.14"
+  },
+  "scripts": {
+    "test": "grunt mochaTest"
+  },
+  "bin": {
+    "i18next-conv": "program.js"
   }
-  , "devDependencies": {
-	 "grunt": "*",
-	 "grunt-mocha-test": "*",
-	 "chai": "*",
-	 "async": "*"
-  }
-  , "scripts": {
-	"test": "grunt mochaTest"
-  }
-  , "bin": { "i18next-conv": "program.js" }
 }

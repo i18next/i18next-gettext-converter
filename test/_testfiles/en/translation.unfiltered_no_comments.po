@@ -20,30 +20,22 @@ msgstr ""
 "X-Poedit-Country: ESTONIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: /path/to/backend/templates/
 msgid "o1"
 msgstr "t1"
 
-#: /path/to/backend/templates/
 msgid "co1"
 msgstr "ct1"
 
-# Plural string
-#: /path/to/backend/templates/
 msgid "o2-1"
 msgid_plural "o2-2"
 msgstr[0] "t2-1"
 msgstr[1] "t2-2"
 
-# Plural string
-#: /path/to/backend/templates/
 msgid "co2-1"
 msgid_plural "co2-2"
 msgstr[0] "ct2-1"
 msgstr[1] "ct2-2"
 
-# Normal string with special chars
-#: /path/to/backend/templates/
 msgid "o3-õäöü"
 msgstr "t3-žš"
 
