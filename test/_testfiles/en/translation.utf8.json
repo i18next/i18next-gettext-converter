@@ -1,0 +1,15 @@
+{
+    "name": "name",
+	"name-õäöü": "t3-žš",
+    "a": {
+        "apple": "I have an apple",
+        "apple_plural": "I have {count} apples",
+        "apple_negative": "I have no apples"
+    },
+    "friend": "Friend",
+    "friend_plural": "{count} friends",
+    "friend_male": "A boyfriend",
+    "friend_male_plural": "{count} boyfriends",
+    "friend_female": "A girlfriend",
+    "friend_female_plural": "{count} girlfriends"
+}

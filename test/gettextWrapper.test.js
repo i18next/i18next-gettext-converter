@@ -1,25 +1,44 @@
 var fs = require('fs')
   , path = require('path')
   , chai = require('chai')
+  , async = require('async')
   , expect = chai.expect
   , wrapper = require('../lib/gettextWrapper');
 
 // Test PO files
 var testFiles = {
-	utf8: './test/_data/po/utf8.po',
-	latin13: './test/_data/po/latin13.po',
-	utf8_unfiltered: './test/_data/po/utf8_unfiltered.po',
-	utf8_unfiltered_no_comments: './test/_data/po/utf8_unfiltered_no_comments.po',
-	utf8_unfiltered_no_match: './test/_data/po/utf8_unfiltered_no_match.po',
-	missing: './test/_data/po/missing.po',
-	empty: './test/_data/po/empty.po',
-	bad_format: './test/_data/po/bad_format.po.js'
+
+	en: {
+		utf8: './test/_testfiles/en/translation.utf8.po',
+		utf8_expected: './test/_testfiles/en/translation.utf8.json',
+		latin13: './test/_testfiles/en/translation.latin13.po',
+		latin13_expected: './test/_testfiles/en/translation.latin13.json'
+	},
+
+	de: {
+		utf8: './test/_testfiles/de/translation.utf8.po',
+		utf8_expected: './test/_testfiles/de/translation.utf8.json'
+	},
+
+	ru: {
+		utf8: './test/_testfiles/ru/translation.utf8.po',
+		utf8_expected: './test/_testfiles/ru/translation.utf8.json'
+	},
+
+	utf8: './test/_testfiles/po/utf8.po',
+	latin13: './test/_testfiles/po/latin13.po',
+	utf8_unfiltered: './test/_testfiles/po/utf8_unfiltered.po',
+	utf8_unfiltered_no_comments: './test/_testfiles/po/utf8_unfiltered_no_comments.po',
+	utf8_unfiltered_no_match: './test/_testfiles/po/utf8_unfiltered_no_match.po',
+	missing: './test/_testfiles/po/missing.po',
+	empty: './test/_testfiles/po/empty.po',
+	bad_format: './test/_testfiles/po/bad_format.po.js'
 };
 
 // Expected JSON results
 var expectedResults = {
-	translation: require('./_data/json/translation.et.json'),
-	filtered_translation: require('./_data/json/translation.et.filtered.json')
+	translation: require('./_testfiles/json/translation.et.json'),
+	filtered_translation: require('./_testfiles/json/translation.et.filtered.json')
 };
 
 // Test filter; removes all translations with a code comment that does
@@ -29,10 +48,10 @@ function _filter(gt, domain, callback) {
 	var err;
 
 	gt.listKeys(domain).forEach(function(key) {
-		var comment = gt.getComment(domain, "", key);
+		var comment = gt.getComment(domain, '', key);
 		if (comment) {
 			if (comment.code && comment.code.indexOf(clientSideSource) === -1) {
-				gt.deleteTranslation(domain, "", key);
+				gt.deleteTranslation(domain, '', key);
 			}
 		}
 	});
@@ -44,35 +63,56 @@ describe('the gettext wrapper', function() {
 
 	describe('toJSON processing', function() {
 
-		it('should convert a utf8 PO files to JSON, for a given domain', function(next) {
+		it('should convert a utf8 PO files to JSON', function(done) {
+			var tests = [];
 
-			var output = './test/_tmp/utf8.json';
-
-			if (fs.existsSync(output)) {
-				fs.unlinkSync(output);
-			}
-
-			// English
-			wrapper.gettextToI18next('en', testFiles.utf8, output, {quiet: true}, function(){
-				var result = require(path.join('..', output));
-				expect(result).to.deep.equal(expectedResults.translation);
-				fs.unlinkSync(output);
-				next();
+			// EN
+			tests.push(function(next) {
+				var output = './test/_tmp/en.utf8.json';
+				wrapper.gettextToI18next('en', testFiles.en.utf8, output, {quiet: true}, function(){
+					var result = require(path.join('..', output));
+					var expected = require(path.join('..', testFiles.en.utf8_expected));
+					expect(result).to.deep.equal(expected);
+					fs.unlinkSync(output);
+					next();
+				});
 			});
+
+			// DE
+			tests.push(function(next) {
+				var output = './test/_tmp/de.utf8.json';
+				wrapper.gettextToI18next('de', testFiles.de.utf8, output, {quiet: true}, function(){
+					var result = require(path.join('..', output));
+					var expected = require(path.join('..', testFiles.de.utf8_expected));
+					expect(result).to.deep.equal(expected);
+					fs.unlinkSync(output);
+					next();
+				});
+			});
+
+			// RU
+			tests.push(function(next) {
+				var output = './test/_tmp/ru.utf8.json';
+				wrapper.gettextToI18next('ru', testFiles.ru.utf8, output, {quiet: true}, function(){
+					var result = require(path.join('..', output));
+					var expected = require(path.join('..', testFiles.ru.utf8_expected));
+					expect(result).to.deep.equal(expected);
+					fs.unlinkSync(output);
+					next();
+				});
+			});
+
+			async.series(tests, done);
 		});
 
 		it('should convert a latin13 PO files to JSON, for a given domain', function(next) {
+			var output = './test/_tmp/en.latin13.json';
 
-			var output = './test/_tmp/latin13.json';
-
-			if (fs.existsSync(output)) {
-				fs.unlinkSync(output);
-			}
-
-			// French
-			wrapper.gettextToI18next('fr', testFiles.latin13, output, {quiet: true}, function(){
+			// EN
+			wrapper.gettextToI18next('en', testFiles.en.latin13, output, {quiet: true}, function(){
 				var result = require(path.join('..', output));
-				expect(result).to.deep.equal(expectedResults.translation);
+				var expected = require(path.join('..', testFiles.en.latin13_expected));
+				expect(result).to.deep.equal(expected);
 				fs.unlinkSync(output);
 				next();
 			});
@@ -80,10 +120,6 @@ describe('the gettext wrapper', function() {
 
 		it('should filter incoming PO translations if a filter function is passed to options', function(next) {
 			var output = './test/_tmp/utf8_filtered.json';
-
-			if (fs.existsSync(output)) {
-				fs.unlinkSync(output);
-			}
 
 			var options = {
 				quiet: true,
@@ -99,7 +135,7 @@ describe('the gettext wrapper', function() {
 			});
 		});
 
-		it('should pass all keys unfiltered, when the PO has no comments', function(next) {
+		xit('should pass all keys unfiltered, when the PO has no comments', function(next) {
 			var output = './test/_tmp/utf8_filtered_no_comments.json';
 
 			if (fs.existsSync(output)) {
@@ -120,7 +156,7 @@ describe('the gettext wrapper', function() {
 			});
 		});
 
-		it('should return an empty JSON file if nothing matches the given filter', function(next) {
+		xit('should return an empty JSON file if nothing matches the given filter', function(next) {
 			var output = './test/_tmp/utf8_filtered_no_match.json';
 
 			if (fs.existsSync(output)) {
@@ -143,7 +179,7 @@ describe('the gettext wrapper', function() {
 
 		// -- Error States & Invalid Data --
 
-		describe('error states', function() {
+		xdescribe('error states', function() {
 
 			it('should output an empty JSON file if the given PO does not exist', function(next) {
 				var output = './test/_tmp/missing.json';
