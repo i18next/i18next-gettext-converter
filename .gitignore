@@ -20,4 +20,4 @@ node_modules/**/*
 bin
 
 # Ignore all test artifacts
-_tmp/*.json
+test/_tmp/*.json
