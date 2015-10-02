@@ -210,4 +210,36 @@ describe('the gettext wrapper', function() {
 			});
 		});
 	});
+
+	describe('toPO processing', function() {
+		it('should convert a JSON file to utf8 PO', function(done) {
+			var tests = [];
+
+			// EN
+			tests.push(function(next) {
+				var output = './test/_tmp/en.utf8.po';
+				wrapper.i18nextToGettext('en', testFiles.en.utf8_expected, output, {quiet: true}, function(){
+					var result = fs.readFileSync(output);
+					var expected = fs.readFileSync(testFiles.en.utf8);
+					expect(result).to.deep.equal(expected);
+					fs.unlinkSync(output);
+					next();
+				});
+			});
+
+			// DE
+			tests.push(function(next) {
+				var output = './test/_tmp/de.utf8.po';
+				wrapper.i18nextToGettext('de', testFiles.de.utf8_expected, output, {quiet: true}, function(){
+					var result = fs.readFileSync(output);
+					var expected = fs.readFileSync(testFiles.de.utf8);
+					expect(result).to.deep.equal(expected);
+					fs.unlinkSync(output);
+					next();
+				});
+			});
+
+			async.series(tests, done);
+		});
+	})
 });

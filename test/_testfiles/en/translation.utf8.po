@@ -4,12 +4,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 msgid "name"
 msgstr "name"
 
-# Normal string with special chars
 msgid "name-õäöü"
 msgstr "t3-žš"
 
@@ -18,14 +17,14 @@ msgid_plural "a##apple"
 msgstr[0] "I have an apple"
 msgstr[1] "I have {count} apples"
 
-msgctxt "negative"
-msgid "a##apple"
-msgstr "I have no apples"
-
 msgid "friend"
 msgid_plural "friend"
 msgstr[0] "Friend"
 msgstr[1] "{count} friends"
+
+msgctxt "negative"
+msgid "a##apple"
+msgstr "I have no apples"
 
 msgctxt "male"
 msgid "friend"
