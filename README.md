@@ -81,6 +81,20 @@ module.exports = function(gt, domain, callback) {
 };
 ```
 
+## convert i18next json to .mo or .po with node
+
+```
+var path = require('path');
+var source = path.resolve(__dirname, '../locales/ua-UK/translation.json');
+var target = path.resolve(__dirname, '../locales/ua-UK/translation.mo');
+var options = {quiet : true};
+var callback = () => {console.log('Translation ua-UK done');}
+
+converter.i18nextToGettext('ua-UK', source, target, options, callback);
+
+```
+
+
 # All credits go to
 
 - [andri9's node-gettext](https://github.com/andris9/node-gettext) for parsing .mo and .po files
