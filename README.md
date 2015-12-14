@@ -7,6 +7,8 @@ Project goal is to convert files from gettext to i18next json format and vice ve
 1. first install node.js from [nodejs.org](http://nodejs.org/).
 2. `npm install i18next-conv -g`
 
+For i18next <2.0.0 use i18next-conv@1.11.0
+
 # Usage
 
 ## convert .mo or .po to i18next json
@@ -59,7 +61,7 @@ i18next-conv -l [domain] -s [sourcePath] -t [targetPath] -f [filterPath]
 
 eg.: i18next-conv -l en -s ./locales/en.po -t ./locales/en/translation.json -f ./filter.js
 
-The filter module should export a single function that accepts the gettext object, the domain and a callback 
+The filter module should export a single function that accepts the gettext object, the domain and a callback
 as its arguments. The function can then add/edit/delete translations, invoking the callback with an error object
 and the translation table.
 
@@ -68,7 +70,7 @@ eg.
 ```javascript
 module.exports = function(gt, domain, callback) {
  	var err;
- 
+
  	// Delete all keys without comments
  	gt.listKeys(domain).forEach(function(key) {
  		var comment = gt.getComment(domain, "", key);
@@ -76,7 +78,7 @@ module.exports = function(gt, domain, callback) {
  			gt.deleteTranslation(domain, "", key);
  		}
  	});
- 
+
  	callback(err, gt._domains[gt._textdomain]._translationTable);
 };
 ```
