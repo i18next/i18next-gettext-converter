@@ -28,7 +28,9 @@ var testFiles = {
 
 	ru: {
 		utf8: './test/_testfiles/ru/translation.utf8.po',
-		utf8_expected: './test/_testfiles/ru/translation.utf8.json'
+		utf8_expected: './test/_testfiles/ru/translation.utf8.json',
+    utf8_2: './test/_testfiles/ru/translation2.utf8.po',
+    utf8_2_expected: './test/_testfiles/ru/translation2.utf8.json'
 	}
 };
 
@@ -233,6 +235,18 @@ describe('the gettext wrapper', function() {
 				wrapper.i18nextToGettext('de', testFiles.de.utf8_expected, output, {quiet: true}, function(){
 					var result = fs.readFileSync(output);
 					var expected = fs.readFileSync(testFiles.de.utf8);
+					expect(result).to.deep.equal(expected);
+					fs.unlinkSync(output);
+					next();
+				});
+			});
+
+      // RU
+      tests.push(function(next) {
+				var output = './test/_tmp/ru.utf8.po';
+				wrapper.i18nextToGettext('ru', testFiles.ru.utf8_2_expected, output, {quiet: true}, function(){
+					var result = fs.readFileSync(output);
+					var expected = fs.readFileSync(testFiles.ru.utf8_2);
 					expect(result).to.deep.equal(expected);
 					fs.unlinkSync(output);
 					next();
