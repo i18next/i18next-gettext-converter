@@ -1,0 +1,16 @@
+{
+    "a": {
+        "apple_1": "У меня есть яблоко",
+        "apple_2": "У меня {count} яблока",
+        "apple_5": "У меня {count} яблок"
+    },
+    "friend_1": "Друг",
+    "friend_2": "{count} друга",
+    "friend_5": "{count} друзей",
+    "friend_male_1": "Парень",
+    "friend_male_2": "{count} парня",
+    "friend_male_5": "{count} парней",
+    "friend_female_1": "Подруга",
+    "friend_female_2": "{count} подруги",
+    "friend_female_5": "{count} подруг"
+}
