@@ -79,6 +79,18 @@ describe('the gettext wrapper', function() {
 				});
 			});
 
+			// EN, using locale en_us
+			tests.push(function(next) {
+				var output = './test/_tmp/en_us.utf8.json';
+				wrapper.gettextToI18next('en_us', testFiles.en.utf8, output, {quiet: true}, function(){
+					var result = require(path.join('..', output));
+					var expected = require(path.join('..', testFiles.en.utf8_expected));
+					expect(result).to.deep.equal(expected);
+					fs.unlinkSync(output);
+					next();
+				});
+			});
+
 			// DE
 			tests.push(function(next) {
 				var output = './test/_tmp/de.utf8.json';
