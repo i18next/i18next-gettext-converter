@@ -3,7 +3,8 @@
 var program = require('commander')
   , fs = require('fs')
   , converter = require("./lib/gettextWrapper")
-  , colors = require("colors");
+  , colors = require("colors")
+  , pkg = require("./package.json");
 
 // test calls:
 
@@ -22,7 +23,7 @@ var program = require('commander')
 
 // program
 program
-  .version('0.0.1')
+  .version(pkg.version)
   .option('-s, --source [path]', 'Specify path to read from')
   .option('-t, --target [path]', 'Specify path to write to', '')
   .option('-l, --language [domain]', 'Specify the language code, eg. \'en\'')
@@ -30,13 +31,15 @@ program
   .option('-f, --filter [path]', 'Specify path to gettext filter')
   .option('-P, --plurals [path]', 'Specify path to plural forms definitions')
   .option('--quiet', 'Silence output', false)
+  .option('--splitNewLine', 'Silence output', false)
   .parse(process.argv);
 
 if (program.source && program.language) {
 	var options = {
 		keyseparator: program.keyseparator,
 		plurals: program.plurals,
-		quiet: program.quiet
+		quiet: program.quiet,
+    splitNewLine: program.splitNewLine
 	};
 
 	if (program.filter && fs.existsSync(program.filter)) {

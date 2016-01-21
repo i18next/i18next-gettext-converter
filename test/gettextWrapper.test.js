@@ -82,7 +82,7 @@ describe('the gettext wrapper', function() {
 			// EN, using locale en_us
 			tests.push(function(next) {
 				var output = './test/_tmp/en_us.utf8.json';
-				wrapper.gettextToI18next('en_us', testFiles.en.utf8, output, {quiet: true}, function(){
+				wrapper.gettextToI18next('en_us', testFiles.en.utf8, output, {quiet: true, splitNewLine: true}, function(){
 					var result = require(path.join('..', output));
 					var expected = require(path.join('..', testFiles.en.utf8_expected));
 					expect(result).to.deep.equal(expected);
@@ -94,7 +94,7 @@ describe('the gettext wrapper', function() {
 			// DE
 			tests.push(function(next) {
 				var output = './test/_tmp/de.utf8.json';
-				wrapper.gettextToI18next('de', testFiles.de.utf8, output, {quiet: true}, function(){
+				wrapper.gettextToI18next('de', testFiles.de.utf8, output, {quiet: true, splitNewLine: true}, function(){
 					var result = require(path.join('..', output));
 					var expected = require(path.join('..', testFiles.de.utf8_expected));
 					expect(result).to.deep.equal(expected);
@@ -106,7 +106,7 @@ describe('the gettext wrapper', function() {
 			// RU
 			tests.push(function(next) {
 				var output = './test/_tmp/ru.utf8.json';
-				wrapper.gettextToI18next('ru', testFiles.ru.utf8, output, {quiet: true}, function(){
+				wrapper.gettextToI18next('ru', testFiles.ru.utf8, output, {quiet: true, splitNewLine: true}, function(){
 					var result = require(path.join('..', output));
 					var expected = require(path.join('..', testFiles.ru.utf8_expected));
 					expect(result).to.deep.equal(expected);
@@ -122,7 +122,7 @@ describe('the gettext wrapper', function() {
 			var output = './test/_tmp/en.latin13.json';
 
 			// EN
-			wrapper.gettextToI18next('en', testFiles.en.latin13, output, {quiet: true}, function(){
+			wrapper.gettextToI18next('en', testFiles.en.latin13, output, {quiet: true, splitNewLine: true}, function(){
 				var result = require(path.join('..', output));
 				var expected = require(path.join('..', testFiles.en.latin13_expected));
 				expect(result).to.deep.equal(expected);
@@ -154,6 +154,7 @@ describe('the gettext wrapper', function() {
 
 			var options = {
 				quiet: true,
+        splitNewLine: true,
 				filter: _filter
 			};
 
@@ -172,6 +173,7 @@ describe('the gettext wrapper', function() {
 
 			var options = {
 				quiet: true,
+        splitNewLine: true,
 				filter: _filter
 			};
 
@@ -191,7 +193,7 @@ describe('the gettext wrapper', function() {
 			it('should output an empty JSON file if the given PO does not exist', function(next) {
 				var output = './test/_tmp/translation.missing.json';
 
-				wrapper.gettextToI18next('en', testFiles.en.missing, output, {quiet: true}, function(){
+				wrapper.gettextToI18next('en', testFiles.en.missing, output, {quiet: true, splitNewLine: true}, function(){
 					var result = require(path.join('..', output));
 					expect(result).to.deep.equal({});
 					fs.unlinkSync(output);
@@ -202,7 +204,7 @@ describe('the gettext wrapper', function() {
 			it('should output an empty JSON file if the given PO exists but is empty', function(next) {
 				var output = './test/_tmp/translation.empty.json';
 
-				wrapper.gettextToI18next('en', testFiles.en.empty, output, {quiet: true}, function(){
+				wrapper.gettextToI18next('en', testFiles.en.empty, output, {quiet: true, splitNewLine: true}, function(){
 					var result = require(path.join('..', output));
 					expect(result).to.deep.equal({});
 
@@ -214,7 +216,7 @@ describe('the gettext wrapper', function() {
 			it('should output an empty JSON file if passed something other than a PO', function(next) {
 				var output = './test/_tmp/translation.bad_format.json';
 
-				wrapper.gettextToI18next('en', testFiles.en.bad_format, output, {quiet: true}, function(){
+				wrapper.gettextToI18next('en', testFiles.en.bad_format, output, {quiet: true, splitNewLine: true}, function(){
 					var result = require(path.join('..', output));
 					expect(result).to.deep.equal({});
 
@@ -232,7 +234,7 @@ describe('the gettext wrapper', function() {
 			// EN
 			tests.push(function(next) {
 				var output = './test/_tmp/en.utf8.po';
-				wrapper.i18nextToGettext('en', testFiles.en.utf8_expected, output, {quiet: true}, function(){
+				wrapper.i18nextToGettext('en', testFiles.en.utf8_expected, output, {quiet: true, splitNewLine: true}, function(){
 					var result = fs.readFileSync(output);
 					var expected = fs.readFileSync(testFiles.en.utf8);
 					expect(result).to.deep.equal(expected);
@@ -244,7 +246,7 @@ describe('the gettext wrapper', function() {
 			// DE
 			tests.push(function(next) {
 				var output = './test/_tmp/de.utf8.po';
-				wrapper.i18nextToGettext('de', testFiles.de.utf8_expected, output, {quiet: true}, function(){
+				wrapper.i18nextToGettext('de', testFiles.de.utf8_expected, output, {quiet: true, splitNewLine: true}, function(){
 					var result = fs.readFileSync(output);
 					var expected = fs.readFileSync(testFiles.de.utf8);
 					expect(result).to.deep.equal(expected);
@@ -256,7 +258,7 @@ describe('the gettext wrapper', function() {
       // RU
       tests.push(function(next) {
 				var output = './test/_tmp/ru.utf8.po';
-				wrapper.i18nextToGettext('ru', testFiles.ru.utf8_2_expected, output, {quiet: true}, function(){
+				wrapper.i18nextToGettext('ru', testFiles.ru.utf8_2_expected, output, {quiet: true, splitNewLine: true}, function(){
 					var result = fs.readFileSync(output);
 					var expected = fs.readFileSync(testFiles.ru.utf8_2);
 					expect(result).to.deep.equal(expected);
