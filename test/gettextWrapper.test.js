@@ -331,5 +331,17 @@ describe('the gettext wrapper', function() {
 	    });
 	    async.series(tests, done);
 	});
-    })
+    });
+    describe('the functions', function() {
+        it('should know if the `options` argument is actually a callback', function(done) {
+            var output = './test/_tmp/en.utf8.po';
+            wrapper.i18nextToGettext('en', testFiles.en.utf8_expected, output, done);
+        });
+
+        it('should not require options or callback', function(done) {
+            var output = './test/_tmp/en.utf8.po';
+            wrapper.i18nextToGettext('en', testFiles.en.utf8_expected, output);
+            done(); // Would fail synchronously
+        });
+    });
 });
