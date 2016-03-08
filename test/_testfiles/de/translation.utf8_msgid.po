@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: name
+msgid "name"
+msgstr "name"
+
+#: name-õäöü
+msgid "t3-žš"
+msgstr "t3-žš"
+
+#: a##apple
+msgid "I have an apple"
+msgid_plural "I have {count} apples"
+msgstr[0] "Ich habe einen Apfel"
+msgstr[1] "Ich habe {count} Äpfel"
+
+#: friend
+msgid "Friend"
+msgid_plural "{count} friends"
+msgstr[0] "Freund"
+msgstr[1] "{count} Freunde"
+
+#: a##apple
+msgctxt "negative"
+msgid "I have no apples"
+msgstr "Ich habe keine Äpfel"
+
+#: friend
+msgctxt "male"
+msgid "A boyfriend"
+msgid_plural "{count} boyfriends"
+msgstr[0] "Ein Freund"
+msgstr[1] "{count} Freunde"
+
+#: friend
+msgctxt "female"
+msgid "A girlfriend"
+msgid_plural "{count} girlfriends"
+msgstr[0] "Eine Freundin"
+msgstr[1] "{count} Freundinnen"

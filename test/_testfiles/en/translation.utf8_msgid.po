@@ -6,34 +6,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
+#: name
 msgid "name"
 msgstr "name"
 
-msgid "name-õäöü"
+#: name-õäöü
+msgid "t3-žš"
 msgstr "t3-žš"
 
-msgid "a##apple"
-msgid_plural "a##apple"
+#: a##apple
+msgid "I have an apple"
+msgid_plural "I have {count} apples"
 msgstr[0] "I have an apple"
 msgstr[1] "I have {count} apples"
 
-msgid "friend"
-msgid_plural "friend"
+#: friend
+msgid "Friend"
+msgid_plural "{count} friends"
 msgstr[0] "Friend"
 msgstr[1] "{count} friends"
 
+#: a##apple
 msgctxt "negative"
-msgid "a##apple"
+msgid "I have no apples"
 msgstr "I have no apples"
 
+#: friend
 msgctxt "male"
-msgid "friend"
-msgid_plural "friend"
+msgid "A boyfriend"
+msgid_plural "{count} boyfriends"
 msgstr[0] "A boyfriend"
 msgstr[1] "{count} boyfriends"
 
+#: friend
 msgctxt "female"
-msgid "friend"
-msgid_plural "friend"
+msgid "A girlfriend"
+msgid_plural "{count} girlfriends"
 msgstr[0] "A girlfriend"
 msgstr[1] "{count} girlfriends"
