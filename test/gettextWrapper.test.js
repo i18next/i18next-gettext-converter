@@ -45,19 +45,22 @@ var testFiles = {
  * @private
  */
 function _filter(gt, domain, callback) {
-	var clientSideSource = '/frontend/';
-	var err;
+    var clientSideSource = '/frontend/';
+    var err;
+    var normalized_domain = gt._normalizeDomain(domain);
 
-	gt.listKeys(domain).forEach(function(key) {
-		var comment = gt.getComment(domain, '', key);
-		if (comment) {
-			if (comment.code && comment.code.indexOf(clientSideSource) === -1) {
-				gt.deleteTranslation(domain, '', key);
-			}
+    Object.keys(gt.domains[normalized_domain].translations).forEach(function(ctxt) {
+	Object.keys(gt.domains[normalized_domain].translations[ctxt]).forEach(function(key) {
+	    var comment = gt.getComment(domain, '', key);
+	    if (comment) {
+		if (comment.reference && comment.reference.indexOf(clientSideSource) === -1) {
+		    delete gt.domains[normalized_domain].translations[ctxt][key];
 		}
+	    }
 	});
+    });
 
-	callback(err, gt._domains[domain]._translationTable);
+    callback(err, gt.domains[normalized_domain].translations);
 }
 
 describe('the gettext wrapper', function() {
@@ -229,45 +232,45 @@ describe('the gettext wrapper', function() {
 
 	describe('toPO processing', function() {
 		it('should convert a JSON file to utf8 PO', function(done) {
-			var tests = [];
+		    var tests = [];
 
-			// EN
-			tests.push(function(next) {
-				var output = './test/_tmp/en.utf8.po';
-				wrapper.i18nextToGettext('en', testFiles.en.utf8_expected, output, {quiet: true, splitNewLine: true}, function(){
-					var result = fs.readFileSync(output);
-					var expected = fs.readFileSync(testFiles.en.utf8);
-					expect(result).to.deep.equal(expected);
-					fs.unlinkSync(output);
-					next();
-				});
+		    // EN
+		    tests.push(function(next) {
+			var output = './test/_tmp/en.utf8.po';
+			wrapper.i18nextToGettext('en', testFiles.en.utf8_expected, output, {quiet: true, splitNewLine: true, noDate: true}, function(){
+			    var result = fs.readFileSync(output);
+			    var expected = fs.readFileSync(testFiles.en.utf8);
+			    expect(result).to.deep.equal(expected);
+			    fs.unlinkSync(output);
+			    next();
 			});
+		    });
 
-			// DE
-			tests.push(function(next) {
-				var output = './test/_tmp/de.utf8.po';
-				wrapper.i18nextToGettext('de', testFiles.de.utf8_expected, output, {quiet: true, splitNewLine: true}, function(){
-					var result = fs.readFileSync(output);
-					var expected = fs.readFileSync(testFiles.de.utf8);
-					expect(result).to.deep.equal(expected);
-					fs.unlinkSync(output);
-					next();
-				});
+		    // DE
+		    tests.push(function(next) {
+			var output = './test/_tmp/de.utf8.po';
+			wrapper.i18nextToGettext('de', testFiles.de.utf8_expected, output, {quiet: true, splitNewLine: true, noDate: true}, function(){
+			    var result = fs.readFileSync(output);
+			    var expected = fs.readFileSync(testFiles.de.utf8);
+			    expect(result).to.deep.equal(expected);
+			    fs.unlinkSync(output);
+			    next();
 			});
+		    });
 
-      // RU
-      tests.push(function(next) {
-				var output = './test/_tmp/ru.utf8.po';
-				wrapper.i18nextToGettext('ru', testFiles.ru.utf8_2_expected, output, {quiet: true, splitNewLine: true}, function(){
-					var result = fs.readFileSync(output);
-					var expected = fs.readFileSync(testFiles.ru.utf8_2);
-					expect(result).to.deep.equal(expected);
-					fs.unlinkSync(output);
-					next();
-				});
+		    // RU
+		    tests.push(function(next) {
+			var output = './test/_tmp/ru.utf8.po';
+			wrapper.i18nextToGettext('ru', testFiles.ru.utf8_2_expected, output, {quiet: true, splitNewLine: true, noDate: true}, function(){
+			    var result = fs.readFileSync(output);
+			    var expected = fs.readFileSync(testFiles.ru.utf8_2);
+			    expect(result).to.deep.equal(expected);
+			    fs.unlinkSync(output);
+			    next();
 			});
+		    });
 
-			async.series(tests, done);
+		    async.series(tests, done);
 		});
 	})
 });
