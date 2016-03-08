@@ -26,20 +26,29 @@ program
   .version(pkg.version)
   .option('-s, --source [path]', 'Specify path to read from')
   .option('-t, --target [path]', 'Specify path to write to', '')
+  .option('-b, --base [path]', 'Sepcify path for the base language file. only take effect with -K option', '')
+  .option('-K, --keyasareference', 'Deal with the reference comment as a key', false)
   .option('-l, --language [domain]', 'Specify the language code, eg. \'en\'')
   .option('-ks, --keyseparator [path]', 'Specify keyseparator you want to use, defaults to ##', '##')
   .option('-f, --filter [path]', 'Specify path to gettext filter')
   .option('-P, --plurals [path]', 'Specify path to plural forms definitions')
   .option('--quiet', 'Silence output', false)
   .option('--splitNewLine', 'Silence output', false)
+  .option('--ctxSeparator [sep]', 'Specify the context separator', '_')
+  .option('--ignorePlurals', 'Do not process the plurals')
   .parse(process.argv);
 
 if (program.source && program.language) {
 	var options = {
 		keyseparator: program.keyseparator,
+		base: program.base,
+		language: program.language,
+		keyasareference: program.keyasareference,
 		plurals: program.plurals,
+		ignorePlurals: program.ignorePlurals,
 		quiet: program.quiet,
-    splitNewLine: program.splitNewLine
+		ctxSeparator: program.ctxSeparator,
+		splitNewLine: program.splitNewLine
 	};
 
 	if (program.filter && fs.existsSync(program.filter)) {
