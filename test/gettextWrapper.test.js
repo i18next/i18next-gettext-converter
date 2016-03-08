@@ -6,32 +6,36 @@ var fs = require('fs')
   , wrapper = require('../lib/gettextWrapper');
 
 var testFiles = {
-	en: {
-		utf8: './test/_testfiles/en/translation.utf8.po',
-		utf8_expected: './test/_testfiles/en/translation.utf8.json',
-		latin13: './test/_testfiles/en/translation.latin13.po',
-		latin13_expected: './test/_testfiles/en/translation.latin13.json',
-		unfiltered: './test/_testfiles/en/translation.unfiltered.po',
-		unfiltered_no_comments: './test/_testfiles/en/translation.unfiltered_no_comments.po',
-		unfiltered_no_match: './test/_testfiles/en/translation.unfiltered_no_match.po',
-		filtered: './test/_testfiles/en/translation.filtered.json',
-		filtered_no_comments: './test/_testfiles/en/translation.filtered_no_comments.json',
-		empty: './test/_testfiles/en/translation.empty.po',
-		missing: './test/_testfiles/en/translation.missing.po',
-		bad_format: './test/_testfiles/en/translation.bad_format.po.js'
-	},
+    en: {
+	utf8: './test/_testfiles/en/translation.utf8.po',
+	utf8_expected: './test/_testfiles/en/translation.utf8.json',
+	utf8_msgid: './test/_testfiles/en/translation.utf8_msgid.po',
+	utf8_msgid_expected: './test/_testfiles/en/translation.utf8_msgid.json',
+	latin13: './test/_testfiles/en/translation.latin13.po',
+	latin13_expected: './test/_testfiles/en/translation.latin13.json',
+	unfiltered: './test/_testfiles/en/translation.unfiltered.po',
+	unfiltered_no_comments: './test/_testfiles/en/translation.unfiltered_no_comments.po',
+	unfiltered_no_match: './test/_testfiles/en/translation.unfiltered_no_match.po',
+	filtered: './test/_testfiles/en/translation.filtered.json',
+	filtered_no_comments: './test/_testfiles/en/translation.filtered_no_comments.json',
+	empty: './test/_testfiles/en/translation.empty.po',
+	missing: './test/_testfiles/en/translation.missing.po',
+	bad_format: './test/_testfiles/en/translation.bad_format.po.js'
+    },
 
-	de: {
-		utf8: './test/_testfiles/de/translation.utf8.po',
-		utf8_expected: './test/_testfiles/de/translation.utf8.json'
-	},
+    de: {
+	utf8: './test/_testfiles/de/translation.utf8.po',
+	utf8_expected: './test/_testfiles/de/translation.utf8.json',
+	utf8_msgid: './test/_testfiles/de/translation.utf8_msgid.po',
+	utf8_msgid_expected: './test/_testfiles/de/translation.utf8_msgid.json',
+    },
 
-	ru: {
-		utf8: './test/_testfiles/ru/translation.utf8.po',
-		utf8_expected: './test/_testfiles/ru/translation.utf8.json',
-    utf8_2: './test/_testfiles/ru/translation2.utf8.po',
-    utf8_2_expected: './test/_testfiles/ru/translation2.utf8.json'
-	}
+    ru: {
+	utf8: './test/_testfiles/ru/translation.utf8.po',
+	utf8_expected: './test/_testfiles/ru/translation.utf8.json',
+	utf8_2: './test/_testfiles/ru/translation2.utf8.po',
+	utf8_2_expected: './test/_testfiles/ru/translation2.utf8.json'
+    }
 };
 
 
@@ -272,5 +276,32 @@ describe('the gettext wrapper', function() {
 
 		    async.series(tests, done);
 		});
+	    it('should convert a JSON file to utf8 PO with msgid as an original string', function(done) {
+		var tests = [];
+
+		// EN
+		tests.push(function(next) {
+		    var output = './test/_tmp/en.utf8.po';
+		    wrapper.i18nextToGettext('en', testFiles.en.utf8_msgid_expected, output, {quiet: true, splitNewLine: true, noDate: true, base: testFiles.en.utf8_msgid_expected, keyasareference: true}, function(){
+			var result = fs.readFileSync(output);
+			var expected = fs.readFileSync(testFiles.en.utf8_msgid);
+			expect(result).to.deep.equal(expected);
+			fs.unlinkSync(output);
+			next();
+		    });
+		});
+		// DE
+		tests.push(function(next) {
+		    var output = './test/_tmp/de.utf8.po';
+		    wrapper.i18nextToGettext('de', testFiles.de.utf8_msgid_expected, output, {quiet: true, splitNewLine: true, noDate: true, base: testFiles.en.utf8_msgid_expected, keyasareference: true}, function(){
+			var result = fs.readFileSync(output);
+			var expected = fs.readFileSync(testFiles.de.utf8_msgid);
+			expect(result).to.deep.equal(expected);
+			fs.unlinkSync(output);
+			next();
+		    });
+		});
+		async.series(tests, done);
+	    });
 	})
 });
