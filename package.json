@@ -25,13 +25,12 @@
     "node-gettext": "^1.0.1"
   },
   "devDependencies": {
-    "async": "^0.9.0",
-    "chai": "^1.10.0",
-    "grunt": "^0.4.5",
-    "grunt-mocha-test": "^0.12.4"
+    "async": "0.9.0",
+    "chai": "1.10.0",
+    "mocha": "2.4.5"
   },
   "scripts": {
-    "test": "grunt mochaTest"
+    "test": "mocha"
   },
   "bin": {
     "i18next-conv": "program.js"
