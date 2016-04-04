@@ -72,7 +72,7 @@ if (program.source && program.language) {
 		}
 	});
 } else {
-	console.log('\nat least call with argument -l and -t.'.red);
+	console.log('\nat least call with argument -l and -s.'.red);
 	console.log('(call program with argument -h for help.)\n\n');
 }
 
