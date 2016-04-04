@@ -21,3 +21,4 @@ bin
 
 # Ignore all test artifacts
 test/_tmp/*.json
+test/_tmp/*.po

@@ -24,13 +24,14 @@ var program = require('commander')
 // program
 program
   .version(pkg.version)
+  .option('-b, --base [path]', 'Sepcify path for the base language file. only take effect with -K option', '')
+  .option('-f, --filter [path]', 'Specify path to gettext filter')
+  .option('-l, --language [domain]', 'Specify the language code, eg. \'en\'')
+  .option('-p, --pot', 'Generate POT file.')
   .option('-s, --source [path]', 'Specify path to read from')
   .option('-t, --target [path]', 'Specify path to write to', '')
-  .option('-b, --base [path]', 'Sepcify path for the base language file. only take effect with -K option', '')
   .option('-K, --keyasareference', 'Deal with the reference comment as a key', false)
-  .option('-l, --language [domain]', 'Specify the language code, eg. \'en\'')
   .option('-ks, --keyseparator [path]', 'Specify keyseparator you want to use, defaults to ##', '##')
-  .option('-f, --filter [path]', 'Specify path to gettext filter')
   .option('-P, --plurals [path]', 'Specify path to plural forms definitions')
   .option('--quiet', 'Silence output', false)
   .option('--splitNewLine', 'Silence output', false)
@@ -39,15 +40,21 @@ program
   .parse(process.argv);
 
 if (program.source && program.language) {
+	if (program.pot && !program.base) {
+		console.log('\nat least call with argument -p and -b.'.red);
+		console.log('(call program with argument -h for help.)\n\n');
+		process.exit();
+	}
 	var options = {
-		keyseparator: program.keyseparator,
 		base: program.base,
+		ctxSeparator: program.ctxSeparator,
+		ignorePlurals: program.ignorePlurals,
 		language: program.language,
 		keyasareference: program.keyasareference,
+		keyseparator: program.keyseparator,
 		plurals: program.plurals,
-		ignorePlurals: program.ignorePlurals,
+		pot: program.pot,
 		quiet: program.quiet,
-		ctxSeparator: program.ctxSeparator,
 		splitNewLine: program.splitNewLine
 	};
 
@@ -65,7 +72,7 @@ if (program.source && program.language) {
 		}
 	});
 } else {
-	console.log('\nat least call with argument -l and -t.'.red);
+	console.log('\nat least call with argument -l and -s.'.red);
 	console.log('(call program with argument -h for help.)\n\n');
 }
 
