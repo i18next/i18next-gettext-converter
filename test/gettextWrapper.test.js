@@ -28,13 +28,17 @@ var testFiles = {
 	utf8_expected: './test/_testfiles/de/translation.utf8.json',
 	utf8_msgid: './test/_testfiles/de/translation.utf8_msgid.po',
 	utf8_msgid_expected: './test/_testfiles/de/translation.utf8_msgid.json',
+	utf8_msgid_not_fully_translated: './test/_testfiles/de/translation.utf8_msgid_not_fully_translated.po',
+	utf8_msgid_not_fully_translated_expected: './test/_testfiles/de/translation.utf8_msgid_not_fully_translated.json'
     },
 
     ru: {
 	utf8: './test/_testfiles/ru/translation.utf8.po',
 	utf8_expected: './test/_testfiles/ru/translation.utf8.json',
 	utf8_2: './test/_testfiles/ru/translation2.utf8.po',
-	utf8_2_expected: './test/_testfiles/ru/translation2.utf8.json'
+	utf8_2_expected: './test/_testfiles/ru/translation2.utf8.json',
+	utf8_msgid_not_fully_translated: './test/_testfiles/ru/translation.utf8_msgid_not_fully_translated.po',
+	utf8_msgid_not_fully_translated_expected: './test/_testfiles/ru/translation.utf8_msgid_not_fully_translated.json'
     }
 };
 
@@ -219,6 +223,34 @@ describe('the gettext wrapper', function() {
 		});
 	    });
 	    async.series(tests, done);
+	});
+
+	it('should fill in the original English strings if missing - convert a utf8 PO file with msgid as original string to a JSON file', function(done) {
+		var tests = [];
+
+		// DE
+		tests.push(function(next) {
+			var output = './test/_tmp/de_utf8_msgid_not_fully_translated.json';
+			wrapper.gettextToI18next('de', testFiles.de.utf8_msgid_not_fully_translated, output, {quiet: true, splitNewLine: true, keyasareference: true}, function() {
+				var result = require(path.join('..', output));
+				var expected = require(path.join('..', testFiles.de.utf8_msgid_not_fully_translated_expected));
+				expect(result).to.deep.equal(expected);
+				fs.unlinkSync(output);
+				next();
+	                });
+		});
+		// RU
+		tests.push(function(next) {
+			var output = './test/_tmp/ru_utf8_msgid_not_fully_translated.json';
+			wrapper.gettextToI18next('ru', testFiles.ru.utf8_msgid_not_fully_translated, output, {quiet: true, splitNewLine: true, keyasareference: true}, function() {
+				var result = require(path.join('..', output));
+				var expected = require(path.join('..', testFiles.ru.utf8_msgid_not_fully_translated_expected));
+				expect(result).to.deep.equal(expected);
+				fs.unlinkSync(output);
+				next();
+	                });
+		});
+		async.series(tests, done);
 	});
 
 	// -- Error States & Invalid Data --
