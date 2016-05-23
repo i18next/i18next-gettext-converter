@@ -6,7 +6,7 @@
     "i18next",
     "gettext"
   ],
-  "version": "2.5.0",
+  "version": "2.6.0",
   "private": false,
   "preferGlobal": "true",
   "main": "index.js",
