@@ -26,11 +26,21 @@
   },
   "devDependencies": {
     "async": "0.9.0",
+    "babel-cli": "^6.10.1",
+    "babel-core": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
     "chai": "1.10.0",
+    "eslint": "^2.10.2",
+    "eslint-config-airbnb-base": "^3.0.1",
+    "eslint-plugin-import": "^1.8.0",
     "mocha": "2.4.5"
   },
   "scripts": {
-    "test": "mocha"
+    "lint": "eslint **/*.js",
+    "pretest": "npm run lint",
+    "test": "mocha",
+    "build": "babel src/*.js -d lib",
+    "prepublish": "npm run build"
   },
   "bin": {
     "i18next-conv": "program.js"

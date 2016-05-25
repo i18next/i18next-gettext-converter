@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-var program = require('commander')
-  , fs = require('fs')
-  , converter = require("./lib/gettextWrapper")
-  , colors = require("colors")
-  , pkg = require("./package.json");
+const program = require('commander');
+const fs = require('fs');
+const converter = require('./lib/gettextWrapper');
+const colors = require('colors');
+const pkg = require('./package.json');
 
 // test calls:
 
@@ -40,40 +40,40 @@ program
   .parse(process.argv);
 
 if (program.source && program.language) {
-	if (program.pot && !program.base) {
-		console.log('\nat least call with argument -p and -b.'.red);
-		console.log('(call program with argument -h for help.)\n\n');
-		process.exit();
-	}
-	var options = {
-		base: program.base,
-		ctxSeparator: program.ctxSeparator,
-		ignorePlurals: program.ignorePlurals,
-		language: program.language,
-		keyasareference: program.keyasareference,
-		keyseparator: program.keyseparator,
-		plurals: program.plurals,
-		pot: program.pot,
-		quiet: program.quiet,
-		splitNewLine: program.splitNewLine
-	};
+  if (program.pot && !program.base) {
+    console.log('\nat least call with argument -p and -b.'.red);
+    console.log('(call program with argument -h for help.)\n\n');
+    process.exit();
+  }
+  const options = {
+    base: program.base,
+    ctxSeparator: program.ctxSeparator,
+    ignorePlurals: program.ignorePlurals,
+    language: program.language,
+    keyasareference: program.keyasareference,
+    keyseparator: program.keyseparator,
+    plurals: program.plurals,
+    pot: program.pot,
+    quiet: program.quiet,
+    splitNewLine: program.splitNewLine,
+  };
 
-	if (program.filter && fs.existsSync(program.filter)) {
-		options.filter = require(program.filter);
-	}
+  if (program.filter && fs.existsSync(program.filter)) {
+    options.filter = require(program.filter); // eslint-disable-line global-require
+  }
 
-	if (!options.quiet) console.log('\nstart converting'.yellow);
+  if (!options.quiet) console.log('\nstart converting'.yellow);
 
-	converter.process(program.language, program.source, program.target, options, function(err) {
-		if (err) {
-			console.log('\nfailed writing file\n\n'.red);
-		} else if (!options.quiet) {
-			console.log('\nfile written\n\n'.green);
-		}
-	});
+  converter.process(program.language, program.source, program.target, options, err => {
+    if (err) {
+      console.log('\nfailed writing file\n\n'.red);
+    } else if (!options.quiet) {
+      console.log('\nfile written\n\n'.green);
+    }
+  });
 } else {
-	console.log('\nat least call with argument -l and -s.'.red);
-	console.log('(call program with argument -h for help.)\n\n');
+  console.log('\nat least call with argument -l and -s.'.red);
+  console.log('(call program with argument -h for help.)\n\n');
 }
 
 // expose to the world

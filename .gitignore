@@ -18,6 +18,7 @@ $ cat .gitignore
 node_modules
 node_modules/**/*
 bin
+lib
 
 # Ignore all test artifacts
 test/_tmp/*.json

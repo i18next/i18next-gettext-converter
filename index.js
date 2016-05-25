@@ -1,5 +1,5 @@
-var converter = require("./lib/gettextWrapper")
-  , colors = require("colors");
+const converter = require('./lib/gettextWrapper');
+const colors = require('colors');
 
 // expose to the world
 module.exports = converter;
