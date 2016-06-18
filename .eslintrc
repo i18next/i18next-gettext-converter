@@ -1,0 +1,13 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "no-nested-ternary": 0,
+    "max-len": 0,
+    "no-param-reassign": 0,
+    "spaced-comment": 0,
+    "no-shadow": 0,
+    "no-console": 0,
+    "no-unused-vars": ["error", { "varsIgnorePattern": "colors" }],
+    "no-underscore-dangle": ["error", { "allow": ["_normalizeDomain"] }]
+  }
+}
