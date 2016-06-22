@@ -1,12 +1,13 @@
 const Gettext = require('node-gettext');
 const GettextParser = require('gettext-parser');
+const fs = require('fs');
+const path = require('path');
+const mkdirp = require('mkdirp');
+const { blue, cyan } = require('chalk');
+
 const plurals = require('./plurals');
 const flatten = require('./flatten');
 const utils = require('./utils');
-const fs = require('fs');
-const path = require('path');
-const colors = require('colors');
-const mkdirp = require('mkdirp');
 
 const {
   cleanCallback,
@@ -22,7 +23,7 @@ module.exports = {
     if (options.plurals) {
       const pluralsPath = path.join(process.cwd(), options.plurals);
       plurals.rules = require(pluralsPath); // eslint-disable-line global-require
-      if (!options.quiet) console.log((`\nuse custom plural forms ${pluralsPath}\n`).blue);
+      if (!options.quiet) console.log(blue(`\nuse custom plural forms ${pluralsPath}\n`));
     }
 
     if (ext === '.mo' || ext === '.po' || ext === '.pot') {
@@ -172,7 +173,7 @@ module.exports = {
     if (options.language) {
       out.headers.language = options.language;
     }
-    if (!options.quiet) console.log('\n    <-> parsing data to gettext format'.cyan);
+    if (!options.quiet) console.log(cyan('\n    <-> parsing data to gettext format'));
 
     const delkeys = [];
 
@@ -398,7 +399,7 @@ module.exports = {
     options = cleanOptions(options);
     const separator = options.keyseparator || '##';
 
-    if (!options.quiet) console.log('\n    <-> parsing data to i18next json format'.cyan);
+    if (!options.quiet) console.log(cyan('\n    <-> parsing data to i18next json format'));
     const json = {};
 
     const toArrayIfNeeded = value => {

@@ -2,8 +2,9 @@
 
 const program = require('commander');
 const fs = require('fs');
+const { red, green, yellow } = require('chalk');
+
 const converter = require('./lib/gettextWrapper');
-const colors = require('colors');
 const pkg = require('./package.json');
 
 // test calls:
@@ -41,7 +42,7 @@ program
 
 if (program.source && program.language) {
   if (program.pot && !program.base) {
-    console.log('\nat least call with argument -p and -b.'.red);
+    console.log(red('\nat least call with argument -p and -b.'));
     console.log('(call program with argument -h for help.)\n\n');
     process.exit();
   }
@@ -62,17 +63,17 @@ if (program.source && program.language) {
     options.filter = require(program.filter); // eslint-disable-line global-require
   }
 
-  if (!options.quiet) console.log('\nstart converting'.yellow);
+  if (!options.quiet) console.log(yellow('\nstart converting'));
 
   converter.process(program.language, program.source, program.target, options, err => {
     if (err) {
-      console.log('\nfailed writing file\n\n'.red);
+      console.log(red('\nfailed writing file\n\n'));
     } else if (!options.quiet) {
-      console.log('\nfile written\n\n'.green);
+      console.log(green('\nfile written\n\n'));
     }
   });
 } else {
-  console.log('\nat least call with argument -l and -s.'.red);
+  console.log(red('\nat least call with argument -l and -s.'));
   console.log('(call program with argument -h for help.)\n\n');
 }
 
