@@ -26,9 +26,10 @@
     "node-gettext": "^1.0.1"
   },
   "devDependencies": {
-    "async": "0.9.0",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.9.1",
+    "babel-eslint": "^6.0.5",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",
     "chai": "1.10.0",
     "eslint": "^2.10.2",

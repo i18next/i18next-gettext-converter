@@ -7,7 +7,7 @@ const plurals = require('./plurals');
 
 const readFileAsync = Promise.promisify(fs.readFile);
 
-function gettextToI18next(domain, source, options = {}) {
+function gettextToI18next(domain, source, target, options = {}) {
   return addTextDomain(domain, source, options)
   .then(data => {
     if (options.keyasareference) {
