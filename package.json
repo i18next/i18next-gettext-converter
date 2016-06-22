@@ -36,7 +36,7 @@
     "mocha": "2.4.5"
   },
   "scripts": {
-    "lint": "eslint **/*.js",
+    "lint": "eslint '**/*.js'",
     "pretest": "npm run lint",
     "test": "mocha",
     "build": "babel src --out-dir lib",
