@@ -1,5 +1,6 @@
 const Gettext = require('node-gettext');
 const GettextParser = require('gettext-parser');
+const Promise = require('bluebird');
 const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
@@ -13,6 +14,9 @@ const {
   cleanCallback,
   cleanOptions,
 } = utils;
+
+const readFileAsync = Promise.promisify(fs.readFile);
+const writeFileAsync = Promise.promisify(fs.writeFile);
 
 module.exports = {
   process(domain, source, target, options, callback) {
@@ -42,6 +46,7 @@ module.exports = {
    * I18NEXT JSON --> GETTEXT
    *
    ***************************/
+
   i18nextToGettext(domain, source, target, options, callback) {
     callback = cleanCallback(options, callback);
     options = cleanOptions(options);
@@ -71,23 +76,17 @@ module.exports = {
       if (!fs.statSync(dir)) fs.mkdirSync(dir);
     }
 
-    this.i18nextToGettextData(domain, source, target, options, (err, data) => {
-      this.writeFile(target, `${data}\n`, options, callback);
-    });
+    return this.i18nextToGettextData(domain, source, target, options)
+    .then(data => this.writeFile(target, `${data}\n`, options))
+    .asCallback(callback);
   },
 
-  i18nextToGettextData(domain, source, target, options, callback) {
-    callback = cleanCallback(options, callback);
-    options = cleanOptions(options);
-
-    this.flattenI18nextJSON(source, options, (err, flat) => {
-      const f = (err, data) => {
-        const res = (path.extname(target) === '.po' || path.extname(target) === '.pot') ? GettextParser.po.compile(data) : GettextParser.mo.compile(data);
-        callback(err, res);
-      };
-
+  i18nextToGettextData(domain, source, target, options = {}) {
+    return this.flattenI18nextJSON(source, options)
+    .then(flat => {
       if (options.base) {
-        this.flattenI18nextJSON(options.base, options, (err, bflat) => {
+        return this.flattenI18nextJSON(options.base, options)
+        .then(bflat => {
           Object.keys(bflat).forEach((key) => {
             if (flat[key]) {
               if (flat[key].plurals) {
@@ -105,40 +104,33 @@ module.exports = {
               }
             }
           });
-          this.parseGettext(domain, bflat, options, f);
+          return this.parseGettext(domain, bflat, options);
         });
-      } else {
-        this.parseGettext(domain, flat, options, f);
       }
-    });
+
+      return this.parseGettext(domain, flat, options);
+    })
+    .then(data => (
+      (path.extname(target) === '.po' || path.extname(target) === '.pot')
+        ? GettextParser.po.compile(data)
+        : GettextParser.mo.compile(data)
+    ));
   },
 
-    /* i18next json --> flat json
-     *
-     */
-  flattenI18nextJSON(source, options, callback) {
-    callback = cleanCallback(options, callback);
-    options = cleanOptions(options);
+  /*
+   * i18next json --> flat json
+   */
+  flattenI18nextJSON(source, options = {}) {
     if (!options.quiet) console.log((`\n    --> reading file from: ${source}`));
 
-    fs.readFile(source, (err, body) => {
-      if (err) {
-        callback(err);
-        return;
-      }
-
-      const flat = flatten.flatten(JSON.parse(body), options);
-      callback(null, flat);
-    });
+    return readFileAsync(source)
+    .then(body => flatten.flatten(JSON.parse(body), options));
   },
 
   /*
    * flat json --> gettext
    */
-  parseGettext(domain, data, options, callback) {
-    callback = cleanCallback(options, callback);
-    options = cleanOptions(options);
-
+  parseGettext(domain, data, options = {}) {
     const out = {
       charset: 'utf-8',
       headers: {
@@ -256,7 +248,7 @@ module.exports = {
     });
 
     out.translations = trans;
-    callback(null, out);
+    return Promise.resolve(out);
   },
 
   /*
@@ -313,16 +305,14 @@ module.exports = {
       if (!fs.statSync(dir)) fs.mkdirSync(dir);
     }
 
-    this.gettextToI18nextData(domain, source, options, (err, data) => {
-      this.writeFile(target, data, options, callback);
-    });
+    return this.gettextToI18nextData(domain, source, options)
+    .then(data => this.writeFile(target, data, options))
+    .asCallback(callback);
   },
 
-  gettextToI18nextData(domain, source, options, callback) {
-    callback = cleanCallback(options, callback);
-    options = cleanOptions(options);
-
-    this.addTextDomain(domain, source, options, (err, data) => {
+  gettextToI18nextData(domain, source, options = {}) {
+    return this.addTextDomain(domain, source, options)
+    .then(data => {
       if (options.keyasareference) {
         const keys = [];
 
@@ -357,46 +347,42 @@ module.exports = {
         });
       }
 
-      this.parseJSON(domain, data, options, (err, json) => {
-        const jsonData = JSON.stringify(json, null, 4);
-        callback(err, jsonData);
-      });
-    });
+      return this.parseJSON(domain, data, options);
+    })
+    .then(json => JSON.stringify(json, null, 4));
   },
 
   /*
    * gettext --> barebone json
    */
-  addTextDomain(domain, source, options, callback) {
+  addTextDomain(domain, source, options = {}) {
     const gt = new Gettext();
-    callback = cleanCallback(options, callback);
-    options = cleanOptions(options);
     if (!options.quiet) console.log((`\n    --> reading file from: ${source}`));
 
-    fs.readFile(source, (err, body) => {
-      if (err) {
-        callback(err);
-        return;
-      }
-
+    return readFileAsync(source)
+    .then(body => {
       if (body.length > 0) {
         gt.addTextdomain(domain, body);
       }
 
       if (options.filter) {
-        options.filter(gt, domain, callback);
-      } else {
-        callback(null, gt.domains[gt._normalizeDomain(domain)] && gt.domains[gt._normalizeDomain(domain)].translations);
+        const filterAsync = Promise.promisify(options.filter);
+        return filterAsync(gt, domain);
       }
+
+      return Promise.resolve(gt.domains[gt._normalizeDomain(domain)] && gt.domains[gt._normalizeDomain(domain)].translations);
+    })
+    .catch(err => {
+      if (err.code === 'ENOENT') return undefined;
+
+      return Promise.reject(err);
     });
   },
 
   /*
    * barebone json --> i18next json
    */
-  parseJSON(domain, data = {}, options, callback) {
-    callback = cleanCallback(options, callback);
-    options = cleanOptions(options);
+  parseJSON(domain, data = {}, options = {}) {
     const separator = options.keyseparator || '##';
 
     if (!options.quiet) console.log(cyan('\n    <-> parsing data to i18next json format'));
@@ -456,7 +442,7 @@ module.exports = {
       });
     });
 
-    callback(null, json);
+    return Promise.resolve(json);
   },
 
   /*
@@ -497,12 +483,9 @@ module.exports = {
    * SHARED
    *
    ***************************/
-  writeFile(target, data, options, callback) {
-    callback = cleanCallback(options, callback);
-    options = cleanOptions(options);
+  writeFile(target, data, options = {}) {
     if (!options.quiet) console.log((`\n    <-- writing file to: ${target}`));
-    fs.writeFile(target, data, err => {
-      callback(err);
-    });
+
+    return writeFileAsync(target, data);
   },
 };
