@@ -1,22 +1,5 @@
-$ cat .gitignore
-
-# Can ignore specific files
-.settings.xml
-.monitor
-.DS_Store
-.idea
-
-*.iml
-*.ipr
-*.iws
-
-# Use wildcards as well
-*~
-#*.swp
-
 # Can also ignore all directories and files in a directory.
 node_modules
-node_modules/**/*
 lib
 
 # Ignore all test artifacts
