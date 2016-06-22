@@ -44,6 +44,6 @@
     "prepublish": "npm run build"
   },
   "bin": {
-    "i18next-conv": "program.js"
+    "i18next-conv": "bin/index.js"
   }
 }

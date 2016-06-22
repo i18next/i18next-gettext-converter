@@ -1,4 +1,4 @@
-const converter = require('./lib/gettextWrapper');
+const converter = require('./lib');
 
 // expose to the world
 module.exports = converter;

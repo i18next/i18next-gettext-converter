@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const chai = require('chai');
 const async = require('async');
-const wrapper = require('../src/gettextWrapper');
+const wrapper = require('../src');
 
 const expect = chai.expect;
 

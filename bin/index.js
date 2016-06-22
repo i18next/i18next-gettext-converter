@@ -4,23 +4,23 @@ const program = require('commander');
 const fs = require('fs');
 const { red, green, yellow } = require('chalk');
 
-const converter = require('./lib/gettextWrapper');
-const pkg = require('./package.json');
+const converter = require('../lib');
+const pkg = require('../package.json');
 
 // test calls:
 
 // gettext -> i18next
-// node program.js -l en -s ./test/_testfiles/en/translation.utf8.po -t ./test/_tmp/en.json
-// node program.js -l de -s ./test/_testfiles/de/translation.utf8.po -t ./test/_tmp/de.json
-// node program.js -l ru -s ./test/_testfiles/ru/translation.utf8.po -t ./test/_tmp/ru.json
+// node bin -l en -s ./test/_testfiles/en/translation.utf8.po -t ./test/_tmp/en.json
+// node bin -l de -s ./test/_testfiles/de/translation.utf8.po -t ./test/_tmp/de.json
+// node bin -l ru -s ./test/_testfiles/ru/translation.utf8.po -t ./test/_tmp/ru.json
 //
 // With filter:
-// node program.js -l en -s ./test/_testfiles/en/translation.utf8.po -t ./test/_tmp/en.json -f path/to/filter.js
+// node bin -l en -s ./test/_testfiles/en/translation.utf8.po -t ./test/_tmp/en.json -f path/to/filter.js
 
 // i18next -> gettext
-// node program.js -l de -s ./test/_testfiles/de/translation.utf8.json -t ./test/_tmp/de.po
+// node bin -l de -s ./test/_testfiles/de/translation.utf8.json -t ./test/_tmp/de.po
 // and back
-// node program.js -l de -s ./test/_tmp/de.po -t ./test/_tmp/de.json
+// node bin -l de -s ./test/_tmp/de.po -t ./test/_tmp/de.json
 
 // program
 program
@@ -76,6 +76,3 @@ if (program.source && program.language) {
   console.log(red('\nat least call with argument -l and -s.'));
   console.log('(call program with argument -h for help.)\n\n');
 }
-
-// expose to the world
-module.exports = converter;
