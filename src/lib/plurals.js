@@ -7,7 +7,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     af: {
       name: 'Afrikaans',
@@ -15,7 +15,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ak: {
       name: 'Akan',
@@ -23,7 +23,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     am: {
       name: 'Amharic',
@@ -31,7 +31,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     an: {
       name: 'Aragonese',
@@ -39,7 +39,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ar: {
       name: 'Arabic',
@@ -51,7 +51,7 @@ module.exports = {
         11,
         100,
       ],
-      plurals: n => Number(n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5),
+      plurals: '(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5)',
     },
     arn: {
       name: 'Mapudungun',
@@ -59,7 +59,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     ast: {
       name: 'Asturian',
@@ -67,14 +67,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ay: {
       name: 'Aymar\u00e1',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     az: {
       name: 'Azerbaijani',
@@ -82,7 +82,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     be: {
       name: 'Belarusian',
@@ -91,7 +91,7 @@ module.exports = {
         2,
         5,
       ],
-      plurals: n => Number(n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
+      plurals: '(n%10== 1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)',
     },
     bg: {
       name: 'Bulgarian',
@@ -99,7 +99,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     bn: {
       name: 'Bengali',
@@ -107,14 +107,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     bo: {
       name: 'Tibetan',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     br: {
       name: 'Breton',
@@ -122,7 +122,15 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
+    },
+    brx: {
+      name: 'Bodo',
+      numbers: [
+        1,
+        2,
+      ],
+      plurals: '(n != 1)',
     },
     bs: {
       name: 'Bosnian',
@@ -131,7 +139,7 @@ module.exports = {
         2,
         5,
       ],
-      plurals: n => Number(n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
+      plurals: '(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)',
     },
     ca: {
       name: 'Catalan',
@@ -139,14 +147,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     cgg: {
       name: 'Chiga',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     cs: {
       name: 'Czech',
@@ -155,7 +163,7 @@ module.exports = {
         2,
         5,
       ],
-      plurals: n => Number((n === 1) ? 0 : (n >= 2 && n <= 4) ? 1 : 2),
+      plurals: '(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2',
     },
     csb: {
       name: 'Kashubian',
@@ -164,7 +172,7 @@ module.exports = {
         2,
         5,
       ],
-      plurals: n => Number(n === 1 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
+      plurals: '(n==1) ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2',
     },
     cy: {
       name: 'Welsh',
@@ -174,7 +182,7 @@ module.exports = {
         3,
         8,
       ],
-      plurals: n => Number((n === 1) ? 0 : (n === 2) ? 1 : (n !== 8 && n !== 11) ? 2 : 3),
+      plurals: '(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3',
     },
     da: {
       name: 'Danish',
@@ -182,7 +190,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     de: {
       name: 'German',
@@ -190,14 +198,22 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
+    },
+    doi: {
+      name: 'Dogri',
+      numbers: [
+        1,
+        2,
+      ],
+      plurals: '(n != 1)',
     },
     dz: {
       name: 'Dzongkha',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     el: {
       name: 'Greek',
@@ -205,7 +221,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     en: {
       name: 'English',
@@ -213,7 +229,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     eo: {
       name: 'Esperanto',
@@ -221,7 +237,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     es: {
       name: 'Spanish',
@@ -229,7 +245,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     es_ar: {
       name: 'Argentinean Spanish',
@@ -237,7 +253,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     et: {
       name: 'Estonian',
@@ -245,7 +261,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     eu: {
       name: 'Basque',
@@ -253,14 +269,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     fa: {
       name: 'Persian',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     fi: {
       name: 'Finnish',
@@ -268,7 +284,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     fil: {
       name: 'Filipino',
@@ -276,7 +292,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     fo: {
       name: 'Faroese',
@@ -284,7 +300,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     fr: {
       name: 'French',
@@ -292,7 +308,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     fur: {
       name: 'Friulian',
@@ -300,7 +316,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     fy: {
       name: 'Frisian',
@@ -308,7 +324,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ga: {
       name: 'Irish',
@@ -319,7 +335,7 @@ module.exports = {
         7,
         11,
       ],
-      plurals: n => Number(n === 1 ? 0 : n === 2 ? 1 : n < 7 ? 2 : n < 11 ? 3 : 4),
+      plurals: 'n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :(n>6 && n<11) ? 3 : 4',
     },
     gd: {
       name: 'Scottish Gaelic',
@@ -329,7 +345,7 @@ module.exports = {
         3,
         20,
       ],
-      plurals: n => Number((n === 1 || n === 11) ? 0 : (n === 2 || n === 12) ? 1 : (n > 2 && n < 20) ? 2 : 3),
+      plurals: '(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : (n > 2 && n < 20) ? 2 : 3',
     },
     gl: {
       name: 'Galician',
@@ -337,7 +353,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     gu: {
       name: 'Gujarati',
@@ -345,7 +361,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     gun: {
       name: 'Gun',
@@ -353,7 +369,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     ha: {
       name: 'Hausa',
@@ -361,7 +377,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     he: {
       name: 'Hebrew',
@@ -369,7 +385,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     hi: {
       name: 'Hindi',
@@ -377,7 +393,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     hr: {
       name: 'Croatian',
@@ -386,7 +402,7 @@ module.exports = {
         2,
         5,
       ],
-      plurals: n => Number(n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
+      plurals: '(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)',
     },
     hu: {
       name: 'Hungarian',
@@ -394,7 +410,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     hy: {
       name: 'Armenian',
@@ -402,7 +418,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ia: {
       name: 'Interlingua',
@@ -410,14 +426,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     id: {
       name: 'Indonesian',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     is: {
       name: 'Icelandic',
@@ -425,7 +441,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n % 10 !== 1 || n % 100 === 11),
+      plurals: '(n%10!=1 || n%100==11)',
     },
     it: {
       name: 'Italian',
@@ -433,21 +449,21 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ja: {
       name: 'Japanese',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     jbo: {
       name: 'Lojban',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     jv: {
       name: 'Javanese',
@@ -455,28 +471,28 @@ module.exports = {
         0,
         1,
       ],
-      plurals: n => Number(n !== 0),
+      plurals: '(n != 0)',
     },
     ka: {
       name: 'Georgian',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     kk: {
       name: 'Kazakh',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     km: {
       name: 'Khmer',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     kn: {
       name: 'Kannada',
@@ -484,14 +500,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ko: {
       name: 'Korean',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     ku: {
       name: 'Kurdish',
@@ -499,7 +515,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     kw: {
       name: 'Cornish',
@@ -509,14 +525,14 @@ module.exports = {
         3,
         4,
       ],
-      plurals: n => Number((n === 1) ? 0 : (n === 2) ? 1 : (n === 3) ? 2 : 3),
+      plurals: '(n==1) ? 0 : (n==2) ? 1 : (n==3) ? 2 : 3',
     },
     ky: {
       name: 'Kyrgyz',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     lb: {
       name: 'Letzeburgesch',
@@ -524,7 +540,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ln: {
       name: 'Lingala',
@@ -532,14 +548,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     lo: {
       name: 'Lao',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     lt: {
       name: 'Lithuanian',
@@ -548,7 +564,7 @@ module.exports = {
         2,
         10,
       ],
-      plurals: n => Number(n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
+      plurals: '(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2)',
     },
     lv: {
       name: 'Latvian',
@@ -557,7 +573,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n % 10 === 1 && n % 100 !== 11 ? 0 : n !== 0 ? 1 : 2),
+      plurals: '(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2)',
     },
     mai: {
       name: 'Maithili',
@@ -565,7 +581,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     mfe: {
       name: 'Mauritian Creole',
@@ -573,7 +589,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     mg: {
       name: 'Malagasy',
@@ -581,7 +597,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     mi: {
       name: 'Maori',
@@ -589,7 +605,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     mk: {
       name: 'Macedonian',
@@ -597,7 +613,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n === 1 || n % 10 === 1 ? 0 : 1),
+      plurals: 'n==1 || n%10==1 ? 0 : 1',
     },
     ml: {
       name: 'Malayalam',
@@ -605,7 +621,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     mn: {
       name: 'Mongolian',
@@ -613,7 +629,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     mnk: {
       name: 'Mandinka',
@@ -622,7 +638,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n === 0 ? 0 : n === 1 ? 1 : 2),
+      plurals: '(n==0 ? 0 : n==1 ? 1 : 2)',
     },
     mr: {
       name: 'Marathi',
@@ -630,14 +646,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ms: {
       name: 'Malay',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     mt: {
       name: 'Maltese',
@@ -647,7 +663,7 @@ module.exports = {
         11,
         20,
       ],
-      plurals: n => Number(n === 1 ? 0 : n === 0 || (n % 100 > 1 && n % 100 < 11) ? 1 : (n % 100 > 10 && n % 100 < 20) ? 2 : 3),
+      plurals: '(n==1 ? 0 : n==0 || ( n%100>1 && n%100<11) ? 1 : (n%100>10 && n%100<20 ) ? 2 : 3)',
     },
     nah: {
       name: 'Nahuatl',
@@ -655,7 +671,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     nap: {
       name: 'Neapolitan',
@@ -663,7 +679,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     nb: {
       name: 'Norwegian Bokmal',
@@ -671,7 +687,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ne: {
       name: 'Nepali',
@@ -679,7 +695,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     nl: {
       name: 'Dutch',
@@ -687,7 +703,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     nn: {
       name: 'Norwegian Nynorsk',
@@ -695,7 +711,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     no: {
       name: 'Norwegian',
@@ -703,7 +719,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     nso: {
       name: 'Northern Sotho',
@@ -711,7 +727,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     oc: {
       name: 'Occitan',
@@ -719,7 +735,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     or: {
       name: 'Oriya',
@@ -727,7 +743,7 @@ module.exports = {
         2,
         1,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     pa: {
       name: 'Punjabi',
@@ -735,7 +751,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     pap: {
       name: 'Papiamento',
@@ -743,7 +759,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     pl: {
       name: 'Polish',
@@ -752,7 +768,7 @@ module.exports = {
         2,
         5,
       ],
-      plurals: n => Number(n === 1 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
+      plurals: '(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)',
     },
     pms: {
       name: 'Piemontese',
@@ -760,7 +776,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ps: {
       name: 'Pashto',
@@ -768,7 +784,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     pt: {
       name: 'Portuguese',
@@ -776,7 +792,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     pt_br: {
       name: 'Brazilian Portuguese',
@@ -784,7 +800,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n > 1)',
     },
     rm: {
       name: 'Romansh',
@@ -792,7 +808,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ro: {
       name: 'Romanian',
@@ -801,7 +817,7 @@ module.exports = {
         2,
         20,
       ],
-      plurals: n => Number(n === 1 ? 0 : (n === 0 || (n % 100 > 0 && n % 100 < 20)) ? 1 : 2),
+      plurals: '(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2)',
     },
     ru: {
       name: 'Russian',
@@ -810,14 +826,14 @@ module.exports = {
         2,
         5,
       ],
-      plurals: n => Number(n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
+      plurals: '(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)',
     },
     sah: {
       name: 'Yakut',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     sco: {
       name: 'Scots',
@@ -825,7 +841,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     se: {
       name: 'Northern Sami',
@@ -833,7 +849,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     si: {
       name: 'Sinhala',
@@ -841,7 +857,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     sk: {
       name: 'Slovak',
@@ -850,7 +866,7 @@ module.exports = {
         2,
         5,
       ],
-      plurals: n => Number((n === 1) ? 0 : (n >= 2 && n <= 4) ? 1 : 2),
+      plurals: '(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2',
     },
     sl: {
       name: 'Slovenian',
@@ -860,7 +876,7 @@ module.exports = {
         2,
         3,
       ],
-      plurals: n => Number(n % 100 === 1 ? 1 : n % 100 === 2 ? 2 : n % 100 === 3 || n % 100 === 4 ? 3 : 0),
+      plurals: '(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0)',
     },
     so: {
       name: 'Somali',
@@ -868,7 +884,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     son: {
       name: 'Songhay',
@@ -876,7 +892,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     sq: {
       name: 'Albanian',
@@ -884,7 +900,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     sr: {
       name: 'Serbian',
@@ -893,14 +909,14 @@ module.exports = {
         2,
         5,
       ],
-      plurals: n => Number(n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
+      plurals: '(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)',
     },
     su: {
       name: 'Sundanese',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     sv: {
       name: 'Swedish',
@@ -908,7 +924,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     sw: {
       name: 'Swahili',
@@ -916,7 +932,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     ta: {
       name: 'Tamil',
@@ -924,7 +940,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     te: {
       name: 'Telugu',
@@ -932,7 +948,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     tg: {
       name: 'Tajik',
@@ -940,14 +956,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     th: {
       name: 'Thai',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     ti: {
       name: 'Tigrinya',
@@ -955,7 +971,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     tk: {
       name: 'Turkmen',
@@ -963,7 +979,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     tr: {
       name: 'Turkish',
@@ -971,21 +987,21 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     tt: {
       name: 'Tatar',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     ug: {
       name: 'Uyghur',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     uk: {
       name: 'Ukrainian',
@@ -994,7 +1010,7 @@ module.exports = {
         2,
         5,
       ],
-      plurals: n => Number(n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
+      plurals: '(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)',
     },
     ur: {
       name: 'Urdu',
@@ -1002,7 +1018,7 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     uz: {
       name: 'Uzbek',
@@ -1010,14 +1026,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     vi: {
       name: 'Vietnamese',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     wa: {
       name: 'Walloon',
@@ -1025,14 +1041,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n > 1),
+      plurals: '(n > 1)',
     },
     wo: {
       name: 'Wolof',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
     yo: {
       name: 'Yoruba',
@@ -1040,14 +1056,14 @@ module.exports = {
         1,
         2,
       ],
-      plurals: n => Number(n !== 1),
+      plurals: '(n != 1)',
     },
     zh: {
       name: 'Chinese',
       numbers: [
         1,
       ],
-      plurals: () => 0,
+      plurals: '0',
     },
   },
 };

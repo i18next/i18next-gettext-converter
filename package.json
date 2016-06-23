@@ -37,7 +37,7 @@
     "eslint": "^2.13.1",
     "eslint-config-airbnb-base": "^3.0.1",
     "eslint-plugin-import": "^1.9.2",
-    "isparta": "^4.0.0",
+    "istanbul": "^1.0.0-alpha.2",
     "mocha": "2.5.3"
   },
   "scripts": {
@@ -45,7 +45,7 @@
     "pretest": "npm run lint",
     "test": "mocha",
     "build": "babel src --out-dir .",
-    "cover": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha",
+    "cover": "istanbul cover --report text --report html node_modules/mocha/bin/_mocha",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf ./coverage",
     "prepublish": "npm run build"
   },

@@ -69,19 +69,10 @@ function parseGettext(domain, data, options = {}) {
 
   const ext = plurals.rules[domain.replace('_', '-').split('-')[0]];
   const trans = {};
-  const pluralFunc = (typeof ext.plurals === 'function') ? `${ext.plurals}`
-    .match(/Number(\(.*\))/)[1]
-    .replace(/ % /g, '%')
-    .replace(/ > /g, '>')
-    .replace(/ < /g, '<')
-    .replace(/ >==? /g, '>=')
-    .replace(/ <==? /g, '<=')
-    .replace(/ !==? /g, '!=')
-    .replace(/ ===? /g, '==') : ext.plurals.toString();
 
   out.headers['plural-forms'] =
     `nplurals=${ext.numbers.length}; ` +
-    `plural=${pluralFunc}`;
+    `plural=${ext.plurals}`;
 
   if (!options.noDate) {
     out.headers['pot-creation-date'] = new Date().toISOString();
