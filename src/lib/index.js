@@ -1,3 +1,4 @@
+const pkginfo = require('pkginfo');
 const gettextToI18next = require('./gettext2json');
 const {
   i18nextToPo,
@@ -11,3 +12,5 @@ module.exports = {
   i18nextToPot,
   i18nextToMo,
 };
+
+pkginfo(module, ['version']);

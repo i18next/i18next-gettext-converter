@@ -7,7 +7,7 @@ const {
   i18nextToPot, // eslint-disable-line no-unused-vars
   i18nextToMo, // eslint-disable-line no-unused-vars
   gettextToI18next,
-} = require('../src');
+} = require('../src/lib');
 
 const expect = chai.expect;
 

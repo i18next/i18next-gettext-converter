@@ -7,31 +7,36 @@ const mkdirp = require('mkdirp');
 const program = require('commander');
 const { red, green, blue, yellow } = require('chalk');
 
-const { gettextToI18next, i18nextToPo, i18nextToPot, i18nextToMo } = require('../lib');
+const i18nextConv = require('../lib');
 const plurals = require('../lib/plurals');
-const pkg = require('../package.json');
 
 const writeFileAsync = Promise.promisify(fs.writeFile);
 const readFileAsync = Promise.promisify(fs.readFile);
+const {
+  gettextToI18next,
+  i18nextToPo,
+  i18nextToPot,
+  i18nextToMo,
+} = i18nextConv;
 
 // test calls:
 
 // gettext -> i18next
-// babel-node bin -l en -s ./test/_testfiles/en/translation.utf8.po -t ./test/_tmp/en.json
-// babel-node bin -l de -s ./test/_testfiles/de/translation.utf8.po -t ./test/_tmp/de.json
-// babel-node bin -l ru -s ./test/_testfiles/ru/translation.utf8.po -t ./test/_tmp/ru.json
+// node bin -l en -s ./test/_testfiles/en/translation.utf8.po -t ./test/_tmp/en.json
+// node bin -l de -s ./test/_testfiles/de/translation.utf8.po -t ./test/_tmp/de.json
+// node bin -l ru -s ./test/_testfiles/ru/translation.utf8.po -t ./test/_tmp/ru.json
 
 // With filter:
-// babel-node bin -l en -s ./test/_testfiles/en/translation.utf8.po -t ./test/_tmp/en.json -f path/to/filter.js
+// node bin -l en -s ./test/_testfiles/en/translation.utf8.po -t ./test/_tmp/en.json -f path/to/filter.js
 
 // i18next -> gettext
-// babel-node bin -l de -s ./test/_testfiles/de/translation.utf8.json -t ./test/_tmp/de.po
+// node bin -l de -s ./test/_testfiles/de/translation.utf8.json -t ./test/_tmp/de.po
 // and back
-// babel-node bin -l de -s ./test/_tmp/de.po -t ./test/_tmp/de.json
+// node bin -l de -s ./test/_tmp/de.po -t ./test/_tmp/de.json
 
 // program
 program
-  .version(pkg.version)
+  .version(i18nextConv.version)
   .option('-b, --base [path]', 'Sepcify path for the base language file. only take effect with -K option', '')
   .option('-f, --filter [path]', 'Specify path to gettext filter')
   .option('-l, --language [domain]', 'Specify the language code, eg. \'en\'')
