@@ -41,7 +41,7 @@
     "lint": "eslint '**/*.js'",
     "pretest": "npm run lint",
     "test": "mocha",
-    "build": "babel src --out-dir lib",
+    "build": "babel src --out-dir .",
     "prepublish": "npm run build"
   },
   "bin": {
