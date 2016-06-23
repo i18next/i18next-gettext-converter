@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 
 const plurals = require('./plurals');
 
-function gettextToI18next(domain, body, target, options = {}) {
+function gettextToI18next(domain, body, options = {}) {
   return addTextDomain(domain, body, options)
   .then(data => {
     if (options.keyasareference) {

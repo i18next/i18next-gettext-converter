@@ -7,7 +7,7 @@ const mkdirp = require('mkdirp');
 const program = require('commander');
 const { red, green, blue, yellow } = require('chalk');
 
-const { gettextToI18next, i18nextToGettext } = require('../lib');
+const { gettextToI18next, i18nextToPo, i18nextToPot, i18nextToMo } = require('../lib');
 const plurals = require('../lib/plurals');
 const pkg = require('../package.json');
 
@@ -105,35 +105,43 @@ function processFile(domain, source, target, options) {
       if (!options.quiet) console.log(blue(`\nuse custom plural forms ${pluralsPath}\n`));
     }
 
-    let converter;
-    let targetExt;
-
-    if (ext === '.mo' || ext === '.po' || ext === '.pot') {
-      converter = gettextToI18next;
-      targetExt = 'json';
-    } else if (ext === '.json') {
-      converter = i18nextToGettext;
-      targetExt = 'po';
-    } else {
-      return null;
-    }
-
     let targetDir;
+    let targetExt;
+    let converter;
 
     if (!target) {
       targetDir = (dirname.lastIndexOf(domain) === 0)
         ? dirname
         : path.join(dirname, domain);
-      target = path.join(targetDir, `${filename}.${targetExt}`);
+      targetExt = (ext === '.json') ? '.po' : '.json';
+      target = path.join(targetDir, `${filename}${targetExt}`);
     } else {
       targetDir = path.dirname(target);
+      targetExt = path.extname(target);
+    }
+
+    switch (targetExt) {
+      case '.po':
+        converter = i18nextToPo;
+        break;
+      case '.pot':
+        converter = i18nextToPot;
+        break;
+      case '.mo':
+        converter = i18nextToMo;
+        break;
+      case '.json':
+        converter = gettextToI18next;
+        break;
+      default:
+        return null;
     }
 
     if (!fs.existsSync(targetDir)) {
       mkdirp.sync(targetDir);
     }
 
-    return converter(domain, body, target, options);
+    return converter(domain, body, options);
   })
   .then(data => writeFile(target, data, options))
   .catch(err => {
