@@ -1,17 +1,25 @@
-# Introduction
+# i18next-gettext-converter
+
+[![Travis][build-badge]][build]
+[![npm package][npm-badge]][npm]
+[![Coverage Status][coveralls-badge]][coveralls]
+[![Dependency Status][dependency-status-badge]][dependency-status]
+[![devDependency Status][dev-dependency-status-badge]][dev-dependency-status]
+
+## Introduction
 
 Project goal is to convert files from gettext to i18next json format and vice versa.
 
-# Installation
+## Installation
 
 1. first install node.js from [nodejs.org](http://nodejs.org/).
 2. `npm install i18next-conv -g`
 
 For i18next <2.0.0 use i18next-conv@1.11.0
 
-# Usage
+## Usage
 
-## convert .mo or .po to i18next json
+### convert .mo or .po to i18next json
 
 in your console type:
 
@@ -69,17 +77,17 @@ eg.
 
 ```javascript
 module.exports = function(gt, domain, callback) {
- 	var err;
+  var err;
 
- 	// Delete all keys without comments
- 	gt.listKeys(domain).forEach(function(key) {
- 		var comment = gt.getComment(domain, "", key);
- 		if (!comment) {
- 			gt.deleteTranslation(domain, "", key);
- 		}
- 	});
+  // Delete all keys without comments
+  gt.listKeys(domain).forEach(key => {
+    var comment = gt.getComment(domain, "", key);
+    if (!comment) {
+      gt.deleteTranslation(domain, "", key);
+    }
+  });
 
- 	callback(err, gt._domains[gt._textdomain]._translationTable);
+  callback(err, gt._domains[gt._textdomain]._translationTable);
 };
 ```
 
@@ -114,29 +122,26 @@ gettextToI18next('ua-UK', readFileSync('../locales/ua-UK/translation.po'), optio
 ```
 
 
-# All credits go to
+## All credits go to
 
 - [andri9's node-gettext](https://github.com/andris9/node-gettext) for parsing .mo and .po files
 - [TJ Holowaychuk's commander.js](https://github.com/visionmedia/commander.js/) for console program
 
-# License
+## License
 
-Copyright (c) 2016 Jan Mühlemann
+See the [LICENSE](LICENSE.md) file for license rights and limitations.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+[build-badge]: https://img.shields.io/travis/i18next/i18next-gettext-converter/master.svg?style=flat-square
+[build]: https://travis-ci.org/i18next/i18next-gettext-converter
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+[npm-badge]: https://img.shields.io/npm/v/i18next-conv.svg?style=flat-square
+[npm]: https://www.npmjs.org/package/i18next-conv
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+[coveralls-badge]: https://img.shields.io/coveralls/i18next/i18next-gettext-converter/master.svg?style=flat-square
+[coveralls]: https://coveralls.io/r/i18next/i18next-gettext-converter
+
+[dependency-status-badge]: https://david-dm.org/i18next/i18next-gettext-converter.svg?style=flat-square
+[dependency-status]: https://david-dm.org/i18next/i18next-gettext-converter
+
+[dev-dependency-status-badge]: https://david-dm.org/i18next/i18next-gettext-converter/dev-status.svg?style=flat-square
+[dev-dependency-status]: https://david-dm.org/i18next/i18next-gettext-converter#info=devDependencies
