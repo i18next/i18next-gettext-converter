@@ -1,39 +1,34 @@
 const GettextParser = require('gettext-parser');
 const Promise = require('bluebird');
-const fs = require('fs');
 const path = require('path');
-const { cyan } = require('chalk');
 
 const plurals = require('./plurals');
-const flatten = require('./flatten');
+const { flatten } = require('./flatten');
 
-const readFileAsync = Promise.promisify(fs.readFile);
-
-function i18nextToGettext(domain, source, target, options = {}) {
-  return flattenI18nextJSON(source, options)
+function i18nextToGettext(domain, body, target, options = {}) {
+  return Promise.resolve(flatten(JSON.parse(body), options))
   .then(flat => {
     if (options.base) {
-      return flattenI18nextJSON(options.base, options)
-      .then(bflat => {
-        Object.keys(bflat).forEach((key) => {
-          if (flat[key]) {
-            if (flat[key].plurals) {
-              const ext = plurals.rules[domain.replace('_', '-').split('-')[0]];
-              const pArray = [];
+      const bflat = flatten(JSON.parse(options.base), options);
+      Object.keys(bflat).forEach((key) => {
+        if (flat[key]) {
+          if (flat[key].plurals) {
+            const ext = plurals.rules[domain.replace('_', '-').split('-')[0]];
+            const pArray = [];
 
-              for (let i = 0, len = flat[key].plurals.length; i < len; i++) {
-                const plural = flat[key].plurals[i];
-                pArray.splice(getGettextPluralPosition(ext, plural.pluralNumber), 0, plural.value);
-              }
-              pArray.splice(getGettextPluralPosition(ext, flat[key].pluralNumber), 0, flat[key].value);
-              bflat[key].translated_value = (path.extname(target) === '.pot') ? '' : pArray;
-            } else {
-              bflat[key].translated_value = (path.extname(target) === '.pot') ? '' : flat[key].value;
+            for (let i = 0, len = flat[key].plurals.length; i < len; i++) {
+              const plural = flat[key].plurals[i];
+              pArray.splice(getGettextPluralPosition(ext, plural.pluralNumber), 0, plural.value);
             }
+            pArray.splice(getGettextPluralPosition(ext, flat[key].pluralNumber), 0, flat[key].value);
+            bflat[key].translated_value = (path.extname(target) === '.pot') ? '' : pArray;
+          } else {
+            bflat[key].translated_value = (path.extname(target) === '.pot') ? '' : flat[key].value;
           }
-        });
-        return parseGettext(domain, bflat, options);
+        }
       });
+
+      return parseGettext(domain, bflat, options);
     }
 
     return parseGettext(domain, flat, options);
@@ -43,16 +38,6 @@ function i18nextToGettext(domain, source, target, options = {}) {
       ? GettextParser.po.compile(data)
       : GettextParser.mo.compile(data)
   ));
-}
-
-/*
- * i18next json --> flat json
- */
-function flattenI18nextJSON(source, options = {}) {
-  if (!options.quiet) console.log((`\n    --> reading file from: ${source}`));
-
-  return readFileAsync(source)
-  .then(body => flatten.flatten(JSON.parse(body), options));
 }
 
 /*
@@ -93,8 +78,6 @@ function parseGettext(domain, data, options = {}) {
   if (options.language) {
     out.headers.language = options.language;
   }
-  if (!options.quiet) console.log(cyan('\n    <-> parsing data to gettext format'));
-
   const delkeys = [];
 
   Object.keys(data).forEach(m => {

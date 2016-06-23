@@ -1,14 +1,10 @@
 const Gettext = require('node-gettext');
 const Promise = require('bluebird');
-const fs = require('fs');
-const { cyan } = require('chalk');
 
 const plurals = require('./plurals');
 
-const readFileAsync = Promise.promisify(fs.readFile);
-
-function gettextToI18next(domain, source, target, options = {}) {
-  return addTextDomain(domain, source, options)
+function gettextToI18next(domain, body, target, options = {}) {
+  return addTextDomain(domain, body, options)
   .then(data => {
     if (options.keyasareference) {
       const keys = [];
@@ -52,28 +48,19 @@ function gettextToI18next(domain, source, target, options = {}) {
 /*
  * gettext --> barebone json
  */
-function addTextDomain(domain, source, options = {}) {
+function addTextDomain(domain, body, options = {}) {
   const gt = new Gettext();
-  if (!options.quiet) console.log((`\n    --> reading file from: ${source}`));
 
-  return readFileAsync(source)
-  .then(body => {
-    if (body.length > 0) {
-      gt.addTextdomain(domain, body);
-    }
+  if (body.length > 0) {
+    gt.addTextdomain(domain, body);
+  }
 
-    if (options.filter) {
-      const filterAsync = Promise.promisify(options.filter);
-      return filterAsync(gt, domain);
-    }
+  if (options.filter) {
+    const filterAsync = Promise.promisify(options.filter);
+    return filterAsync(gt, domain);
+  }
 
-    return Promise.resolve(gt.domains[gt._normalizeDomain(domain)] && gt.domains[gt._normalizeDomain(domain)].translations);
-  })
-  .catch(err => {
-    if (err.code === 'ENOENT') return undefined;
-
-    return Promise.reject(err);
-  });
+  return Promise.resolve(gt.domains[gt._normalizeDomain(domain)] && gt.domains[gt._normalizeDomain(domain)].translations);
 }
 
 /*
@@ -81,8 +68,6 @@ function addTextDomain(domain, source, options = {}) {
  */
 function parseJSON(domain, data = {}, options = {}) {
   const separator = options.keyseparator || '##';
-
-  if (!options.quiet) console.log(cyan('\n    <-> parsing data to i18next json format'));
   const json = {};
 
   const toArrayIfNeeded = value => {

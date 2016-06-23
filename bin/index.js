@@ -12,6 +12,7 @@ const plurals = require('../lib/plurals');
 const pkg = require('../package.json');
 
 const writeFileAsync = Promise.promisify(fs.writeFile);
+const readFileAsync = Promise.promisify(fs.readFile);
 
 // test calls:
 
@@ -57,6 +58,10 @@ if (filter && fs.existsSync(filter)) {
   options.filter = require(filter); // eslint-disable-line global-require
 }
 
+if (base && fs.existsSync(base)) {
+  options.base = fs.readFileSync(base);
+}
+
 const {
   language,
   pot,
@@ -85,47 +90,55 @@ if (source && language) {
 }
 
 function processFile(domain, source, target, options) {
-  const dirname = path.dirname(source);
-  const ext = path.extname(source);
-  const filename = path.basename(source, ext);
+  if (!options.quiet) console.log((`\n    --> reading file from: ${source}`));
 
-  if (options.plurals) {
-    const pluralsPath = path.join(process.cwd(), options.plurals);
-    plurals.rules = require(pluralsPath); // eslint-disable-line global-require
+  return readFileAsync(source)
+  .then(body => {
+    const dirname = path.dirname(source);
+    const ext = path.extname(source);
+    const filename = path.basename(source, ext);
 
-    if (!options.quiet) console.log(blue(`\nuse custom plural forms ${pluralsPath}\n`));
-  }
+    if (options.plurals) {
+      const pluralsPath = path.join(process.cwd(), options.plurals);
+      plurals.rules = require(pluralsPath); // eslint-disable-line global-require
 
-  let converter;
-  let targetExt;
+      if (!options.quiet) console.log(blue(`\nuse custom plural forms ${pluralsPath}\n`));
+    }
 
-  if (ext === '.mo' || ext === '.po' || ext === '.pot') {
-    converter = gettextToI18next;
-    targetExt = 'json';
-  } else if (ext === '.json') {
-    converter = i18nextToGettext;
-    targetExt = 'po';
-  } else {
-    return null;
-  }
+    let converter;
+    let targetExt;
 
-  let targetDir;
+    if (ext === '.mo' || ext === '.po' || ext === '.pot') {
+      converter = gettextToI18next;
+      targetExt = 'json';
+    } else if (ext === '.json') {
+      converter = i18nextToGettext;
+      targetExt = 'po';
+    } else {
+      return null;
+    }
 
-  if (!target) {
-    targetDir = (dirname.lastIndexOf(domain) === 0)
-      ? dirname
-      : path.join(dirname, domain);
-    target = path.join(targetDir, `${filename}.${targetExt}`);
-  } else {
-    targetDir = path.dirname(target);
-  }
+    let targetDir;
 
-  if (!fs.existsSync(targetDir)) {
-    mkdirp.sync(targetDir);
-  }
+    if (!target) {
+      targetDir = (dirname.lastIndexOf(domain) === 0)
+        ? dirname
+        : path.join(dirname, domain);
+      target = path.join(targetDir, `${filename}.${targetExt}`);
+    } else {
+      targetDir = path.dirname(target);
+    }
 
-  return converter(domain, source, target, options)
-  .then(data => writeFile(target, data, options));
+    if (!fs.existsSync(targetDir)) {
+      mkdirp.sync(targetDir);
+    }
+
+    return converter(domain, body, target, options);
+  })
+  .then(data => writeFile(target, data, options))
+  .catch(err => {
+    if (err.code === 'ENOENT') console.log(red(`\nfile ${source} was not found.\n`));
+  });
 }
 
 function writeFile(target, data, options = {}) {
