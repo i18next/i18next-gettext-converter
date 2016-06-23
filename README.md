@@ -83,16 +83,33 @@ module.exports = function(gt, domain, callback) {
 };
 ```
 
-## convert i18next json to .mo or .po with node
+## API
 
-```
-var path = require('path');
-var source = path.resolve(__dirname, '../locales/ua-UK/translation.json');
-var target = path.resolve(__dirname, '../locales/ua-UK/translation.mo');
-var options = {quiet : true};
-var callback = () => {console.log('Translation ua-UK done');}
+This module exposes a few functions to convert json -> gettext and gettext -> json
 
-converter.i18nextToGettext('ua-UK', source, target, options, callback);
+```js
+const path = require('path');
+const { readFileSync, writeFileSync } = require('fs');
+const {
+  i18nextToPo,
+  i18nextToPot,
+  i18nextToMo,
+  gettextToI18next,
+};
+
+const source = path.join(__dirname, '../locales/ua-UK/translation.json');
+const options = {/* you options here */}
+
+function save(target) {
+  return result => {
+    writeFileSync(result, target);
+  };
+}
+
+i18nextToPo('ua-UK', readFileSync(source), options).then(save('../locales/ua-UK/translation.po'));
+i18nextToPot('ua-UK', readFileSync(source), options).then(save('../locales/ua-UK/translation.pot'));
+i18nextToMo('ua-UK', readFileSync(source), options).then(save('../locales/ua-UK/translation.mo'));
+gettextToI18next('ua-UK', readFileSync('../locales/ua-UK/translation.po'), options).then(save('../locales/ua-UK/translation.json'));
 
 ```
 
