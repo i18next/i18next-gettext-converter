@@ -4,10 +4,12 @@ function regexIndexOf(value, regex, startpos) {
 }
 
 module.exports = {
-  flatten(input, options) {
+  flatten(input, {
+    keyseparator = '##',
+    ctxSeparator = '_',
+    ignorePlurals,
+  } = {}) {
     const flat = {};
-    const separator = options.keyseparator || '##';
-    const ctxSeparator = options.ctxSeparator || '_';
 
     function recurse(appendTo, obj, parentKey) {
       Object.keys(obj).forEach(m => {
@@ -17,7 +19,7 @@ module.exports = {
         const value = obj[m];
 
         if (key.length > 0) {
-          key = key + separator + m;
+          key = key + keyseparator + m;
         } else {
           key = m;
         }
@@ -27,7 +29,7 @@ module.exports = {
         if (pluralIndex < 0) pluralIndex = regexIndexOf(key, /_\d+/);
 
         let isPlural = pluralIndex > -1;
-        if (options.ignorePlurals) {
+        if (ignorePlurals) {
           isPlural = false;
         }
 

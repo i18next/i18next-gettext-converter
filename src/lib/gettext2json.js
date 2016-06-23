@@ -135,7 +135,7 @@ function getI18nextPluralExtension(ext, i) {
     let number = ext.numbers[i];
     if (ext.numbers.length === 2) {
       if (ext.numbers.length === 2) {
-                  // germanic like en
+        // germanic like en
         if (ext.numbers[0] === 2) {
           if (number === 2) {
             number = 1; // singular
