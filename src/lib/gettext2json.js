@@ -131,32 +131,10 @@ function parseJSON(domain, data = {}, options = {}) {
  * helper to get plural suffix
  */
 function getI18nextPluralExtension(ext, i) {
-  if (ext) {
-    let number = ext.numbers[i];
-    if (ext.numbers.length === 2) {
-      if (ext.numbers.length === 2) {
-        // germanic like en
-        if (ext.numbers[0] === 2) {
-          if (number === 2) {
-            number = 1; // singular
-          } else if (number === 1) {
-            number = -1; // regular plural
-          }
-        } else if (ext.numbers[0] === 1) { // romanic like fr
-          if (number === 2) {
-            number = -1; // regular plural
-          } else if (number === 1) {
-            number = 1; // singular
-          }
-        }
-      }
-      return number > 0 ? '' : '_plural';
-    }
-
-    return `_${number}`;
+  if (ext && ext.numbers.length === 2) {
+    return i === 0 ? '' : '_plural';
   }
-
-  return i === 1 ? '' : '_plural';
+  return `_${i}`;
 }
 
 module.exports = gettextToI18next;

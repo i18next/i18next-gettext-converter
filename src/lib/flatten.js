@@ -26,7 +26,7 @@ module.exports = {
 
         // get context if used
         let pluralIndex = key.indexOf('_plural');
-        if (pluralIndex < 0) pluralIndex = regexIndexOf(key, /_\d+/);
+        if (pluralIndex < 0) pluralIndex = regexIndexOf(key, /_\d+$/);
 
         let isPlural = pluralIndex > -1;
         if (ignorePlurals) {
@@ -71,18 +71,18 @@ module.exports = {
             key,
             value,
             isPlural,
-            pluralNumber: isPlural ? number.toString() : '1',
+            pluralNumber: isPlural ? number.toString() : '0',
             context,
           };
           appendTo[appendKey] = kv;
-        } else if (Object.prototype.toString.apply(value) === '[object Array]') {
+        } else if (Array.isArray(value)) {
           kv = {
             // id: key.replace(new RegExp(' ', 'g'), ''),
             key,
             value: value.join('\n'),
             isArray: true,
             isPlural,
-            pluralNumber: isPlural ? number.toString() : '1',
+            pluralNumber: isPlural ? number.toString() : '0',
             context,
           };
           appendTo[appendKey] = kv;
