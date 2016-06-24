@@ -62,7 +62,6 @@ const testFiles = {
 function testFilter(gt, domain, callback) {
   const clientSideSource = '/frontend/';
   const normalizedDomain = gt._normalizeDomain(domain);
-  let err;
 
   Object.keys(gt.domains[normalizedDomain].translations).forEach(ctxt => {
     Object.keys(gt.domains[normalizedDomain].translations[ctxt]).forEach(key => {
@@ -75,7 +74,7 @@ function testFilter(gt, domain, callback) {
     });
   });
 
-  callback(err, gt.domains[normalizedDomain].translations);
+  callback(null, gt.domains[normalizedDomain].translations);
 }
 
 describe('i18next-gettext-converter', () => {
