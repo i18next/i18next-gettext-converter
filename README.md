@@ -15,7 +15,7 @@ Project goal is to convert files from gettext to i18next json format and vice ve
 1. first install node.js from [nodejs.org](http://nodejs.org/).
 2. `npm install i18next-conv -g`
 
-For i18next <2.0.0 use i18next-conv@1.11.0
+For i18next < 2.0.0 use i18next-conv@1.11.0, for i18next < 3.0.0 use i18next-conv@2.6.1
 
 ## Usage
 
@@ -91,9 +91,31 @@ module.exports = function(gt, domain, callback) {
 };
 ```
 
+## Options
+
+```js
+program
+.version(i18nextConv.version)
+.option('-b, --base [path]', 'Sepcify path for the base language file. only take effect with -K option', '')
+.option('-f, --filter [path]', 'Specify path to gettext filter')
+.option('-l, --language [domain]', 'Specify the language code, eg. \'en\'')
+.option('-p, --pot', 'Generate POT file.')
+.option('-s, --source [path]', 'Specify path to read from')
+.option('-t, --target [path]', 'Specify path to write to', '')
+.option('-K, --keyasareference', 'Deal with the reference comment as a key', false)
+.option('-ks, --keyseparator [path]', 'Specify keyseparator you want to use, defaults to ##', '##')
+.option('-P, --plurals [path]', 'Specify path to plural forms definitions')
+.option('--quiet', 'Silence output', false)
+.option('--skipUntranslated', 'Skip untranslated keys when converting into json', false)
+.option('--splitNewLine', 'Silence output', false)
+.option('--ctxSeparator [sep]', 'Specify the context separator', '_')
+.option('--ignorePlurals', 'Do not process the plurals')
+.parse(process.argv);
+```
+
 ## API
 
-This module exposes a few functions to convert json -> gettext and gettext -> json
+This module exposes a few functions to convert json to gettext and gettext to json. It accepts the same options as the cli.
 
 ```js
 const path = require('path');
@@ -117,7 +139,9 @@ function save(target) {
 i18nextToPo('ua-UK', readFileSync(source), options).then(save('../locales/ua-UK/translation.po'));
 i18nextToPot('ua-UK', readFileSync(source), options).then(save('../locales/ua-UK/translation.pot'));
 i18nextToMo('ua-UK', readFileSync(source), options).then(save('../locales/ua-UK/translation.mo'));
-gettextToI18next('ua-UK', readFileSync('../locales/ua-UK/translation.po'), options).then(save('../locales/ua-UK/translation.json'));
+
+gettextToI18next('ua-UK', readFileSync('../locales/ua-UK/translation.po'), options)
+.then(save('../locales/ua-UK/translation.json'));
 
 ```
 
