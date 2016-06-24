@@ -76,27 +76,27 @@ const {
 
 if (source && language) {
   if (pot && !base) {
-    console.log(red('\nat least call with argument -p and -b.'));
-    console.log('(call program with argument -h for help.)\n\n');
+    console.log(red('at least call with argument -p and -b.'));
+    console.log('(call program with argument -h for help.)');
     process.exit();
   }
 
-  if (!options.quiet) console.log(yellow('\nstart converting'));
+  if (!options.quiet) console.log(yellow('start converting'));
 
   processFile(language, source, target, options)
   .then(() => {
-    if (!options.quiet) console.log(green('\nfile written\n\n'));
+    if (!options.quiet) console.log(green('file written'));
   })
   .catch((/* err */) => {
-    console.log(red('\nfailed writing file\n\n'));
+    console.log(red('failed writing file'));
   });
 } else {
-  console.log(red('\nat least call with argument -l and -s.'));
-  console.log('(call program with argument -h for help.)\n\n');
+  console.log(red('at least call with argument -l and -s.'));
+  console.log('(call program with argument -h for help.)');
 }
 
 function processFile(domain, source, target, options) {
-  if (!options.quiet) console.log((`\n    --> reading file from: ${source}`));
+  if (!options.quiet) console.log((`--> reading file from: ${source}`));
 
   return readFileAsync(source)
   .then(body => {
@@ -108,7 +108,7 @@ function processFile(domain, source, target, options) {
       const pluralsPath = path.join(process.cwd(), options.plurals);
       plurals.rules = require(pluralsPath); // eslint-disable-line global-require
 
-      if (!options.quiet) console.log(blue(`\nuse custom plural forms ${pluralsPath}\n`));
+      if (!options.quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
     }
 
     let targetDir;
@@ -151,12 +151,12 @@ function processFile(domain, source, target, options) {
   })
   .then(data => writeFile(target, data, options))
   .catch(err => {
-    if (err.code === 'ENOENT') console.log(red(`\nfile ${source} was not found.\n`));
+    if (err.code === 'ENOENT') console.log(red(`file ${source} was not found.`));
   });
 }
 
 function writeFile(target, data, options = {}) {
-  if (!options.quiet) console.log((`\n    <-- writing file to: ${target}`));
+  if (!options.quiet) console.log((`<-- writing file to: ${target}`));
 
   return writeFileAsync(target, data);
 }
