@@ -118,7 +118,7 @@ function parseJSON(domain, data = {}, options = {}) {
 
 function getGettextValues(values, domain, targetKey, options) {
   if (values.length === 1) {
-    return { [targetKey]: toArrayIfNeeded(values[0], options) };
+    return emptyOrObject(targetKey, values[0], options);
   }
 
   const ext = plurals.rules[domain.replace('_', '-').split('-')[0]];
@@ -128,7 +128,7 @@ function getGettextValues(values, domain, targetKey, options) {
     const pluralSuffix = getI18nextPluralExtension(ext, i);
     const pkey = targetKey + pluralSuffix;
 
-    gettextValues[pkey] = toArrayIfNeeded(values[i], options);
+    assign(gettextValues, emptyOrObject(pkey, values[i], options));
   }
 
   return gettextValues;
@@ -148,6 +148,14 @@ function toArrayIfNeeded(value, { splitNewLine }) {
   return (value.indexOf('\n') > -1 && splitNewLine)
     ? value.split('\n')
     : value;
+}
+
+function emptyOrObject(key, value, options) {
+  if (options.skipUntranslated && !value) { // empty string or other falsey
+    return {};
+  }
+
+  return { [key]: toArrayIfNeeded(value, options) };
 }
 
 module.exports = gettextToI18next;

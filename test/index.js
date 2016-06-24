@@ -25,6 +25,9 @@ const testFiles = {
     unfiltered_no_match: './test/_testfiles/en/translation.unfiltered_no_match.po',
     filtered: './test/_testfiles/en/translation.filtered.json',
     filtered_no_comments: './test/_testfiles/en/translation.filtered_no_comments.json',
+    untranslated: './test/_testfiles/en/translation.untranslated.po',
+    untranslated_expected: './test/_testfiles/en/translation.untranslated.json',
+    untranslated_skipped: './test/_testfiles/en/translation.untranslated_skipped.json',
     empty: './test/_testfiles/en/translation.empty.po',
     missing: './test/_testfiles/en/translation.missing.po',
     bad_format: './test/_testfiles/en/translation.bad_format.po.js',
@@ -176,6 +179,21 @@ describe('i18next-gettext-converter', () => {
           keyasareference: true,
         }).then(result => {
           const expected = require(path.join('..', testFiles.ru.utf8_msgid_not_fully_translated_expected));
+          expect(JSON.parse(result)).to.deep.equal(expected);
+        }),
+      ])
+    );
+
+    it('should skip empty values appropriately', () =>
+      Promise.all([
+        gettextToI18next('en', readFileSync(testFiles.en.untranslated))
+        .then(result => {
+          const expected = require(path.join('..', testFiles.en.untranslated_expected));
+          expect(JSON.parse(result)).to.deep.equal(expected);
+        }),
+        gettextToI18next('en', readFileSync(testFiles.en.untranslated), { skipUntranslated: true })
+        .then(result => {
+          const expected = require(path.join('..', testFiles.en.untranslated_skipped));
           expect(JSON.parse(result)).to.deep.equal(expected);
         }),
       ])

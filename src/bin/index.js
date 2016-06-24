@@ -47,6 +47,7 @@ program
   .option('-ks, --keyseparator [path]', 'Specify keyseparator you want to use, defaults to ##', '##')
   .option('-P, --plurals [path]', 'Specify path to plural forms definitions')
   .option('--quiet', 'Silence output', false)
+  .option('--skipUntranslated', 'Skip untranslated keys when converting into json', false)
   .option('--splitNewLine', 'Silence output', false)
   .option('--ctxSeparator [sep]', 'Specify the context separator', '_')
   .option('--ignorePlurals', 'Do not process the plurals')
