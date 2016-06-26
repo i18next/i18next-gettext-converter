@@ -45,9 +45,9 @@ function getPluralArray(domain, translation) {
 
   for (let i = 0, len = translation.plurals.length; i < len; i++) {
     const plural = translation.plurals[i];
-    pArray.splice(getGettextPluralPosition(ext, plural.pluralNumber), 0, plural.value);
+    pArray.splice(getGettextPluralPosition(ext, plural.pluralNumber - 1), 0, plural.value);
   }
-  pArray.splice(getGettextPluralPosition(ext, translation.pluralNumber), 0, translation.value);
+  pArray.splice(getGettextPluralPosition(ext, translation.pluralNumber - 1), 0, translation.value);
 
   return pArray;
 }
@@ -71,7 +71,7 @@ function parseGettext(domain, data, options = {}) {
   const trans = {};
 
   out.headers['plural-forms'] =
-    `nplurals=${ext.numbers.length}; ` +
+    `nplurals=${ext.nplurals}; ` +
     `plural=${ext.plurals}`;
 
   if (!options.noDate) {
@@ -91,9 +91,9 @@ function parseGettext(domain, data, options = {}) {
 
       for (let i = 0, len = kv.plurals.length; i < len; i++) {
         const plural = kv.plurals[i];
-        pArray.splice(getGettextPluralPosition(ext, plural.pluralNumber), 0, plural.value);
+        pArray.splice(getGettextPluralPosition(ext, plural.pluralNumber - 1), 0, plural.value);
       }
-      pArray.splice(getGettextPluralPosition(ext, kv.pluralNumber), 0, kv.value);
+      pArray.splice(getGettextPluralPosition(ext, kv.pluralNumber - 1), 0, kv.value);
 
       if (typeof trans[kv.context] !== 'object') trans[kv.context] = {};
       if (options.keyasareference) {
@@ -170,8 +170,8 @@ function parseGettext(domain, data, options = {}) {
  */
 function getGettextPluralPosition(ext, suffix) {
   if (ext) {
-    for (let i = 0, len = ext.numbers.length; i < len; i++) {
-      if (ext.numbers[i].toString() === suffix) {
+    for (let i = 0; i < ext.nplurals; i++) {
+      if (i === suffix) {
         return i;
       }
     }

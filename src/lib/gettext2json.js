@@ -138,7 +138,7 @@ function getGettextValues(values, domain, targetKey, options) {
  * helper to get plural suffix
  */
 function getI18nextPluralExtension(ext, i) {
-  if (ext && ext.numbers.length === 2) {
+  if (ext && ext.nplurals === 2) {
     return i === 0 ? '' : '_plural';
   }
   return `_${i}`;

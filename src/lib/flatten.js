@@ -71,7 +71,7 @@ module.exports = {
             key,
             value,
             isPlural,
-            pluralNumber: isPlural ? number.toString() : '0',
+            pluralNumber: isPlural ? number : 0,
             context,
           };
           appendTo[appendKey] = kv;
@@ -82,7 +82,7 @@ module.exports = {
             value: value.join('\n'),
             isArray: true,
             isPlural,
-            pluralNumber: isPlural ? number.toString() : '0',
+            pluralNumber: isPlural ? number : 0,
             context,
           };
           appendTo[appendKey] = kv;
