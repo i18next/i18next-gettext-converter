@@ -50,10 +50,10 @@ module.exports = {
         if (isPlural) {
           ctxKey = ctxKey.substring(0, pluralIndex);
           if (ctxKey.indexOf(ctxSeparator) > -1) {
-            context = ctxKey.substring(ctxKey.lastIndexOf(ctxSeparator) + 1, ctxKey.length);
+            context = ctxKey.substring(ctxKey.lastIndexOf(ctxSeparator) + ctxSeparator.length, ctxKey.length);
           }
         } else if (key.indexOf(ctxSeparator) > -1) {
-          context = ctxKey.substring(ctxKey.lastIndexOf(ctxSeparator) + 1, ctxKey.length);
+          context = ctxKey.substring(ctxKey.lastIndexOf(ctxSeparator) + ctxSeparator.length, ctxKey.length);
         } else {
           context = '';
         }
