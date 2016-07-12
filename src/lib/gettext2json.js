@@ -75,6 +75,7 @@ function setKeysAsReference(data) {
 function parseJSON(domain, data = {}, options = {}) {
   const separator = options.keyseparator || '##';
   const json = {};
+  const ctxSeparator = options.ctxSeparator || '_';
 
   Object.keys(data).forEach(m => {
     const context = data[m];
@@ -105,7 +106,7 @@ function parseJSON(domain, data = {}, options = {}) {
         }
       }
 
-      if (m !== '') targetKey = `${targetKey}_${m}`;
+      if (m !== '') targetKey = `${targetKey}${ctxSeparator}${m}`;
 
       const values = context[key].msgstr;
       const newValues = getGettextValues(values, domain, targetKey, options);
