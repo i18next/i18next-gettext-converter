@@ -31,6 +31,8 @@ const testFiles = {
     empty: './test/_testfiles/en/translation.empty.po',
     missing: './test/_testfiles/en/translation.missing.po',
     bad_format: './test/_testfiles/en/translation.bad_format.po.js',
+    file_paths: './test/_testfiles/en/translation.file_paths.po',
+    file_paths_expected: './test/_testfiles/en/translation.file_paths.json',
   },
 
   de: {
@@ -266,6 +268,16 @@ describe('i18next-gettext-converter', () => {
           expect(result).to.deep.equal(expected);
         }),
       ])
+    );
+
+    it('should convert a JSON file to PO with comments from file paths', () =>
+      i18nextToPo('en', readFileSync(testFiles.en.file_paths_expected), {
+        splitNewLine: true,
+        noDate: true,
+      }).then(result => {
+        const expected = readFileSync(testFiles.en.file_paths).slice(0, -1);
+        expect(result).to.deep.equal(expected);
+      })
     );
   });
 

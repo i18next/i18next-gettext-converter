@@ -75,6 +75,16 @@ module.exports = {
             context,
           };
           appendTo[appendKey] = kv;
+        } else if (typeof value === 'object' && typeof value.msgstr === 'string' && Array.isArray(value.paths)) {
+          kv = {
+            key,
+            value: value.msgstr,
+            isPlural,
+            pluralNumber: isPlural ? number : 0,
+            context,
+            paths: value.paths,
+          };
+          appendTo[appendKey] = kv;
         } else if (Array.isArray(value)) {
           kv = {
             // id: key.replace(new RegExp(' ', 'g'), ''),

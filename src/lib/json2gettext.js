@@ -85,6 +85,7 @@ function parseGettext(domain, data, options = {}) {
 
   Object.keys(data).forEach(m => {
     const kv = data[m];
+    let kvPosition;
 
     if (kv.plurals) {
       const pArray = [];
@@ -96,19 +97,17 @@ function parseGettext(domain, data, options = {}) {
       pArray.splice(getGettextPluralPosition(ext, kv.pluralNumber - 1), 0, kv.value);
 
       if (typeof trans[kv.context] !== 'object') trans[kv.context] = {};
+
       if (options.keyasareference) {
-        if (typeof trans[kv.context][kv.value] === 'object') {
-                      // same context and msgid. this could theorically be merged.
-          trans[kv.context][kv.value].comments.reference.push(kv.key);
-        } else {
-          trans[kv.context][kv.value] = {
-            msgctxt: kv.context,
-            msgid: pArray[0],
-            msgid_plural: pArray.slice(1, pArray.length),
-            msgstr: kv.translated_value,
-            comments: { reference: [kv.key] },
-          };
-        }
+        trans[kv.context][kv.value] = {
+          msgctxt: kv.context,
+          msgid: pArray[0],
+          msgid_plural: pArray.slice(1, pArray.length),
+          msgstr: kv.translated_value,
+          comments: { reference: [kv.key] },
+        };
+        kvPosition = kv.value;
+
         if (kv.key !== kv.value) {
           delkeys.push([kv.context, kv.key]);
         }
@@ -119,30 +118,34 @@ function parseGettext(domain, data, options = {}) {
           msgid_plural: kv.key,
           msgstr: pArray,
         };
+        kvPosition = kv.key;
       }
     } else {
       if (typeof trans[kv.context] !== 'object') trans[kv.context] = {};
 
       if (options.keyasareference) {
-        if (typeof trans[kv.context][kv.value] === 'object') {
-          // same context and msgid. this could theorically be merged.
-          trans[kv.context][kv.value].comments.reference.push(kv.key);
-        } else {
-          trans[kv.context][kv.value] = {
-            msgctxt: kv.context,
-            msgid: kv.value,
-            msgstr: kv.translated_value,
-            comments: {
-              reference: [kv.key],
-            },
-          };
-        }
+        trans[kv.context][kv.value] = {
+          msgctxt: kv.context,
+          msgid: kv.value,
+          msgstr: kv.translated_value,
+          comments: {
+            reference: [kv.key],
+          },
+        };
+        kvPosition = kv.value;
+
         if (kv.key !== kv.value) {
           delkeys.push([kv.context, kv.key]);
         }
       } else {
         trans[kv.context][kv.key] = { msgctxt: kv.context, msgid: kv.key, msgstr: kv.value };
+        kvPosition = kv.key;
       }
+    }
+
+    // add file paths to comment references
+    if (kv.paths) {
+      trans[kv.context][kvPosition].comments = { reference: kv.paths };
     }
   });
 

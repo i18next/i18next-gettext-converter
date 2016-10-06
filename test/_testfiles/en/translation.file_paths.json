@@ -1,0 +1,25 @@
+{
+  " ": {
+    "msgstr": "white space test",
+    "paths": ["fake/path/index.html"]
+  },
+  "yasss queen": {
+    "msgstr": "",
+    "paths": ["fake/path/template.hbs", "fake/path/partial.hbs"]
+  },
+  "a": {
+    "apple": {
+      "msgstr": "I have an apple",
+      "paths": ["./test/fakepath/zero.jade", "./test/fakepath/one.jade", "./test/fakepath/two.jade"]
+    },
+    "apple_plural": "I have {count} apples",
+    "apple_negative": "I have no apples"
+  },
+  "friend_female": {
+    "msgstr": "A girlfriend",
+    "paths": ["./test/_testfiles/en/translation.file_paths.json"]
+  },
+  "friend_female_plural": "{count} girlfriends",
+  "friend_nonbinary": "A partner",
+  "friend_nonbinary_plural": "{count} partners"
+}
