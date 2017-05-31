@@ -125,14 +125,14 @@ const {
   i18nextToPot,
   i18nextToMo,
   gettextToI18next,
-};
+} = require('i18next-conv');
 
 const source = path.join(__dirname, '../locales/ua-UK/translation.json');
 const options = {/* you options here */}
 
 function save(target) {
   return result => {
-    writeFileSync(result, target);
+    writeFileSync(target, result);
   };
 }
 
