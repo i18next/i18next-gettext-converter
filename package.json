@@ -56,5 +56,6 @@
   },
   "bin": {
     "i18next-conv": "bin/index.js"
-  }
+  },
+  "license": "SEE LICENSE IN LICENSE.MD"
 }
