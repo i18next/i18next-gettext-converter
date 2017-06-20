@@ -52,7 +52,7 @@
     "build": "babel src --out-dir .",
     "cover": "istanbul cover --report text --report html node_modules/mocha/bin/_mocha",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf ./coverage",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "bin": {
     "i18next-conv": "bin/index.js"
