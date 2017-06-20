@@ -19,7 +19,7 @@
     "url": "https://github.com/i18next/i18next-gettext-converter.git"
   },
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 4"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
