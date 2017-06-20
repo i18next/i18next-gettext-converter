@@ -57,11 +57,11 @@ const {
   source,
   target,
   filter,
-  ...options,
+  ...options
 } = program;
 
 if (filter && fs.existsSync(filter)) {
-  options.filter = require(filter); // eslint-disable-line global-require
+  options.filter = require(filter); // eslint-disable-line global-require,import/no-dynamic-require
 }
 
 if (base && fs.existsSync(base)) {
@@ -99,14 +99,14 @@ function processFile(domain, source, target, options) {
   if (!options.quiet) console.log((`--> reading file from: ${source}`));
 
   return readFileAsync(source)
-  .then(body => {
+  .then((body) => {
     const dirname = path.dirname(source);
     const ext = path.extname(source);
     const filename = path.basename(source, ext);
 
     if (options.plurals) {
       const pluralsPath = path.join(process.cwd(), options.plurals);
-      plurals.rules = require(pluralsPath); // eslint-disable-line global-require
+      plurals.rules = require(pluralsPath); // eslint-disable-line global-require,import/no-dynamic-require
 
       if (!options.quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
     }
@@ -150,7 +150,7 @@ function processFile(domain, source, target, options) {
     return converter(domain, body, options);
   })
   .then(data => writeFile(target, data, options))
-  .catch(err => {
+  .catch((err) => {
     if (err.code === 'ENOENT') console.log(red(`file ${source} was not found.`));
   });
 }

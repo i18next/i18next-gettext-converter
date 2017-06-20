@@ -18,10 +18,10 @@ function i18nextToMo(domain, body, options = {}) {
 
 function i18nextToGettext(domain, body, parser, getTranslatedValue, options = {}) {
   return Promise.resolve(flatten(JSON.parse(body), options))
-  .then(flat => {
+  .then((flat) => {
     if (options.base) {
       const bflat = flatten(JSON.parse(options.base), options);
-      Object.keys(bflat).forEach(key => {
+      Object.keys(bflat).forEach((key) => {
         if (flat[key]) {
           if (flat[key].plurals) {
             bflat[key].translated_value = getTranslatedValue(getPluralArray(domain, flat[key]));
@@ -43,7 +43,7 @@ function getPluralArray(domain, translation) {
   const ext = plurals.rules[domain.replace('_', '-').split('-')[0]];
   const pArray = [];
 
-  for (let i = 0, len = translation.plurals.length; i < len; i++) {
+  for (let i = 0, len = translation.plurals.length; i < len; i += 1) {
     const plural = translation.plurals[i];
     pArray.splice(getGettextPluralPosition(ext, plural.pluralNumber - 1), 0, plural.value);
   }
@@ -83,13 +83,13 @@ function parseGettext(domain, data, options = {}) {
   }
   const delkeys = [];
 
-  Object.keys(data).forEach(m => {
+  Object.keys(data).forEach((m) => {
     const kv = data[m];
 
     if (kv.plurals) {
       const pArray = [];
 
-      for (let i = 0, len = kv.plurals.length; i < len; i++) {
+      for (let i = 0, len = kv.plurals.length; i < len; i += 1) {
         const plural = kv.plurals[i];
         pArray.splice(getGettextPluralPosition(ext, plural.pluralNumber - 1), 0, plural.value);
       }
@@ -146,15 +146,15 @@ function parseGettext(domain, data, options = {}) {
     }
   });
 
-  delkeys.forEach(a => {
+  delkeys.forEach((a) => {
     const c = a[0];
     const k = a[1];
     delete trans[c][k];
   });
 
   // re-format reference comments to be able to compile with gettext-parser...
-  Object.keys(trans).forEach(ctxt => {
-    Object.keys(trans[ctxt]).forEach(id => {
+  Object.keys(trans).forEach((ctxt) => {
+    Object.keys(trans[ctxt]).forEach((id) => {
       if (trans[ctxt][id].comments && trans[ctxt][id].comments.reference) {
         trans[ctxt][id].comments.reference = trans[ctxt][id].comments.reference.join('\n');
       }
@@ -170,7 +170,7 @@ function parseGettext(domain, data, options = {}) {
  */
 function getGettextPluralPosition(ext, suffix) {
   if (ext) {
-    for (let i = 0; i < ext.nplurals; i++) {
+    for (let i = 0; i < ext.nplurals; i += 1) {
       if (i === suffix) {
         return i;
       }

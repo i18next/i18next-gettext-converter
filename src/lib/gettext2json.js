@@ -7,7 +7,7 @@ const plurals = require('./plurals');
 
 function gettextToI18next(locale, body, options = {}) {
   return addTextDomain(locale, body, options)
-  .then(data => {
+  .then((data) => {
     if (options.keyasareference) {
       setKeysAsReference(data);
     }
@@ -39,21 +39,25 @@ function addTextDomain(locale, body, options = {}) {
 function setKeysAsReference(data) {
   const keys = [];
 
-  Object.keys(data).forEach(ctxt => {
-    Object.keys(data[ctxt]).forEach(key => {
+  Object.keys(data).forEach((ctxt) => {
+    Object.keys(data[ctxt]).forEach((key) => {
       if (data[ctxt][key].comments && data[ctxt][key].comments.reference) {
-        data[ctxt][key].comments.reference.split(/\r?\n|\r/).forEach(id => {
+        data[ctxt][key].comments.reference.split(/\r?\n|\r/).forEach((id) => {
           const x = data[ctxt][key];
           data[ctxt][id] = x;
+
           if (x.msgstr[0] === '') {
             x.msgstr[0] = x.msgid;
           }
-          for (let i = 1; i < x.msgstr.length; i++) {
+
+          for (let i = 1; i < x.msgstr.length; i += 1) {
             if (x.msgstr[i] === '') {
               x.msgstr[i] = x.msgid_plural;
             }
           }
+
           x.msgid = id;
+
           if (id !== key) {
             keys.push([ctxt, key]);
           }
@@ -62,7 +66,7 @@ function setKeysAsReference(data) {
     });
   });
 
-  keys.forEach(a => {
+  keys.forEach((a) => {
     const c = a[0];
     const k = a[1];
 
@@ -78,10 +82,10 @@ function parseJSON(locale, data = {}, options = {}) {
   const json = {};
   const ctxSeparator = options.ctxSeparator || '_';
 
-  Object.keys(data).forEach(m => {
+  Object.keys(data).forEach((m) => {
     const context = data[m];
 
-    Object.keys(context).forEach(key => {
+    Object.keys(context).forEach((key) => {
       let targetKey = key;
       let appendTo = json;
 
@@ -103,7 +107,7 @@ function parseJSON(locale, data = {}, options = {}) {
           } else {
             targetKey = keys[x];
           }
-          x++;
+          x += 1;
         }
       }
 
@@ -126,7 +130,7 @@ function getGettextValues(values, locale, targetKey, options) {
   const ext = plurals.rules[locale.replace('_', '-').split('-')[0]];
   const gettextValues = {};
 
-  for (let i = 0; i < values.length; i++) {
+  for (let i = 0; i < values.length; i += 1) {
     const pluralSuffix = getI18nextPluralExtension(ext, i);
     const pkey = targetKey + pluralSuffix;
 

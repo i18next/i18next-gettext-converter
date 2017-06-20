@@ -12,7 +12,7 @@ module.exports = {
     const flat = {};
 
     function recurse(appendTo, obj, parentKey) {
-      Object.keys(obj).forEach(m => {
+      Object.keys(obj).forEach((m) => {
         let kv;
         let key = parentKey;
         let context = '';
@@ -95,7 +95,7 @@ module.exports = {
     recurse(flat, input, '');
 
     // append plurals
-    Object.keys(flat).forEach(m => {
+    Object.keys(flat).forEach((m) => {
       const kv = flat[m];
 
       if (kv.isPlural) {
