@@ -33,23 +33,23 @@ i18next-conv -h
 __to convert a .mo or .po file to i8next json:__
 
 ````
-i18next-conv -l [domain] -s [sourcePath] -t [targetPath]
+i18next-conv -l [locale] -s [sourcePath] -t [targetPath]
 ````
 
 eg.: i18next-conv -l en -s ./locales/en.po -t ./locales/en/translation.json
 
 
-_if no target (-t) is specified file will be stored to [sourceDir]/[domain]/translation.json._
+_if no target (-t) is specified file will be stored to [sourceDir]/[locale]/translation.json._
 
 __to convert i18next json to a .mo or .po file:__
 
 ````
-i18next-conv -l [domain] -s [sourcePath] -t [targetPath]
+i18next-conv -l [locale] -s [sourcePath] -t [targetPath]
 ````
 
 eg.: i18next-conv -l en -s ./locales/en.translation.json -t ./locales/en/translation.mo (or .po)
 
-_if no target (-t) is specified file will be stored to [sourceDir]/[domain]/translation.po._
+_if no target (-t) is specified file will be stored to [sourceDir]/[locale]/translation.po._
 
 
 __for utf8-encoded po-files add these lines to your po file:__
@@ -64,30 +64,38 @@ It is necessary if you get corrupted output from the command above.
 __to filter incoming po-file translations, pass the path to a module that exports a filter function:__
 
 ````
-i18next-conv -l [domain] -s [sourcePath] -t [targetPath] -f [filterPath]
+i18next-conv -l [locale] -s [sourcePath] -t [targetPath] -f [filterPath]
 ````
 
 eg.: i18next-conv -l en -s ./locales/en.po -t ./locales/en/translation.json -f ./filter.js
 
-The filter module should export a single function that accepts the gettext object, the domain and a callback
-as its arguments. The function can then add/edit/delete translations, invoking the callback with an error object
-and the translation table.
+The filter module should export a single function that accepts the gettext object, the locale and a callback
+as its arguments. For the full API of the gettext object, check [node-gettext](https://github.com/alexanderwallin/node-gettext).
+The function can then add/edit/delete translations, invoking the callback with an error object and the
+translation table.
 
 eg.
 
 ```javascript
-module.exports = function(gt, domain, callback) {
-  var err;
+// Delete all keys which do not belong to the frontend
+module.exports = function (gt, locale, callback) {
+  const clientSideSource = '/frontend/';
+  const domain = 'messages';
+  const translations = gt.catalogs[locale][domain].translations;
+  gt.setLocale(locale); // Needed for when getComment is called
 
-  // Delete all keys without comments
-  gt.listKeys(domain).forEach(key => {
-    var comment = gt.getComment(domain, "", key);
-    if (!comment) {
-      gt.deleteTranslation(domain, "", key);
-    }
+  Object.keys(translations).forEach(ctxt => {
+    Object.keys(translations[ctxt]).forEach(key => {
+      const comment = gt.getComment('messages', ctxt, key);
+      if (comment) {
+        if (comment.reference && comment.reference.indexOf(clientSideSource) === -1) {
+          delete translations[ctxt][key];
+        }
+      }
+    });
   });
 
-  callback(err, gt._domains[gt._textdomain]._translationTable);
+  callback(null, translations);
 };
 ```
 

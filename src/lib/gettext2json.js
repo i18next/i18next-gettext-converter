@@ -1,17 +1,18 @@
 const Gettext = require('node-gettext');
 const Promise = require('bluebird');
 const assign = require('object-assign'); // Support node <= 0.12
+const { po } = require('gettext-parser');
 
 const plurals = require('./plurals');
 
-function gettextToI18next(domain, body, options = {}) {
-  return addTextDomain(domain, body, options)
+function gettextToI18next(locale, body, options = {}) {
+  return addTextDomain(locale, body, options)
   .then(data => {
     if (options.keyasareference) {
       setKeysAsReference(data);
     }
 
-    return parseJSON(domain, data, options);
+    return parseJSON(locale, data, options);
   })
   .then(json => JSON.stringify(json, null, 4));
 }
@@ -19,20 +20,20 @@ function gettextToI18next(domain, body, options = {}) {
 /*
  * gettext --> barebone json
  */
-function addTextDomain(domain, body, options = {}) {
+function addTextDomain(locale, body, options = {}) {
   const gt = new Gettext();
+  const domain = 'messages';
 
   if (body.length > 0) {
-    gt.addTextdomain(domain, body);
+    gt.addTranslations(locale, domain, po.parse(body));
   }
 
   if (options.filter) {
     const filterAsync = Promise.promisify(options.filter);
-    return filterAsync(gt, domain);
+    return filterAsync(gt, locale);
   }
 
-  const normalizedDomain = gt._normalizeDomain(domain);
-  return Promise.resolve(gt.domains[normalizedDomain] && gt.domains[normalizedDomain].translations);
+  return Promise.resolve(gt.catalogs[locale] && gt.catalogs[locale][domain].translations);
 }
 
 function setKeysAsReference(data) {
@@ -72,7 +73,7 @@ function setKeysAsReference(data) {
 /*
  * barebone json --> i18next json
  */
-function parseJSON(domain, data = {}, options = {}) {
+function parseJSON(locale, data = {}, options = {}) {
   const separator = options.keyseparator || '##';
   const json = {};
   const ctxSeparator = options.ctxSeparator || '_';
@@ -109,7 +110,7 @@ function parseJSON(domain, data = {}, options = {}) {
       if (m !== '') targetKey = `${targetKey}${ctxSeparator}${m}`;
 
       const values = context[key].msgstr;
-      const newValues = getGettextValues(values, domain, targetKey, options);
+      const newValues = getGettextValues(values, locale, targetKey, options);
       assign(appendTo, newValues);
     });
   });
@@ -117,12 +118,12 @@ function parseJSON(domain, data = {}, options = {}) {
   return Promise.resolve(json);
 }
 
-function getGettextValues(values, domain, targetKey, options) {
+function getGettextValues(values, locale, targetKey, options) {
   if (values.length === 1) {
     return emptyOrObject(targetKey, values[0], options);
   }
 
-  const ext = plurals.rules[domain.replace('_', '-').split('-')[0]];
+  const ext = plurals.rules[locale.replace('_', '-').split('-')[0]];
   const gettextValues = {};
 
   for (let i = 0; i < values.length; i++) {

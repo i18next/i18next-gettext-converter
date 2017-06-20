@@ -58,26 +58,28 @@ const testFiles = {
  * not include the string '/frontend/'
  *
  * @param gt
- * @param domain
+ * @param locale
  * @param callback
  * @private
  */
-function testFilter(gt, domain, callback) {
+function testFilter(gt, locale, callback) {
   const clientSideSource = '/frontend/';
-  const normalizedDomain = gt._normalizeDomain(domain);
+  const domain = 'messages';
+  const translations = gt.catalogs[locale][domain].translations;
+  gt.setLocale(locale); // Needed for when getComment is called
 
-  Object.keys(gt.domains[normalizedDomain].translations).forEach(ctxt => {
-    Object.keys(gt.domains[normalizedDomain].translations[ctxt]).forEach(key => {
-      const comment = gt.getComment(domain, '', key);
+  Object.keys(translations).forEach(ctxt => {
+    Object.keys(translations[ctxt]).forEach(key => {
+      const comment = gt.getComment('messages', ctxt, key);
       if (comment) {
         if (comment.reference && comment.reference.indexOf(clientSideSource) === -1) {
-          delete gt.domains[normalizedDomain].translations[ctxt][key];
+          delete translations[ctxt][key];
         }
       }
     });
   });
 
-  callback(null, gt.domains[normalizedDomain].translations);
+  callback(null, translations);
 }
 
 describe('i18next-gettext-converter', () => {
