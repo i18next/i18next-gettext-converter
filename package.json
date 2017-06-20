@@ -34,28 +34,34 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
+    "babel-plugin-istanbul": "^4.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.24.1",
     "chai": "^4.0.2",
     "coveralls": "^2.13.1",
+    "env-test": "^1.0.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
-    "istanbul": "^1.0.0-alpha.2",
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "nyc": "^11.0.2"
   },
   "scripts": {
     "lint": "eslint '**/*.js'",
     "pretest": "npm run lint",
     "test": "mocha",
     "build": "babel src --out-dir .",
-    "cover": "istanbul cover --report text --report html node_modules/mocha/bin/_mocha",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf ./coverage",
+    "cover": "nyc npm test",
+    "coveralls": "npm run cover && nyc report --reporter=text-lcov | coveralls",
     "prepare": "npm run build"
   },
   "bin": {
     "i18next-conv": "bin/index.js"
+  },
+  "nyc": {
+    "sourceMap": false,
+    "instrument": false
   },
   "license": "SEE LICENSE IN LICENSE.MD"
 }
