@@ -113,6 +113,7 @@ program
 .option('-K, --keyasareference', 'Deal with the reference comment as a key', false)
 .option('-ks, --keyseparator [path]', 'Specify keyseparator you want to use, defaults to ##', '##')
 .option('-P, --plurals [path]', 'Specify path to plural forms definitions')
+.option('--project', 'Specify the project-id-version when converting json to gettext')
 .option('--quiet', 'Silence output', false)
 .option('--skipUntranslated', 'Skip untranslated keys when converting into json', false)
 .option('--splitNewLine', 'Silence output', false)
