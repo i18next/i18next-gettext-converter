@@ -25,7 +25,7 @@ function addTextDomain(locale, body, options = {}) {
   const domain = 'messages';
 
   if (body.length > 0) {
-    gt.addTranslations(locale, domain, po.parse(body));
+    gt.addTranslations(locale, domain, po.parse(body, 'UTF-8'));
   }
 
   if (options.filter) {
