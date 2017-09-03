@@ -7,14 +7,14 @@ const plurals = require('./plurals');
 
 function gettextToI18next(locale, body, options = {}) {
   return addTextDomain(locale, body, options)
-  .then((data) => {
-    if (options.keyasareference) {
-      setKeysAsReference(data);
-    }
+    .then((data) => {
+      if (options.keyasareference) {
+        setKeysAsReference(data);
+      }
 
-    return parseJSON(locale, data, options);
-  })
-  .then(json => JSON.stringify(json, null, 4));
+      return parseJSON(locale, data, options);
+    })
+    .then(json => JSON.stringify(json, null, 4));
 }
 
 /*

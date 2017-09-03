@@ -18,25 +18,25 @@ function i18nextToMo(domain, body, options = {}) {
 
 function i18nextToGettext(domain, body, parser, getTranslatedValue, options = {}) {
   return Promise.resolve(flatten(JSON.parse(body), options))
-  .then((flat) => {
-    if (options.base) {
-      const bflat = flatten(JSON.parse(options.base), options);
-      Object.keys(bflat).forEach((key) => {
-        if (flat[key]) {
-          if (flat[key].plurals) {
-            bflat[key].translated_value = getTranslatedValue(getPluralArray(domain, flat[key]));
-          } else {
-            bflat[key].translated_value = getTranslatedValue(flat[key].value);
+    .then((flat) => {
+      if (options.base) {
+        const bflat = flatten(JSON.parse(options.base), options);
+        Object.keys(bflat).forEach((key) => {
+          if (flat[key]) {
+            if (flat[key].plurals) {
+              bflat[key].translated_value = getTranslatedValue(getPluralArray(domain, flat[key]));
+            } else {
+              bflat[key].translated_value = getTranslatedValue(flat[key].value);
+            }
           }
-        }
-      });
+        });
 
-      return parseGettext(domain, bflat, options);
-    }
+        return parseGettext(domain, bflat, options);
+      }
 
-    return parseGettext(domain, flat, options);
-  })
-  .then(data => parser.compile(data));
+      return parseGettext(domain, flat, options);
+    })
+    .then(data => parser.compile(data));
 }
 
 function getPluralArray(domain, translation) {
@@ -98,7 +98,7 @@ function parseGettext(domain, data, options = {}) {
       if (typeof trans[kv.context] !== 'object') trans[kv.context] = {};
       if (options.keyasareference) {
         if (typeof trans[kv.context][kv.value] === 'object') {
-                      // same context and msgid. this could theorically be merged.
+          // same context and msgid. this could theorically be merged.
           trans[kv.context][kv.value].comments.reference.push(kv.key);
         } else {
           trans[kv.context][kv.value] = {

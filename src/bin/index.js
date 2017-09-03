@@ -5,7 +5,9 @@ const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const program = require('commander');
-const { red, green, blue, yellow } = require('chalk');
+const {
+  red, green, blue, yellow,
+} = require('chalk');
 
 const i18nextConv = require('../lib');
 const plurals = require('../lib/plurals');
@@ -86,12 +88,12 @@ if (source && language) {
   if (!options.quiet) console.log(yellow('start converting'));
 
   processFile(language, source, target, options)
-  .then(() => {
-    if (!options.quiet) console.log(green('file written'));
-  })
-  .catch((/* err */) => {
-    console.log(red('failed writing file'));
-  });
+    .then(() => {
+      if (!options.quiet) console.log(green('file written'));
+    })
+    .catch((/* err */) => {
+      console.log(red('failed writing file'));
+    });
 } else {
   console.log(red('at least call with argument -l and -s.'));
   console.log('(call program with argument -h for help.)');
@@ -101,60 +103,60 @@ function processFile(domain, source, target, options) {
   if (!options.quiet) console.log((`--> reading file from: ${source}`));
 
   return readFileAsync(source)
-  .then((body) => {
-    const dirname = path.dirname(source);
-    const ext = path.extname(source);
-    const filename = path.basename(source, ext);
+    .then((body) => {
+      const dirname = path.dirname(source);
+      const ext = path.extname(source);
+      const filename = path.basename(source, ext);
 
-    if (options.plurals) {
-      const pluralsPath = path.join(process.cwd(), options.plurals);
-      plurals.rules = require(pluralsPath); // eslint-disable-line global-require,import/no-dynamic-require
+      if (options.plurals) {
+        const pluralsPath = path.join(process.cwd(), options.plurals);
+        plurals.rules = require(pluralsPath); // eslint-disable-line global-require,import/no-dynamic-require
 
-      if (!options.quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
-    }
+        if (!options.quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
+      }
 
-    let targetDir;
-    let targetExt;
-    let converter;
+      let targetDir;
+      let targetExt;
+      let converter;
 
-    if (!target) {
-      targetDir = (dirname.lastIndexOf(domain) === 0)
-        ? dirname
-        : path.join(dirname, domain);
-      targetExt = (ext === '.json') ? '.po' : '.json';
-      target = path.join(targetDir, `${filename}${targetExt}`);
-    } else {
-      targetDir = path.dirname(target);
-      targetExt = path.extname(target);
-    }
+      if (!target) {
+        targetDir = (dirname.lastIndexOf(domain) === 0)
+          ? dirname
+          : path.join(dirname, domain);
+        targetExt = (ext === '.json') ? '.po' : '.json';
+        target = path.join(targetDir, `${filename}${targetExt}`);
+      } else {
+        targetDir = path.dirname(target);
+        targetExt = path.extname(target);
+      }
 
-    switch (targetExt) {
-      case '.po':
-        converter = i18nextToPo;
-        break;
-      case '.pot':
-        converter = i18nextToPot;
-        break;
-      case '.mo':
-        converter = i18nextToMo;
-        break;
-      case '.json':
-        converter = gettextToI18next;
-        break;
-      default:
-        return null;
-    }
+      switch (targetExt) {
+        case '.po':
+          converter = i18nextToPo;
+          break;
+        case '.pot':
+          converter = i18nextToPot;
+          break;
+        case '.mo':
+          converter = i18nextToMo;
+          break;
+        case '.json':
+          converter = gettextToI18next;
+          break;
+        default:
+          return null;
+      }
 
-    if (!fs.existsSync(targetDir)) {
-      mkdirp.sync(targetDir);
-    }
+      if (!fs.existsSync(targetDir)) {
+        mkdirp.sync(targetDir);
+      }
 
-    return converter(domain, body, options);
-  })
-  .then(data => writeFile(target, data, options))
-  .catch((err) => {
-    if (err.code === 'ENOENT') console.log(red(`file ${source} was not found.`));
-  });
+      return converter(domain, body, options);
+    })
+    .then(data => writeFile(target, data, options))
+    .catch((err) => {
+      if (err.code === 'ENOENT') console.log(red(`file ${source} was not found.`));
+    });
 }
 
 function writeFile(target, data, options = {}) {
