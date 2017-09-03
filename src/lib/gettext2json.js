@@ -23,13 +23,17 @@ function gettextToI18next(locale, body, options = {}) {
 function addTextDomain(locale, body, options = {}) {
   const gt = new Gettext();
   const domain = 'messages';
+  const {
+    filter,
+    gettextDefaultCharset = 'UTF-8',
+  } = options;
 
   if (body.length > 0) {
-    gt.addTranslations(locale, domain, po.parse(body, 'UTF-8'));
+    gt.addTranslations(locale, domain, po.parse(body, gettextDefaultCharset));
   }
 
-  if (options.filter) {
-    const filterAsync = Promise.promisify(options.filter);
+  if (filter) {
+    const filterAsync = Promise.promisify(filter);
     return filterAsync(gt, locale);
   }
 

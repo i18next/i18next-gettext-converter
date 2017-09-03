@@ -48,6 +48,7 @@ program
   .option('-P, --plurals <path>', 'Specify path to plural forms definitions')
   .option('--project <name>', 'Specify the project-id-version when converting json to gettext')
   .option('--quiet', 'Silence output', false)
+  .option('--gettextDefaultCharset', 'Default charset when parsing gettext files with gettext-parser')
   .option('--skipUntranslated', 'Skip untranslated keys when converting into json', false)
   .option('--splitNewLine', 'Silence output', false)
   .option('--ctxSeparator [sep]', 'Specify the context separator', '_')
