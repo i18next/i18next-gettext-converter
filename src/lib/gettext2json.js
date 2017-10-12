@@ -131,7 +131,7 @@ function getGettextValues(values, locale, targetKey, options) {
     return emptyOrObject(targetKey, values[0], options);
   }
 
-  const ext = plurals.rules[locale.replace('_', '-').split('-')[0]];
+  const ext = plurals.getRule(locale);
   const gettextValues = {};
 
   for (let i = 0; i < values.length; i += 1) {

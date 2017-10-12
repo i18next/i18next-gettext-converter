@@ -67,7 +67,7 @@ function parseGettext(domain, data, options = {}) {
     translations: {},
   };
 
-  const ext = plurals.rules[domain.replace('_', '-').split('-')[0]];
+  const ext = plurals.getRule(domain);
   const trans = {};
 
   out.headers['plural-forms'] =

@@ -271,6 +271,21 @@ describe('i18next-gettext-converter', () => {
         }),
       ])
     ));
+
+    describe('should return the correct plural forms for Portuguese', () => {
+      [
+        ['pt-PT', 'plural=(n != 1)'], // pt-PT = European Portuguese = nplurals=2; plural=(n != 1);
+        ['pt-BR', 'plural=(n > 1)'], // pt-BR = Brazillian Portuguese = nplurals=2; plural=(n > 1);
+        ['pt-br', 'plural=(n > 1)'], // pt-BR === pt-br
+        ['pt', 'plural=(n > 1)'], // pt = Portuguese (catch all) == pt-BR == plural=(n > 1);
+      ].forEach(([code, plural]) => {
+        it(`${code} should have ${plural}`, () => (
+          i18nextToPo(code, '{}').then((result) => {
+            expect(result.toString()).to.include(`Plural-Forms: nplurals=2; ${plural}`);
+          })
+        ));
+      });
+    });
   });
 
   describe('the functions', () => {
