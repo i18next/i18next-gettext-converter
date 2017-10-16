@@ -487,14 +487,14 @@ module.exports = {
       plurals: '(n != 1)',
     },
     pt: {
-      name: 'Portuguese',
-      nplurals: 2,
-      plurals: '(n != 1)',
-    },
-    pt_br: {
-      name: 'Brazilian Portuguese',
+      name: 'Portuguese', // according to http://www.unicode.org/cldr/charts/26/supplemental/language_plural_rules.html#pt
       nplurals: 2,
       plurals: '(n > 1)',
+    },
+    pt_pt: {
+      name: 'European Portuguese',
+      nplurals: 2,
+      plurals: '(n != 1)',
     },
     rm: {
       name: 'Romansh',
@@ -661,5 +661,9 @@ module.exports = {
       nplurals: 1,
       plurals: '0',
     },
+  },
+  getRule(code) {
+    const locale = code.replace('-', '_');
+    return this.rules[locale.toLowerCase()] || this.rules[locale.split('_')[0]];
   },
 };
