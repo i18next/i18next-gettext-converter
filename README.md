@@ -106,7 +106,7 @@ program
 .version(i18nextConv.version)
 .option('-b, --base [path]', 'Sepcify path for the base language file. only take effect with -K option', '')
 .option('-f, --filter <path>', 'Specify path to gettext filter')
-.option('-l, --language <domain>', 'Specify the language code, eg. \'en\'')
+.option('-l, --language <locale>', 'Specify the language code, eg. \'en\'')
 .option('-p, --pot', 'Generate POT file.')
 .option('-s, --source <path>', 'Specify path to read from')
 .option('-t, --target [path]', 'Specify path to write to', '')

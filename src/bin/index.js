@@ -41,7 +41,7 @@ program
   .version(i18nextConv.version)
   .option('-b, --base [path]', 'Sepcify path for the base language file. only take effect with -K option', '')
   .option('-f, --filter <path>', 'Specify path to gettext filter')
-  .option('-l, --language <domain>', 'Specify the language code, eg. \'en\'')
+  .option('-l, --language <locale>', 'Specify the language code, eg. \'en\'')
   .option('-p, --pot', 'Generate POT file.')
   .option('-s, --source <path>', 'Specify path to read from')
   .option('-t, --target [path]', 'Specify path to write to', '')
@@ -99,7 +99,7 @@ if (source && language) {
   console.log('(call program with argument -h for help.)');
 }
 
-function processFile(domain, source, target, options) {
+function processFile(locale, source, target, options) {
   if (!options.quiet) console.log((`--> reading file from: ${source}`));
 
   return readFileAsync(source)
@@ -120,9 +120,9 @@ function processFile(domain, source, target, options) {
       let converter;
 
       if (!target) {
-        targetDir = (dirname.lastIndexOf(domain) === 0)
+        targetDir = (dirname.lastIndexOf(locale) === 0)
           ? dirname
-          : path.join(dirname, domain);
+          : path.join(dirname, locale);
         targetExt = (ext === '.json') ? '.po' : '.json';
         target = path.join(targetDir, `${filename}${targetExt}`);
       } else {
@@ -151,7 +151,7 @@ function processFile(domain, source, target, options) {
         mkdirp.sync(targetDir);
       }
 
-      return converter(domain, body, options);
+      return converter(locale, body, options);
     })
     .then(data => writeFile(target, data, options))
     .catch((err) => {

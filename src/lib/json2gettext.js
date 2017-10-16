@@ -4,19 +4,19 @@ const Promise = require('bluebird');
 const plurals = require('./plurals');
 const { flatten } = require('./flatten');
 
-function i18nextToPo(domain, body, options = {}) {
-  return i18nextToGettext(domain, body, GettextParser.po, identity, options);
+function i18nextToPo(locale, body, options = {}) {
+  return i18nextToGettext(locale, body, GettextParser.po, identity, options);
 }
 
-function i18nextToPot(domain, body, options = {}) {
-  return i18nextToGettext(domain, body, GettextParser.po, () => '', options);
+function i18nextToPot(locale, body, options = {}) {
+  return i18nextToGettext(locale, body, GettextParser.po, () => '', options);
 }
 
-function i18nextToMo(domain, body, options = {}) {
-  return i18nextToGettext(domain, body, GettextParser.mo, identity, options);
+function i18nextToMo(locale, body, options = {}) {
+  return i18nextToGettext(locale, body, GettextParser.mo, identity, options);
 }
 
-function i18nextToGettext(domain, body, parser, getTranslatedValue, options = {}) {
+function i18nextToGettext(locale, body, parser, getTranslatedValue, options = {}) {
   return Promise.resolve(flatten(JSON.parse(body), options))
     .then((flat) => {
       if (options.base) {
@@ -24,23 +24,23 @@ function i18nextToGettext(domain, body, parser, getTranslatedValue, options = {}
         Object.keys(bflat).forEach((key) => {
           if (flat[key]) {
             if (flat[key].plurals) {
-              bflat[key].translated_value = getTranslatedValue(getPluralArray(domain, flat[key]));
+              bflat[key].translated_value = getTranslatedValue(getPluralArray(locale, flat[key]));
             } else {
               bflat[key].translated_value = getTranslatedValue(flat[key].value);
             }
           }
         });
 
-        return parseGettext(domain, bflat, options);
+        return parseGettext(locale, bflat, options);
       }
 
-      return parseGettext(domain, flat, options);
+      return parseGettext(locale, flat, options);
     })
     .then(data => parser.compile(data));
 }
 
-function getPluralArray(domain, translation) {
-  const ext = plurals.rules[domain.replace('_', '-').split('-')[0]];
+function getPluralArray(locale, translation) {
+  const ext = plurals.getRule(locale);
   const pArray = [];
 
   for (let i = 0, len = translation.plurals.length; i < len; i += 1) {
@@ -55,7 +55,7 @@ function getPluralArray(domain, translation) {
 /*
  * flat json --> gettext
  */
-function parseGettext(domain, data, options = {}) {
+function parseGettext(locale, data, options = {}) {
   const out = {
     charset: 'utf-8',
     headers: {
@@ -67,7 +67,7 @@ function parseGettext(domain, data, options = {}) {
     translations: {},
   };
 
-  const ext = plurals.getRule(domain);
+  const ext = plurals.getRule(locale);
   const trans = {};
 
   out.headers['plural-forms'] =

@@ -6,7 +6,7 @@ const { po } = require('gettext-parser');
 const plurals = require('./plurals');
 
 function gettextToI18next(locale, body, options = {}) {
-  return addTextDomain(locale, body, options)
+  return addTextLocale(locale, body, options)
     .then((data) => {
       if (options.keyasareference) {
         setKeysAsReference(data);
@@ -20,7 +20,7 @@ function gettextToI18next(locale, body, options = {}) {
 /*
  * gettext --> barebone json
  */
-function addTextDomain(locale, body, options = {}) {
+function addTextLocale(locale, body, options = {}) {
   const gt = new Gettext();
   const domain = 'messages';
   const {
