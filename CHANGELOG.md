@@ -1,3 +1,6 @@
+### 5.0.0
+- Fix [Wrong Plural-Forms for Brazilian Portuguese](https://github.com/i18next/i18next-gettext-converter/issues/67)
+
 ### 4.0.3
 - Fix -ks and other cli options
 
