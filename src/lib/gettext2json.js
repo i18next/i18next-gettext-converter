@@ -1,6 +1,5 @@
 const Gettext = require('node-gettext');
 const Promise = require('bluebird');
-const assign = require('object-assign'); // Support node <= 0.12
 const { po } = require('gettext-parser');
 
 const plurals = require('./plurals');
@@ -119,7 +118,7 @@ function parseJSON(locale, data = {}, options = {}) {
 
       const values = context[key].msgstr;
       const newValues = getGettextValues(values, locale, targetKey, options);
-      assign(appendTo, newValues);
+      Object.assign(appendTo, newValues);
     });
   });
 
@@ -138,7 +137,7 @@ function getGettextValues(values, locale, targetKey, options) {
     const pluralSuffix = getI18nextPluralExtension(ext, i);
     const pkey = targetKey + pluralSuffix;
 
-    assign(gettextValues, emptyOrObject(pkey, values[i], options));
+    Object.assign(gettextValues, emptyOrObject(pkey, values[i], options));
   }
 
   return gettextValues;
