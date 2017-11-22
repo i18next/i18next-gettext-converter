@@ -1,4 +1,3 @@
-const { version } = require('../../package.json');
 const gettextToI18next = require('./gettext2json');
 const {
   i18nextToPo,
@@ -11,5 +10,4 @@ module.exports = {
   i18nextToPo,
   i18nextToPot,
   i18nextToMo,
-  version,
 };
