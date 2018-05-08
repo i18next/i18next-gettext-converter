@@ -61,6 +61,7 @@ const {
   source,
   target,
   filter,
+  base: baseArg,
   ...options
 } = program;
 
@@ -68,8 +69,8 @@ if (filter && fs.existsSync(filter)) {
   options.filter = require(filter); // eslint-disable-line global-require,import/no-dynamic-require
 }
 
-if (base && fs.existsSync(base)) {
-  options.base = fs.readFileSync(base);
+if (baseArg && fs.existsSync(baseArg)) {
+  options.base = fs.readFileSync(baseArg);
 }
 
 const {
