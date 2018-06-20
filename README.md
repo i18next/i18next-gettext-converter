@@ -104,7 +104,7 @@ module.exports = function (gt, locale, callback) {
 ```js
 program
 .version(i18nextConv.version)
-.option('-b, --base [path]', 'Sepcify path for the base language file. only take effect with -K option', '')
+.option('-b, --base [path]', 'Specify path for the base language file. only take effect with -K option', '')
 .option('-f, --filter <path>', 'Specify path to gettext filter')
 .option('-l, --language <locale>', 'Specify the language code, eg. \'en\'')
 .option('-p, --pot', 'Generate POT file.')
