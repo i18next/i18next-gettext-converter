@@ -77,6 +77,8 @@ function parseGettext(locale, data, options = {}) {
   if (!options.noDate) {
     out.headers['pot-creation-date'] = new Date().toISOString();
     out.headers['po-revision-date'] = new Date().toISOString();
+    if (options.potCreationDate && typeof options.potCreationDate.toISOString === 'function') out.headers['pot-creation-date'] = options.potCreationDate.toISOString();
+    if (options.poRevisionDate && typeof options.poRevisionDate.toISOString === 'function') out.headers['po-revision-date'] = options.poRevisionDate.toISOString();
   }
   if (options.language) {
     out.headers.language = options.language;
