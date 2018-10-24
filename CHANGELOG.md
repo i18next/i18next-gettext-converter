@@ -1,3 +1,7 @@
+### 6.1.1
+
+- respect skipUntranslated option when used with keyasareference option [73](https://github.com/i18next/i18next-gettext-converter/pull/73)
+
 ### 6.1.0
 
 - add possibility to define custom POT-Creation-Date and PO-Revision-Date [74](https://github.com/i18next/i18next-gettext-converter/pull/74)
