@@ -1,3 +1,7 @@
+### 7.0.0
+
+- drop support for node < 6
+
 ### 6.1.1
 
 - respect skipUntranslated option when used with keyasareference option [73](https://github.com/i18next/i18next-gettext-converter/pull/73)
