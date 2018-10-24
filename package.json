@@ -42,7 +42,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "mocha": "^5.1.1",
-    "nyc": "^11.7.1"
+    "nyc": "^13.1.0"
   },
   "scripts": {
     "lint": "eslint '**/*.js'",
@@ -55,10 +55,6 @@
   },
   "bin": {
     "i18next-conv": "bin/index.js"
-  },
-  "nyc": {
-    "sourceMap": false,
-    "instrument": false
   },
   "license": "SEE LICENSE IN LICENSE.MD"
 }
