@@ -8,7 +8,7 @@ function gettextToI18next(locale, body, options = {}) {
   return addTextLocale(locale, body, options)
     .then((data) => {
       if (options.keyasareference) {
-        setKeysAsReference(data);
+        setKeysAsReference(data, options);
       }
 
       return parseJSON(locale, data, options);
@@ -39,7 +39,7 @@ function addTextLocale(locale, body, options = {}) {
   return Promise.resolve(gt.catalogs[locale] && gt.catalogs[locale][domain].translations);
 }
 
-function setKeysAsReference(data) {
+function setKeysAsReference(data, options) {
   const keys = [];
 
   Object.keys(data).forEach((ctxt) => {
@@ -48,6 +48,10 @@ function setKeysAsReference(data) {
         data[ctxt][key].comments.reference.split(/\r?\n|\r/).forEach((id) => {
           const x = data[ctxt][key];
           data[ctxt][id] = x;
+
+          if (options.skipUntranslated && x.msgstr.length === 1 && !x.msgstr[0]) {
+            return;
+          }
 
           if (x.msgstr[0] === '') {
             x.msgstr[0] = x.msgid;

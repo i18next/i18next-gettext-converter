@@ -203,6 +203,18 @@ describe('i18next-gettext-converter', () => {
       ])
     ));
 
+    it('should skip empty values appropriately even when using key as reference', () => (
+      Promise.all([
+        gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
+          keyasareference: true,
+          skipUntranslated: true,
+        }).then((result) => {
+          const expected = requireTestFile(testFiles.en.untranslated_skipped);
+          expect(JSON.parse(result)).to.deep.equal(expected);
+        }),
+      ])
+    ));
+
     // -- Error States & Invalid Data --
 
     describe('error states', () => {
