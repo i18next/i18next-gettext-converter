@@ -70,9 +70,7 @@ function parseGettext(locale, data, options = {}) {
   const ext = plurals.getRule(locale);
   const trans = {};
 
-  out.headers['plural-forms'] =
-    `nplurals=${ext.nplurals}; ` +
-    `plural=${ext.plurals}`;
+  out.headers['plural-forms'] = `nplurals=${ext.nplurals}; plural=${ext.plurals}`;
 
   if (!options.noDate) {
     out.headers['pot-creation-date'] = new Date().toISOString();
