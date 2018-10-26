@@ -1,0 +1,22 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: name
+msgid "name"
+msgstr "name"
+
+#: name-õäöü
+msgid "t3-žš"
+msgstr ""
+
+# A simple comment
+#, fuzzy
+#: friend
+msgctxt "male"
+msgid "friend"
+msgstr "boyfriend"

@@ -26,6 +26,9 @@ const testFiles = {
     untranslated: './test/_testfiles/en/translation.untranslated.po',
     untranslated_expected: './test/_testfiles/en/translation.untranslated.json',
     untranslated_skipped: './test/_testfiles/en/translation.untranslated_skipped.json',
+    fuzzy: './test/_testfiles/en/translation.fuzzy.po',
+    fuzzy_expected: './test/_testfiles/en/translation.fuzzy.json',
+    fuzzy_skipped: './test/_testfiles/en/translation.fuzzy_skipped.json',
     empty: './test/_testfiles/en/translation.empty.po',
     missing: './test/_testfiles/en/translation.missing.po',
     bad_format: './test/_testfiles/en/translation.bad_format.po.js',
@@ -200,11 +203,6 @@ describe('i18next-gettext-converter', () => {
             const expected = requireTestFile(testFiles.en.untranslated_skipped);
             expect(JSON.parse(result)).to.deep.equal(expected);
           }),
-      ])
-    ));
-
-    it('should skip empty values appropriately even when using key as reference', () => (
-      Promise.all([
         gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
           keyasareference: true,
           skipUntranslated: true,
@@ -212,6 +210,26 @@ describe('i18next-gettext-converter', () => {
           const expected = requireTestFile(testFiles.en.untranslated_skipped);
           expect(JSON.parse(result)).to.deep.equal(expected);
         }),
+      ])
+    ));
+
+    it('should skip fuzzy values appropriately', () => (
+      Promise.all([
+        gettextToI18next('en', readFileSync(testFiles.en.fuzzy))
+          .then((result) => {
+            const expected = requireTestFile(testFiles.en.fuzzy_expected);
+            expect(JSON.parse(result)).to.deep.equal(expected);
+          }),
+        gettextToI18next('en', readFileSync(testFiles.en.fuzzy), { skipUntranslated: true })
+          .then((result) => {
+            const expected = requireTestFile(testFiles.en.fuzzy_skipped);
+            expect(JSON.parse(result)).to.deep.equal(expected);
+          }),
+        gettextToI18next('en', readFileSync(testFiles.en.fuzzy), { keyasareference: true, skipUntranslated: true })
+          .then((result) => {
+            const expected = requireTestFile(testFiles.en.fuzzy_skipped);
+            expect(JSON.parse(result)).to.deep.equal(expected);
+          }),
       ])
     ));
 

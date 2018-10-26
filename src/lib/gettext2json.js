@@ -49,7 +49,7 @@ function setKeysAsReference(data, options) {
           const x = data[ctxt][key];
           data[ctxt][id] = x;
 
-          if (options.skipUntranslated && x.msgstr.length === 1 && !x.msgstr[0]) {
+          if (options.skipUntranslated && ((x.msgstr.length === 1 && !x.msgstr[0]) || (x.comments.flag === 'fuzzy'))) {
             return;
           }
 
@@ -99,6 +99,11 @@ function parseJSON(locale, data = {}, options = {}) {
       if (key.length === 0) {
         // delete if msgid is empty.
         // this might be the header.
+        delete context[key];
+        return;
+      }
+
+      if (options.skipUntranslated && context[key].comments.flag === 'fuzzy') {
         delete context[key];
         return;
       }
