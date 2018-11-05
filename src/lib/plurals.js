@@ -1,4 +1,5 @@
 // definition http://translate.sourceforge.net/wiki/l10n/pluralforms
+// Hebrew (he) updated in line with https://github.com/i18next/i18next/pull/1121
 module.exports = {
   rules: {
     ach: {
@@ -233,8 +234,8 @@ module.exports = {
     },
     he: {
       name: 'Hebrew',
-      nplurals: 2,
-      plurals: '(n != 1)',
+      nplurals: 4,
+      plurals: '(n===1 ? 0 : n===2 ? 1 : (n<0 || n>10) && n%10==0 ? 2 : 3)',
     },
     hi: {
       name: 'Hindi',
