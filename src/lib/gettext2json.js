@@ -49,7 +49,7 @@ function setKeysAsReference(data, options) {
           const x = data[ctxt][key];
           data[ctxt][id] = x;
 
-          if (options.skipUntranslated && ((x.msgstr.length === 1 && !x.msgstr[0]) || (x.comments.flag === 'fuzzy'))) {
+          if (options.skipUntranslated && ((x.msgstr.length === 1 && !x.msgstr[0]) || isFuzzy(x))) {
             return;
           }
 
@@ -103,7 +103,7 @@ function parseJSON(locale, data = {}, options = {}) {
         return;
       }
 
-      if (options.skipUntranslated && context[key].comments.flag === 'fuzzy') {
+      if (options.skipUntranslated && isFuzzy(context[key])) {
         delete context[key];
         return;
       }
@@ -174,6 +174,10 @@ function emptyOrObject(key, value, options) {
   }
 
   return { [key]: toArrayIfNeeded(value, options) };
+}
+
+function isFuzzy(translation) {
+  return translation.comments.flag === 'fuzzy';
 }
 
 module.exports = gettextToI18next;
