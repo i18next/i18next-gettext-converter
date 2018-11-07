@@ -1,3 +1,7 @@
+### 7.1.0
+
+- handle fuzzy values as not translated
+
 ### 7.0.0
 
 - drop support for node < 6
