@@ -302,6 +302,13 @@ describe('i18next-gettext-converter', () => {
       ])
     ));
 
+    it('should return correct nplurals for Hebrew', () => (
+      i18nextToPo('he', '{}').then((result) => {
+        const oneLine = result.toString().replace(/\n/g, ' ').replace(/"/g, '');
+        expect(oneLine).to.include('Plural-Forms: nplurals=4; plural=(n===1 ? 0 : n===2 ? 1 : (n<0 || n>10) &&  n%10==0 ? 2 : 3)');
+      })
+    ));
+
     describe('should return the correct plural forms for Portuguese', () => {
       [
         ['pt-PT', 'plural=(n != 1)'], // pt-PT = European Portuguese = nplurals=2; plural=(n != 1);
