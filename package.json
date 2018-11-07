@@ -6,7 +6,7 @@
     "i18next",
     "gettext"
   ],
-  "version": "7.1.0",
+  "version": "8.0.0",
   "private": false,
   "main": "lib",
   "files": [
