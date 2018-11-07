@@ -15,7 +15,7 @@ Project goal is to convert files from gettext to i18next json format and vice ve
 1. first install node.js from [nodejs.org](http://nodejs.org/).
 2. `npm install i18next-conv -g`
 
-For i18next < 2.0.0 use i18next-conv@1.11.0, for i18next < 3.0.0 use i18next-conv@2.6.1
+For i18next < 2.0.0 use i18next-conv@1.11.0, for i18next < 3.0.0 use i18next-conv@2.6.1, for i18next < 12.0.0 use i18next-conv@<8.
 
 ## Usage
 

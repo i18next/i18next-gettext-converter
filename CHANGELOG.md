@@ -1,3 +1,7 @@
+### 8.0.0
+
+- update hebrew plurals
+
 ### 7.1.0
 
 - handle fuzzy values as not translated
