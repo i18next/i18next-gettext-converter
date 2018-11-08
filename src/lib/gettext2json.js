@@ -177,7 +177,7 @@ function emptyOrObject(key, value, options) {
 }
 
 function isFuzzy(translation) {
-  return translation.comments.flag === 'fuzzy';
+  return !!translation.comments && translation.comments.flag === 'fuzzy';
 }
 
 module.exports = gettextToI18next;
