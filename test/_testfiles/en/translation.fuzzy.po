@@ -20,3 +20,6 @@ msgstr ""
 msgctxt "male"
 msgid "friend"
 msgstr "boyfriend"
+
+msgid "no comments"
+msgstr "No comments here"
