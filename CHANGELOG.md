@@ -1,3 +1,7 @@
+### 7.1.1
+
+- fix fuzzy check crash if message has no comments [78](https://github.com/i18next/i18next-gettext-converter/pull/78)
+
 ### 7.1.0
 
 - handle fuzzy values as not translated
