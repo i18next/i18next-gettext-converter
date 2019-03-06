@@ -66,7 +66,7 @@ const {
 } = program;
 
 if (filter && fs.existsSync(filter)) {
-  options.filter = require(filter); // eslint-disable-line global-require,import/no-dynamic-require
+  options.filter = require(path.resolve(filter)); // eslint-disable-line global-require,import/no-dynamic-require
 }
 
 if (baseArg && fs.existsSync(baseArg)) {
