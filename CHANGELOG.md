@@ -1,3 +1,7 @@
+### 9.0.0
+
+- Breaking: this library now throws an error when passed an invalid `po` file in `gettextToI18next`;
+
 ### 8.0.2
 
 - fix bug with cli `-f` option [82](https://github.com/i18next/i18next-gettext-converter/pull/82)

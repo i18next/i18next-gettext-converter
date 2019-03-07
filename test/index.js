@@ -243,11 +243,9 @@ describe('i18next-gettext-converter', () => {
           })
       ));
 
-      it('should output an empty JSON file if passed something other than a PO', () => (
-        gettextToI18next('en', readFileSync(testFiles.en.bad_format), { splitNewLine: true })
-          .then((result) => {
-            expect(JSON.parse(result)).to.deep.equal({});
-          })
+      it('should throw a syntax error when passed an invalid PO', () => (
+        expect(() => gettextToI18next('en', readFileSync(testFiles.en.bad_format), { splitNewLine: true }))
+          .to.throw(SyntaxError, /Error parsing PO data/)
       ));
     });
   });
