@@ -1,3 +1,7 @@
+### 8.0.2
+
+- fix bug with cli `-f` option [82](https://github.com/i18next/i18next-gettext-converter/pull/82)
+
 ### 8.0.1
 
 - fix fuzzy check crash if message has no comments [78](https://github.com/i18next/i18next-gettext-converter/issues/78)
