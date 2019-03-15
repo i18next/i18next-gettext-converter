@@ -665,6 +665,6 @@ module.exports = {
   },
   getRule(code) {
     const locale = code.replace('-', '_');
-    return this.rules[locale.toLowerCase()] || this.rules[locale.split('_')[0]];
+    return this.rules[locale.toLowerCase()] || this.rules[locale.split('_')[0]] || this.rules.en;
   },
 };
