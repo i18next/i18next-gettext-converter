@@ -46,7 +46,6 @@
   },
   "scripts": {
     "lint": "eslint '**/*.js'",
-    "pretest": "npm run lint",
     "test": "mocha",
     "build": "babel src --out-dir .",
     "cover": "nyc npm test",

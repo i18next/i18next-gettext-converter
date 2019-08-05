@@ -1,0 +1,4 @@
+{
+  "tied with% {count} other% {test_one} test|#|tied with% {count} others% {test_one} test": "à égalité avec% {count} other% {test_one} test",
+  "tied with% {count} other% {test_one} test|#|tied with% {count} others% {test_one} test_plural": "à égalité avec% {count} others% {test_one} test"
+}

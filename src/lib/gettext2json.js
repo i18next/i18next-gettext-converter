@@ -22,10 +22,7 @@ function gettextToI18next(locale, body, options = {}) {
 function addTextLocale(locale, body, options = {}) {
   const gt = new Gettext();
   const domain = 'messages';
-  const {
-    filter,
-    gettextDefaultCharset = 'UTF-8',
-  } = options;
+  const { filter, gettextDefaultCharset = 'UTF-8' } = options;
 
   if (body.length > 0) {
     gt.addTranslations(locale, domain, po.parse(body, gettextDefaultCharset));
@@ -36,7 +33,9 @@ function addTextLocale(locale, body, options = {}) {
     return filterAsync(gt, locale);
   }
 
-  return Promise.resolve(gt.catalogs[locale] && gt.catalogs[locale][domain].translations);
+  return Promise.resolve(
+    gt.catalogs[locale] && gt.catalogs[locale][domain].translations,
+  );
 }
 
 function setKeysAsReference(data, options) {
@@ -49,7 +48,10 @@ function setKeysAsReference(data, options) {
           const x = data[ctxt][key];
           data[ctxt][id] = x;
 
-          if (options.skipUntranslated && ((x.msgstr.length === 1 && !x.msgstr[0]) || isFuzzy(x))) {
+          if (
+            options.skipUntranslated
+            && ((x.msgstr.length === 1 && !x.msgstr[0]) || isFuzzy(x))
+          ) {
             return;
           }
 
@@ -126,7 +128,17 @@ function parseJSON(locale, data = {}, options = {}) {
       if (m !== '') targetKey = `${targetKey}${ctxSeparator}${m}`;
 
       const values = context[key].msgstr;
+
+      if (options.persistMsgIdPlural) {
+        // eslint-disable-next-line camelcase
+        const { msgid, msgid_plural } = context[key];
+
+        // eslint-disable-next-line camelcase
+        if (msgid_plural && msgid !== msgid_plural) targetKey = `${msgid}|#|${msgid_plural}`;
+      }
+
       const newValues = getGettextValues(values, locale, targetKey, options);
+
       Object.assign(appendTo, newValues);
     });
   });
@@ -163,13 +175,12 @@ function getI18nextPluralExtension(ext, i) {
 }
 
 function toArrayIfNeeded(value, { splitNewLine }) {
-  return (value.indexOf('\n') > -1 && splitNewLine)
-    ? value.split('\n')
-    : value;
+  return value.indexOf('\n') > -1 && splitNewLine ? value.split('\n') : value;
 }
 
 function emptyOrObject(key, value, options) {
-  if (options.skipUntranslated && !value) { // empty string or other falsey
+  if (options.skipUntranslated && !value) {
+    // empty string or other falsey
     return {};
   }
 

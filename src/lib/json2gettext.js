@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 const GettextParser = require('gettext-parser');
 const Promise = require('bluebird');
 
@@ -16,7 +17,13 @@ function i18nextToMo(locale, body, options = {}) {
   return i18nextToGettext(locale, body, GettextParser.mo, identity, options);
 }
 
-function i18nextToGettext(locale, body, parser, getTranslatedValue, options = {}) {
+function i18nextToGettext(
+  locale,
+  body,
+  parser,
+  getTranslatedValue,
+  options = {},
+) {
   return Promise.resolve(flatten(JSON.parse(body), options))
     .then((flat) => {
       if (options.base) {
@@ -24,7 +31,9 @@ function i18nextToGettext(locale, body, parser, getTranslatedValue, options = {}
         Object.keys(bflat).forEach((key) => {
           if (flat[key]) {
             if (flat[key].plurals) {
-              bflat[key].translated_value = getTranslatedValue(getPluralArray(locale, flat[key]));
+              bflat[key].translated_value = getTranslatedValue(
+                getPluralArray(locale, flat[key]),
+              );
             } else {
               bflat[key].translated_value = getTranslatedValue(flat[key].value);
             }
@@ -45,9 +54,17 @@ function getPluralArray(locale, translation) {
 
   for (let i = 0, len = translation.plurals.length; i < len; i += 1) {
     const plural = translation.plurals[i];
-    pArray.splice(getGettextPluralPosition(ext, plural.pluralNumber - 1), 0, plural.value);
+    pArray.splice(
+      getGettextPluralPosition(ext, plural.pluralNumber - 1),
+      0,
+      plural.value,
+    );
   }
-  pArray.splice(getGettextPluralPosition(ext, translation.pluralNumber - 1), 0, translation.value);
+  pArray.splice(
+    getGettextPluralPosition(ext, translation.pluralNumber - 1),
+    0,
+    translation.value,
+  );
 
   return pArray;
 }
@@ -70,13 +87,21 @@ function parseGettext(locale, data, options = {}) {
   const ext = plurals.getRule(locale);
   const trans = {};
 
-  out.headers['plural-forms'] = `nplurals=${ext.nplurals}; plural=${ext.plurals}`;
+  out.headers['plural-forms'] = `nplurals=${ext.nplurals}; plural=${
+    ext.plurals
+  }`;
 
   if (!options.noDate) {
     out.headers['pot-creation-date'] = new Date().toISOString();
     out.headers['po-revision-date'] = new Date().toISOString();
-    if (options.potCreationDate && typeof options.potCreationDate.toISOString === 'function') out.headers['pot-creation-date'] = options.potCreationDate.toISOString();
-    if (options.poRevisionDate && typeof options.poRevisionDate.toISOString === 'function') out.headers['po-revision-date'] = options.poRevisionDate.toISOString();
+    if (
+      options.potCreationDate
+      && typeof options.potCreationDate.toISOString === 'function'
+    ) out.headers['pot-creation-date'] = options.potCreationDate.toISOString();
+    if (
+      options.poRevisionDate
+      && typeof options.poRevisionDate.toISOString === 'function'
+    ) out.headers['po-revision-date'] = options.poRevisionDate.toISOString();
   }
   if (options.language) {
     out.headers.language = options.language;
@@ -91,9 +116,17 @@ function parseGettext(locale, data, options = {}) {
 
       for (let i = 0, len = kv.plurals.length; i < len; i += 1) {
         const plural = kv.plurals[i];
-        pArray.splice(getGettextPluralPosition(ext, plural.pluralNumber - 1), 0, plural.value);
+        pArray.splice(
+          getGettextPluralPosition(ext, plural.pluralNumber - 1),
+          0,
+          plural.value,
+        );
       }
-      pArray.splice(getGettextPluralPosition(ext, kv.pluralNumber - 1), 0, kv.value);
+      pArray.splice(
+        getGettextPluralPosition(ext, kv.pluralNumber - 1),
+        0,
+        kv.value,
+      );
 
       if (typeof trans[kv.context] !== 'object') trans[kv.context] = {};
       if (options.keyasareference) {
@@ -113,10 +146,21 @@ function parseGettext(locale, data, options = {}) {
           delkeys.push([kv.context, kv.key]);
         }
       } else {
+        let msgid = kv.key;
+        // eslint-disable-next-line camelcase
+        let msgid_plural = kv.key;
+
+        if (options.persistMsgIdPlural && kv.key.indexOf('|#|') > -1) {
+          const p = kv.key.split('|#|');
+          msgid = p[0];
+          // eslint-disable-next-line camelcase
+          msgid_plural = p[1];
+        }
+
         trans[kv.context][kv.key] = {
           msgctxt: kv.context,
-          msgid: kv.key,
-          msgid_plural: kv.key,
+          msgid,
+          msgid_plural,
           msgstr: pArray,
         };
       }
@@ -141,7 +185,11 @@ function parseGettext(locale, data, options = {}) {
           delkeys.push([kv.context, kv.key]);
         }
       } else {
-        trans[kv.context][kv.key] = { msgctxt: kv.context, msgid: kv.key, msgstr: kv.value };
+        trans[kv.context][kv.key] = {
+          msgctxt: kv.context,
+          msgid: kv.key,
+          msgstr: kv.value,
+        };
       }
     }
   });
@@ -156,7 +204,9 @@ function parseGettext(locale, data, options = {}) {
   Object.keys(trans).forEach((ctxt) => {
     Object.keys(trans[ctxt]).forEach((id) => {
       if (trans[ctxt][id].comments && trans[ctxt][id].comments.reference) {
-        trans[ctxt][id].comments.reference = trans[ctxt][id].comments.reference.join('\n');
+        trans[ctxt][id].comments.reference = trans[ctxt][
+          id
+        ].comments.reference.join('\n');
       }
     });
   });
