@@ -1,3 +1,7 @@
+### 9.1.0
+
+- add option `persistMsgIdPlural` to merge msgid and msgid_plural (po -> json -> po)
+
 ### 9.0.0
 
 - Breaking: this library now throws an error when passed an invalid `po` file in `gettextToI18next`;
