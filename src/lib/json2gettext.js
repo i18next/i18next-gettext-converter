@@ -150,7 +150,7 @@ function parseGettext(locale, data, options = {}) {
         // eslint-disable-next-line camelcase
         let msgid_plural = kv.key;
 
-        if (options.persistMsgIdPlural && kv.key.indexOf('|#|') > -1) {
+        if (kv.key.indexOf('|#|') > -1) {
           const p = kv.key.split('|#|');
           msgid = p[0];
           // eslint-disable-next-line camelcase

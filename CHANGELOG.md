@@ -1,3 +1,7 @@
+### 9.2.0
+
+- add ignoreCtx option  [89](https://github.com/i18next/i18next-gettext-converter/pull/89)
+
 ### 9.1.0
 
 - add option `persistMsgIdPlural` to merge msgid and msgid_plural (po -> json -> po)
