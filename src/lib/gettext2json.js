@@ -125,7 +125,7 @@ function parseJSON(locale, data = {}, options = {}) {
         }
       }
 
-      if (m !== '') targetKey = `${targetKey}${ctxSeparator}${m}`;
+      if (m !== '' && !options.ignoreCtx) targetKey = `${targetKey}${ctxSeparator}${m}`;
 
       const values = context[key].msgstr;
 
