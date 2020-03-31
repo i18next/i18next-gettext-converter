@@ -99,6 +99,11 @@ module.exports = {
       const kv = flat[m];
 
       if (kv.isPlural) {
+        if (!flat[kv.key + kv.context]) {
+          flat[kv.key + kv.context] = {
+            key: kv.key,
+          };
+        }
         const single = flat[kv.key + kv.context];
 
         if (single) {

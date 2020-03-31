@@ -122,11 +122,13 @@ function parseGettext(locale, data, options = {}) {
           plural.value,
         );
       }
-      pArray.splice(
-        getGettextPluralPosition(ext, kv.pluralNumber - 1),
-        0,
-        kv.value,
-      );
+      if (ext.nplurals !== 1) {
+        pArray.splice(
+          getGettextPluralPosition(ext, kv.pluralNumber - 1),
+          0,
+          kv.value,
+        );
+      }
 
       if (typeof trans[kv.context] !== 'object') trans[kv.context] = {};
       if (options.keyasareference) {
