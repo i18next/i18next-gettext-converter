@@ -102,6 +102,7 @@ module.exports = {
         if (!flat[kv.key + kv.context]) {
           flat[kv.key + kv.context] = {
             key: kv.key,
+            context: kv.context,
           };
         }
         const single = flat[kv.key + kv.context];

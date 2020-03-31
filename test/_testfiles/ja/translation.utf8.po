@@ -1,0 +1,25 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+msgid "a##apple"
+msgid_plural "a##apple"
+msgstr[0] "私はリンゴを{count}個持っています"
+
+msgid "friend"
+msgid_plural "friend"
+msgstr[0] "{count}人の友達"
+
+msgctxt "male"
+msgid "friend"
+msgid_plural "friend"
+msgstr[0] "{count}人の友達"
+
+msgctxt "female"
+msgid "friend"
+msgid_plural "friend"
+msgstr[0] "{count}人のガールフレンド"

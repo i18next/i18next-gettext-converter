@@ -63,6 +63,11 @@ const testFiles = {
     utf8_msgid_not_fully_translated_expected:
       './test/_testfiles/ru/translation.utf8_msgid_not_fully_translated.json',
   },
+
+  ja: {
+    utf8: './test/_testfiles/ja/translation.utf8.po',
+    utf8_expected: './test/_testfiles/ja/translation.utf8.json',
+  },
 };
 
 /**
@@ -124,6 +129,12 @@ describe('i18next-gettext-converter', () => {
         splitNewLine: true,
       }).then((result) => {
         const expected = requireTestFile(testFiles.ru.utf8_expected);
+        expect(JSON.parse(result)).to.deep.equal(expected);
+      }),
+      gettextToI18next('ja', readFileSync(testFiles.ja.utf8), {
+        splitNewLine: true,
+      }).then((result) => {
+        const expected = requireTestFile(testFiles.ja.utf8_expected);
         expect(JSON.parse(result)).to.deep.equal(expected);
       }),
     ]));
@@ -296,6 +307,13 @@ describe('i18next-gettext-converter', () => {
       }).then((result) => {
         const expected = readFileSync(testFiles.ru.utf8_2).slice(0, -1); // TODO: figure out last character
         expect(result).to.deep.equal(expected);
+      }),
+      i18nextToPo('ja', readFileSync(testFiles.ja.utf8_expected), {
+        splitNewLine: true,
+        noDate: true,
+      }).then((result) => {
+        const expected = readFileSync(testFiles.ja.utf8).slice(0, -1); // TODO: figure out last character
+        expect(result.toString()).to.deep.equal(expected.toString());
       }),
     ]));
 
