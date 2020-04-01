@@ -127,8 +127,6 @@ function parseJSON(locale, data = {}, options = {}) {
 
       if (m !== '' && !options.ignoreCtx) targetKey = `${targetKey}${ctxSeparator}${m}`;
 
-      const values = context[key].msgstr;
-
       if (options.persistMsgIdPlural) {
         // eslint-disable-next-line camelcase
         const { msgid, msgid_plural } = context[key];
@@ -137,7 +135,7 @@ function parseJSON(locale, data = {}, options = {}) {
         if (msgid_plural && msgid !== msgid_plural) targetKey = `${msgid}|#|${msgid_plural}`;
       }
 
-      const newValues = getGettextValues(values, locale, targetKey, options);
+      const newValues = getGettextValues(context[key], locale, targetKey, options);
 
       Object.assign(appendTo, newValues);
     });
@@ -146,8 +144,10 @@ function parseJSON(locale, data = {}, options = {}) {
   return Promise.resolve(json);
 }
 
-function getGettextValues(values, locale, targetKey, options) {
-  if (values.length === 1) {
+function getGettextValues(value, locale, targetKey, options) {
+  const values = value.msgstr;
+  const isPlural = !!value.msgid_plural;
+  if (!isPlural) {
     return emptyOrObject(targetKey, values[0], options);
   }
 
