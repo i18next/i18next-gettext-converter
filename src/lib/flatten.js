@@ -108,8 +108,7 @@ module.exports = {
         const single = flat[kv.key + kv.context];
 
         if (single) {
-          single.plurals = single.plurals || [];
-          single.plurals.push(kv);
+          single.plurals = [...single.plurals || [], kv];
 
           delete flat[m];
         }
