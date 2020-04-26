@@ -1,5 +1,6 @@
+const { promisify } = require('util');
+
 const Gettext = require('node-gettext');
-const Promise = require('bluebird');
 const { po } = require('gettext-parser');
 
 const plurals = require('./plurals');
@@ -13,7 +14,7 @@ function gettextToI18next(locale, body, options = {}) {
 
       return parseJSON(locale, data, options);
     })
-    .then(json => JSON.stringify(json, null, 4));
+    .then((json) => JSON.stringify(json, null, 4));
 }
 
 /*
@@ -29,7 +30,7 @@ function addTextLocale(locale, body, options = {}) {
   }
 
   if (filter) {
-    const filterAsync = Promise.promisify(filter);
+    const filterAsync = promisify(filter);
     return filterAsync(gt, locale);
   }
 

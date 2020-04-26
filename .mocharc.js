@@ -1,3 +1,3 @@
 module.exports = {
-  require: ['env-test', '@babel/register'],
+  require: ['env-test', '@babel/register', './test/setup'],
 };

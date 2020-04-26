@@ -1,3 +1,14 @@
+### 10.0.0
+
+- Breaking: support node >= 10
+- Update all dependencies
+- Replace `bluebird` promises with native promises
+- Minor refactoring
+
+### 9.2.1
+
+- fix nplurals=1  [92](https://github.com/i18next/i18next-gettext-converter/pull/92)
+
 ### 9.2.0
 
 - add ignoreCtx option  [89](https://github.com/i18next/i18next-gettext-converter/pull/89)

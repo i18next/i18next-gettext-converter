@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const Promise = require('bluebird');
 const fs = require('fs');
 const path = require('path');
-const mkdirp = require('mkdirp');
+const { promisify } = require('util');
+const mkdirp = require('mkdirp').sync;
 const program = require('commander');
 const {
   red, green, blue, yellow,
@@ -12,8 +12,8 @@ const {
 const i18nextConv = require('../lib');
 const plurals = require('../lib/plurals');
 
-const writeFileAsync = Promise.promisify(fs.writeFile);
-const readFileAsync = Promise.promisify(fs.readFile);
+const writeFileAsync = promisify(fs.writeFile);
+const readFileAsync = promisify(fs.readFile);
 const {
   gettextToI18next,
   i18nextToPo,
@@ -149,12 +149,12 @@ function processFile(locale, source, target, options) {
       }
 
       if (!fs.existsSync(targetDir)) {
-        mkdirp.sync(targetDir);
+        mkdirp(targetDir);
       }
 
       return converter(locale, body, options);
     })
-    .then(data => writeFile(target, data, options))
+    .then((data) => writeFile(target, data, options))
     .catch((err) => {
       if (err.code === 'ENOENT') console.log(red(`file ${source} was not found.`));
     });

@@ -1,4 +1,3 @@
-const Promise = require('bluebird');
 const path = require('path');
 const { expect } = require('chai');
 const { readFileSync } = require('fs');
@@ -109,165 +108,107 @@ function requireTestFile(file) {
 describe('i18next-gettext-converter', () => {
   describe('gettextToI18next', () => {
     it('should convert a utf8 PO files to JSON', () => Promise.all([
-      gettextToI18next('en', readFileSync(testFiles.en.utf8)).then((result) => {
-        const expected = requireTestFile(testFiles.en.utf8_expected);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
-      gettextToI18next('en_us', readFileSync(testFiles.en.utf8), {
+      expect(gettextToI18next('en', readFileSync(testFiles.en.utf8)).then(JSON.parse))
+        .to.become(requireTestFile(testFiles.en.utf8_expected)),
+      expect(gettextToI18next('en_us', readFileSync(testFiles.en.utf8), {
         splitNewLine: true,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.en.utf8_expected);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
-      gettextToI18next('de', readFileSync(testFiles.de.utf8), {
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.utf8_expected)),
+      expect(gettextToI18next('de', readFileSync(testFiles.de.utf8), {
         splitNewLine: true,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.de.utf8_expected);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
-      gettextToI18next('ru', readFileSync(testFiles.ru.utf8), {
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.de.utf8_expected)),
+      expect(gettextToI18next('ru', readFileSync(testFiles.ru.utf8), {
         splitNewLine: true,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.ru.utf8_expected);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
-      gettextToI18next('ja', readFileSync(testFiles.ja.utf8), {
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.ru.utf8_expected)),
+      expect(gettextToI18next('ja', readFileSync(testFiles.ja.utf8), {
         splitNewLine: true,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.ja.utf8_expected);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.ja.utf8_expected)),
     ]));
 
-    it('should convert a latin13 PO files to JSON, for a given domain', () => gettextToI18next('en', readFileSync(testFiles.en.latin13), {
-      splitNewLine: true,
-    }).then((result) => {
-      const expected = requireTestFile(testFiles.en.latin13_expected);
-      expect(JSON.parse(result)).to.deep.equal(expected);
-    }));
+    it('should convert a latin13 PO files to JSON, for a given domain', () =>
+      expect(gettextToI18next('en', readFileSync(testFiles.en.latin13), {
+        splitNewLine: true,
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.latin13_expected)));
 
     it('should filter incoming PO translations if a filter function is passed to options', () =>
       // Should filter all but the col* keys
-      gettextToI18next('en', readFileSync(testFiles.en.unfiltered), {
+      expect(gettextToI18next('en', readFileSync(testFiles.en.unfiltered), {
         filter: testFilter,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.en.filtered);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }));
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.filtered)));
 
     it('should pass all keys unfiltered, when the PO has no comments', () =>
       // Should filter none of the keys
-      gettextToI18next(
+      expect(gettextToI18next(
         'en',
         readFileSync(testFiles.en.unfiltered_no_comments),
         {
           splitNewLine: true,
           filter: testFilter,
         },
-      ).then((result) => {
-        const expected = requireTestFile(testFiles.en.filtered_no_comments);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }));
+      ).then(JSON.parse)).to.become(requireTestFile(testFiles.en.filtered_no_comments)));
 
     it('should return an empty JSON file if nothing matches the given filter', () =>
       // Should filter all the keys
-      gettextToI18next('en', readFileSync(testFiles.en.unfiltered_no_match), {
+      expect(gettextToI18next('en', readFileSync(testFiles.en.unfiltered_no_match), {
         splitNewLine: true,
         filter: testFilter,
-      }).then((result) => {
-        expect(JSON.parse(result)).to.deep.equal({});
-      }));
+      }).then(JSON.parse)).to.become({}));
 
     it('should convert a utf8 PO file with msgid as an original string to a JSON file', () => Promise.all([
-      gettextToI18next('en', readFileSync(testFiles.en.utf8_msgid), {
+      expect(gettextToI18next('en', readFileSync(testFiles.en.utf8_msgid), {
         splitNewLine: true,
         keyasareference: true,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.en.utf8_msgid_expected);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
-      gettextToI18next('de', readFileSync(testFiles.de.utf8_msgid), {
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.utf8_msgid_expected)),
+      expect(gettextToI18next('de', readFileSync(testFiles.de.utf8_msgid), {
         splitNewLine: true,
         keyasareference: true,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.de.utf8_msgid_expected);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.de.utf8_msgid_expected)),
     ]));
 
     it('should fill in the original English strings if missing - convert a utf8 PO file with msgid as original string to a JSON file', () => Promise.all([
-      gettextToI18next(
+      expect(gettextToI18next(
         'de',
         readFileSync(testFiles.de.utf8_msgid_not_fully_translated),
         {
           splitNewLine: true,
           keyasareference: true,
         },
-      ).then((result) => {
-        const expected = requireTestFile(
-          testFiles.de.utf8_msgid_not_fully_translated_expected,
-        );
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
-      gettextToI18next(
+      ).then(JSON.parse)).to.become(requireTestFile(
+        testFiles.de.utf8_msgid_not_fully_translated_expected,
+      )),
+      expect(gettextToI18next(
         'ru',
         readFileSync(testFiles.ru.utf8_msgid_not_fully_translated),
         {
           splitNewLine: true,
           keyasareference: true,
         },
-      ).then((result) => {
-        const expected = requireTestFile(
-          testFiles.ru.utf8_msgid_not_fully_translated_expected,
-        );
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
+      ).then(JSON.parse)).to.become(requireTestFile(
+        testFiles.ru.utf8_msgid_not_fully_translated_expected,
+      )),
     ]));
 
     it('should skip empty values appropriately', () => Promise.all([
-      gettextToI18next('en', readFileSync(testFiles.en.untranslated)).then(
-        (result) => {
-          const expected = requireTestFile(
-            testFiles.en.untranslated_expected,
-          );
-          expect(JSON.parse(result)).to.deep.equal(expected);
-        },
-      ),
-      gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
+      expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated)).then(JSON.parse))
+        .to.become(requireTestFile(testFiles.en.untranslated_expected)),
+      expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
         skipUntranslated: true,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.en.untranslated_skipped);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
-      gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.untranslated_skipped)),
+      expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
         keyasareference: true,
         skipUntranslated: true,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.en.untranslated_skipped);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.untranslated_skipped)),
     ]));
 
     it('should skip fuzzy values appropriately', () => Promise.all([
-      gettextToI18next('en', readFileSync(testFiles.en.fuzzy)).then(
-        (result) => {
-          const expected = requireTestFile(testFiles.en.fuzzy_expected);
-          expect(JSON.parse(result)).to.deep.equal(expected);
-        },
-      ),
-      gettextToI18next('en', readFileSync(testFiles.en.fuzzy), {
+      expect(gettextToI18next('en', readFileSync(testFiles.en.fuzzy)).then(JSON.parse))
+        .to.become(requireTestFile(testFiles.en.fuzzy_expected)),
+      expect(gettextToI18next('en', readFileSync(testFiles.en.fuzzy), {
         skipUntranslated: true,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.en.fuzzy_skipped);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
-      gettextToI18next('en', readFileSync(testFiles.en.fuzzy), {
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.fuzzy_skipped)),
+      expect(gettextToI18next('en', readFileSync(testFiles.en.fuzzy), {
         keyasareference: true,
         skipUntranslated: true,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.en.fuzzy_skipped);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      }),
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.fuzzy_skipped)),
     ]));
 
     // -- Error States & Invalid Data --
@@ -279,63 +220,46 @@ describe('i18next-gettext-converter', () => {
         expect(JSON.parse(result)).to.deep.equal({});
       }));
 
-      it('should throw a syntax error when passed an invalid PO', () => expect(() => gettextToI18next('en', readFileSync(testFiles.en.bad_format), {
-        splitNewLine: true,
-      })).to.throw(SyntaxError, /Error parsing PO data/));
+      it('should throw a syntax error when passed an invalid PO', () =>
+        expect(() => gettextToI18next('en', readFileSync(testFiles.en.bad_format), {
+          splitNewLine: true,
+        })).to.throw(SyntaxError, /Error parsing PO data/));
     });
   });
 
   describe('i18nextToGettext', () => {
     it('should convert a JSON file to utf8 PO', () => Promise.all([
-      i18nextToPo('en', readFileSync(testFiles.en.utf8_expected), {
+      expect(i18nextToPo('en', readFileSync(testFiles.en.utf8_expected), {
         splitNewLine: true,
         noDate: true,
-      }).then((result) => {
-        const expected = readFileSync(testFiles.en.utf8).slice(0, -1); // TODO: figure out last character
-        expect(result).to.deep.equal(expected);
-      }),
-      i18nextToPo('de', readFileSync(testFiles.de.utf8_expected), {
+      })).to.become(readFileSync(testFiles.en.utf8).slice(0, -1)), // TODO: figure out last character
+      expect(i18nextToPo('de', readFileSync(testFiles.de.utf8_expected), {
         splitNewLine: true,
         noDate: true,
-      }).then((result) => {
-        const expected = readFileSync(testFiles.de.utf8).slice(0, -1); // TODO: figure out last character
-        expect(result).to.deep.equal(expected);
-      }),
-      i18nextToPo('ru', readFileSync(testFiles.ru.utf8_2_expected), {
+      })).to.become(readFileSync(testFiles.de.utf8).slice(0, -1)), // TODO: figure out last character
+      expect(i18nextToPo('ru', readFileSync(testFiles.ru.utf8_2_expected), {
         splitNewLine: true,
         noDate: true,
-      }).then((result) => {
-        const expected = readFileSync(testFiles.ru.utf8_2).slice(0, -1); // TODO: figure out last character
-        expect(result).to.deep.equal(expected);
-      }),
-      i18nextToPo('ja', readFileSync(testFiles.ja.utf8_expected), {
+      })).to.become(readFileSync(testFiles.ru.utf8_2).slice(0, -1)), // TODO: figure out last character
+      expect(i18nextToPo('ja', readFileSync(testFiles.ja.utf8_expected), {
         splitNewLine: true,
         noDate: true,
-      }).then((result) => {
-        const expected = readFileSync(testFiles.ja.utf8).slice(0, -1); // TODO: figure out last character
-        expect(result.toString()).to.deep.equal(expected.toString());
-      }),
+      })).to.become(readFileSync(testFiles.ja.utf8).slice(0, -1)), // TODO: figure out last character
     ]));
 
     it('should convert a JSON file to utf8 PO with msgid as an original string', () => Promise.all([
-      i18nextToPo('en', readFileSync(testFiles.en.utf8_msgid_expected), {
+      expect(i18nextToPo('en', readFileSync(testFiles.en.utf8_msgid_expected), {
         splitNewLine: true,
         noDate: true,
         base: readFileSync(testFiles.en.utf8_msgid_expected),
         keyasareference: true,
-      }).then((result) => {
-        const expected = readFileSync(testFiles.en.utf8_msgid).slice(0, -1);
-        expect(result.toString()).to.deep.equal(expected.toString());
-      }),
-      i18nextToPo('de', readFileSync(testFiles.de.utf8_msgid_expected), {
+      })).to.become(readFileSync(testFiles.en.utf8_msgid).slice(0, -1)),
+      expect(i18nextToPo('de', readFileSync(testFiles.de.utf8_msgid_expected), {
         splitNewLine: true,
         noDate: true,
         base: readFileSync(testFiles.en.utf8_msgid_expected),
         keyasareference: true,
-      }).then((result) => {
-        const expected = readFileSync(testFiles.de.utf8_msgid).slice(0, -1);
-        expect(result).to.deep.equal(expected);
-      }),
+      })).to.become(readFileSync(testFiles.de.utf8_msgid).slice(0, -1)),
     ]));
 
     it('should return correct nplurals for Hebrew', () => i18nextToPo('he', '{}').then((result) => {
@@ -355,11 +279,9 @@ describe('i18next-gettext-converter', () => {
         ['pt-br', 'plural=(n > 1)'], // pt-BR === pt-br
         ['pt', 'plural=(n > 1)'], // pt = Portuguese (catch all) == pt-BR == plural=(n > 1);
       ].forEach(([code, plural]) => {
-        it(`${code} should have ${plural}`, () => i18nextToPo(code, '{}').then((result) => {
-          expect(result.toString()).to.include(
-            `Plural-Forms: nplurals=2; ${plural}`,
-          );
-        }));
+        it(`${code} should have ${plural}`, () =>
+          expect(i18nextToPo(code, '{}').then((result) => result.toString()))
+            .to.eventually.include(`Plural-Forms: nplurals=2; ${plural}`));
       });
     });
   });
@@ -373,24 +295,17 @@ describe('i18next-gettext-converter', () => {
   // this is basically working non i18next format eg. rails-i18n using gettext
   describe('persisting msgid_plural', () => {
     it('should convert to json merging the ids', () => {
-      gettextToI18next('en', readFileSync(testFiles.en.persist_plural_id_po), {
+      expect(gettextToI18next('en', readFileSync(testFiles.en.persist_plural_id_po), {
         persistMsgIdPlural: true,
-      }).then((result) => {
-        const expected = requireTestFile(testFiles.en.persist_plural_id_json);
-        expect(JSON.parse(result)).to.deep.equal(expected);
-      });
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.persist_plural_id_json));
     });
 
-    it('should convert to po splitting the ids', () => {
-      i18nextToPo('en', readFileSync(testFiles.en.persist_plural_id_json), {
+    it('should convert to po splitting the ids', () =>
+      expect(i18nextToPo('en', readFileSync(testFiles.en.persist_plural_id_json), {
         persistMsgIdPlural: true,
         noDate: true,
         ctxSeparator:
-          '_ is default but we set it to something that is never found!!!',
-      }).then((result) => {
-        const expected = readFileSync(testFiles.en.persist_plural_id_po);
-        expect(result.toString()).to.equal(expected.toString());
-      });
-    });
+        '_ is default but we set it to something that is never found!!!',
+      })).to.become(readFileSync(testFiles.en.persist_plural_id_po).slice(0, -1)));
   });
 });

@@ -1,6 +1,5 @@
 /* eslint-disable prefer-destructuring */
 const GettextParser = require('gettext-parser');
-const Promise = require('bluebird');
 
 const plurals = require('./plurals');
 const { flatten } = require('./flatten');
@@ -45,7 +44,7 @@ function i18nextToGettext(
 
       return parseGettext(locale, flat, options);
     })
-    .then(data => parser.compile(data));
+    .then((data) => parser.compile(data));
 }
 
 function getPluralArray(locale, translation) {

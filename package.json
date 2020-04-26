@@ -21,28 +21,28 @@
     "node": ">= 6"
   },
   "dependencies": {
-    "bluebird": "^3.5.3",
-    "chalk": "^2.4.2",
-    "commander": "^2.19.0",
-    "gettext-parser": "^3.1.0",
-    "mkdirp": "^0.5.1",
-    "node-gettext": "^2.0.0"
+    "chalk": "^4.0.0",
+    "commander": "^5.1.0",
+    "gettext-parser": "^4.0.3",
+    "mkdirp": "^1.0.4",
+    "node-gettext": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
-    "@babel/register": "^7.0.0",
-    "babel-eslint": "^10.0.1",
-    "babel-plugin-istanbul": "^5.1.1",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/register": "^7.9.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-istanbul": "^6.0.0",
     "chai": "^4.2.0",
-    "coveralls": "^3.0.3",
+    "chai-as-promised": "^7.1.1",
+    "coveralls": "^3.1.0",
     "env-test": "^1.0.0",
-    "eslint": "^5.15.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "mocha": "^6.0.2",
-    "nyc": "^13.3.0"
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "mocha": "^7.1.2",
+    "nyc": "^15.0.1"
   },
   "scripts": {
     "lint": "eslint '**/*.js'",
