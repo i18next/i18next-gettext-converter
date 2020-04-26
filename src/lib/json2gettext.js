@@ -1,5 +1,6 @@
 /* eslint-disable prefer-destructuring */
 const GettextParser = require('gettext-parser');
+const arrify = require('arrify');
 
 const plurals = require('./plurals');
 const { flatten } = require('./flatten');
@@ -139,7 +140,7 @@ function parseGettext(locale, data, options = {}) {
             msgctxt: kv.context,
             msgid: pArray[0],
             msgid_plural: pArray.slice(1, pArray.length),
-            msgstr: kv.translated_value,
+            msgstr: arrify(kv.translated_value),
             comments: { reference: [kv.key] },
           };
         }
@@ -176,7 +177,7 @@ function parseGettext(locale, data, options = {}) {
           trans[kv.context][kv.value] = {
             msgctxt: kv.context,
             msgid: kv.value,
-            msgstr: kv.translated_value,
+            msgstr: arrify(kv.translated_value),
             comments: {
               reference: [kv.key],
             },
@@ -189,7 +190,7 @@ function parseGettext(locale, data, options = {}) {
         trans[kv.context][kv.key] = {
           msgctxt: kv.context,
           msgid: kv.key,
-          msgstr: kv.value,
+          msgstr: arrify(kv.value),
         };
       }
     }

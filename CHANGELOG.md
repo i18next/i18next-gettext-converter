@@ -1,3 +1,7 @@
+### 10.0.1
+
+- Due to a refactoring in `gettext-parser`, it now expects translation tables to contain `msgstr` properties as arrays (strings are not allowed anymore). This patch arrifies this property and adds a regression test
+
 ### 10.0.0
 
 - Breaking: support node >= 10

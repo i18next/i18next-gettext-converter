@@ -5,13 +5,14 @@ const { readFileSync } = require('fs');
 const {
   i18nextToPo,
   i18nextToPot, // eslint-disable-line no-unused-vars
-  i18nextToMo, // eslint-disable-line no-unused-vars
+  i18nextToMo,
   gettextToI18next,
 } = require('../src/lib');
 
 const testFiles = {
   en: {
     utf8: './test/_testfiles/en/translation.utf8.po',
+    utf8_expected_mo: './test/_testfiles/en/translation.utf8.mo',
     utf8_expected: './test/_testfiles/en/translation.utf8.json',
     utf8_msgid: './test/_testfiles/en/translation.utf8_msgid.po',
     utf8_msgid_expected: './test/_testfiles/en/translation.utf8_msgid.json',
@@ -261,6 +262,12 @@ describe('i18next-gettext-converter', () => {
         keyasareference: true,
       })).to.become(readFileSync(testFiles.de.utf8_msgid).slice(0, -1)),
     ]));
+
+    it('should convert a JSON file to utf8 MO', () =>
+      expect(i18nextToMo('en', readFileSync(testFiles.en.utf8_expected), {
+        splitNewLine: true,
+        noDate: true,
+      })).to.become(readFileSync(testFiles.en.utf8_expected_mo)));
 
     it('should return correct nplurals for Hebrew', () => i18nextToPo('he', '{}').then((result) => {
       const oneLine = result
