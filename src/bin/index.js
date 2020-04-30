@@ -9,7 +9,6 @@ const {
   red, green, blue, yellow,
 } = require('chalk');
 
-const i18nextConv = require('../lib');
 const plurals = require('../lib/plurals');
 
 const writeFileAsync = promisify(fs.writeFile);
@@ -19,7 +18,9 @@ const {
   i18nextToPo,
   i18nextToPot,
   i18nextToMo,
-} = i18nextConv;
+} = require('../lib');
+
+const { version } = require('../package.json'); // eslint-disable-line import/no-unresolved
 
 // test calls:
 
@@ -38,7 +39,7 @@ const {
 
 // program
 program
-  .version(i18nextConv.version)
+  .version(version)
   .option('-b, --base [path]', 'Sepcify path for the base language file. only take effect with -K option', '')
   .option('-f, --filter <path>', 'Specify path to gettext filter')
   .option('-l, --language <locale>', 'Specify the language code, eg. \'en\'')
