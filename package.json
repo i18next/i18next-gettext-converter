@@ -30,8 +30,8 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
     "@babel/register": "^7.9.0",
+    "@istanbuljs/nyc-config-babel": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-istanbul": "^6.0.0",
     "chai": "^4.2.0",
@@ -47,10 +47,9 @@
   "scripts": {
     "lint": "eslint '**/*.js'",
     "test": "mocha",
-    "build": "babel src --out-dir .",
     "cover": "nyc npm test",
     "coveralls": "npm run cover && nyc report --reporter=text-lcov | coveralls",
-    "prepare": "npm run build"
+    "prepare": "npm test"
   },
   "bin": {
     "i18next-conv": "bin/index.js"

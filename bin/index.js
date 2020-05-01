@@ -20,7 +20,7 @@ const {
   i18nextToMo,
 } = require('../lib');
 
-const { version } = require('../package.json'); // eslint-disable-line import/no-unresolved
+const { version } = require('../package.json');
 
 // test calls:
 

@@ -7,7 +7,7 @@ const {
   i18nextToPot, // eslint-disable-line no-unused-vars
   i18nextToMo,
   gettextToI18next,
-} = require('../src/lib');
+} = require('..');
 
 const testFiles = {
   en: {
