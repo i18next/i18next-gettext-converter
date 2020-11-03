@@ -1,3 +1,7 @@
+### 10.1.0
+
+- Add foldLength option [97](https://github.com/i18next/i18next-gettext-converter/pull/97)
+
 ### 10.0.1
 
 - Due to a refactoring in `gettext-parser`, it now expects translation tables to contain `msgstr` properties as arrays (strings are not allowed anymore). This patch arrifies this property and adds a regression test
