@@ -120,6 +120,7 @@ program
 .option('--splitNewLine', 'Silence output', false)
 .option('--ctxSeparator [sep]', 'Specify the context separator', '_')
 .option('--ignorePlurals', 'Do not process the plurals')
+.option('--foldLength', 'Specify the character fold length for strings', 76)
 .parse(process.argv);
 ```
 

@@ -40,6 +40,9 @@ const testFiles = {
       './test/_testfiles/en/translation.persist-msgid_plural.json',
     persist_plural_id_po:
       './test/_testfiles/en/translation.persist-msgid_plural.po',
+    fold_length: './test/_testfiles/en/translation.foldLength.json',
+    no_fold_length_po:
+      './test/_testfiles/en/translation.noFoldLength.po'
   },
 
   de: {
@@ -262,6 +265,13 @@ describe('i18next-gettext-converter', () => {
         keyasareference: true,
       })).to.become(readFileSync(testFiles.de.utf8_msgid).slice(0, -1)),
     ]));
+
+    it('should change the fold length when a foldLength option is supplied', () =>
+      expect(i18nextToPo('en', readFileSync(testFiles.en.fold_length), {
+        splitNewLine: true,
+        foldLength: 0,
+        noDate: true,
+      })).to.become(readFileSync(testFiles.en.no_fold_length_po)));
 
     it('should convert a JSON file to utf8 MO', () =>
       expect(i18nextToMo('en', readFileSync(testFiles.en.utf8_expected), {
