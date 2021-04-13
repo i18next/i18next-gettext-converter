@@ -42,7 +42,11 @@ const testFiles = {
       './test/_testfiles/en/translation.persist-msgid_plural.po',
     fold_length: './test/_testfiles/en/translation.foldLength.json',
     no_fold_length_po:
-      './test/_testfiles/en/translation.noFoldLength.po'
+      './test/_testfiles/en/translation.noFoldLength.po',
+    nested_array_of_objects_json:
+      './test/_testfiles/en/translation.nested_array_of_objects.json',
+    nested_array_of_objects_po:
+      './test/_testfiles/en/translation.nested_array_of_objects.po'
   },
 
   de: {
@@ -288,6 +292,13 @@ describe('i18next-gettext-converter', () => {
         'Plural-Forms: nplurals=4; plural=(n===1 ? 0 : n===2 ? 1 : (n<0 || n>10) &&  n%10==0 ? 2 : 3)',
       );
     }));
+
+    it('should recognize nested object arrays and recurse through them', () => {
+      expect(i18nextToPo('en', readFileSync(testFiles.en.nested_array_of_objects_json), {
+        splitNewLine: false,
+        noDate: true,
+      })).to.become(readFileSync(testFiles.en.nested_array_of_objects_po).slice(0, -1));
+    });
 
     describe('should return the correct plural forms for Portuguese', () => {
       [
