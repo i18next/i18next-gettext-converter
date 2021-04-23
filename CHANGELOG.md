@@ -1,3 +1,7 @@
+### 10.2.0
+
+- recognize nested object arrays and handle appropriately  [101](https://github.com/i18next/i18next-gettext-converter/pull/101)
+
 ### 10.1.0
 
 - Add foldLength option [97](https://github.com/i18next/i18next-gettext-converter/pull/97)
