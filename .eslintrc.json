@@ -16,7 +16,7 @@
   },
   "overrides": [
     {
-      "files": ["test/{,**}/*.js"],
+      "files": ["test/{,**}/*.?(m)js"],
       "extends": ["plugin:mocha/recommended"],
       "plugins": ["mocha"],
       "env": {

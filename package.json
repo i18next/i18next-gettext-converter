@@ -11,6 +11,7 @@
     "node": ">= 10"
   },
   "main": "lib",
+  "exports": "./lib/index.js",
   "bin": {
     "i18next-conv": "bin/index.js"
   },
