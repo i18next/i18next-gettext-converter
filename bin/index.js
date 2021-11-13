@@ -2,8 +2,9 @@
 
 import path from 'path';
 import program from 'commander';
-import { mkdir, existsSync, readFileSync } from 'fs';
-import { writeFile, readFile } from 'fs/promises';
+import {
+  mkdir, existsSync, readFileSync, promises as fsp,
+} from 'fs'; // node 12 does not support fs/promises
 import { createRequire } from 'module';
 import {
   red, green, blue, yellow,
@@ -18,6 +19,8 @@ import {
 // https://github.com/import-js/eslint-plugin-import/issues/1649
 // eslint-disable-next-line import/no-unresolved,node/no-missing-import
 } from 'i18next-conv';
+
+const { writeFile, readFile } = fsp;
 
 const require = createRequire(import.meta.url);
 const { version } = require('../package.json');
