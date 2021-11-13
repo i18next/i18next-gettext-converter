@@ -1,2 +1,5 @@
 test/_testfiles/en/translation.bad_format.po.js
 coverage
+node_modules
+bin/
+lib/

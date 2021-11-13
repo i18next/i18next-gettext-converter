@@ -46,7 +46,7 @@ const testFiles = {
     nested_array_of_objects_json:
       './test/_testfiles/en/translation.nested_array_of_objects.json',
     nested_array_of_objects_po:
-      './test/_testfiles/en/translation.nested_array_of_objects.po'
+      './test/_testfiles/en/translation.nested_array_of_objects.po',
   },
 
   de: {
@@ -301,6 +301,7 @@ describe('i18next-gettext-converter', () => {
     });
 
     describe('should return the correct plural forms for Portuguese', () => {
+      // eslint-disable-next-line mocha/no-setup-in-describe
       [
         ['pt-PT', 'plural=(n != 1)'], // pt-PT = European Portuguese = nplurals=2; plural=(n != 1);
         ['pt-BR', 'plural=(n > 1)'], // pt-BR = Brazillian Portuguese = nplurals=2; plural=(n > 1);
