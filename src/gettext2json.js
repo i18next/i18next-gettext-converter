@@ -1,9 +1,9 @@
-const { promisify } = require('util');
+import { promisify } from 'util';
 
-const Gettext = require('node-gettext');
-const { po } = require('gettext-parser');
+import Gettext from 'node-gettext';
+import { po } from 'gettext-parser';
 
-const plurals = require('./plurals');
+import plurals from './plurals.js';
 
 function gettextToI18next(locale, body, options = {}) {
   return addTextLocale(locale, body, options)
@@ -192,4 +192,4 @@ function isFuzzy(translation) {
   return !!translation.comments && translation.comments.flag === 'fuzzy';
 }
 
-module.exports = gettextToI18next;
+export default gettextToI18next;
