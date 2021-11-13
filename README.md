@@ -1,6 +1,6 @@
 # i18next-gettext-converter
 
-[![Travis][build-badge]][build]
+[![Build Status][build-badge]][build]
 [![npm package][npm-badge]][npm]
 [![Coverage Status][coveralls-badge]][coveralls]
 [![Dependency Status][dependency-status-badge]][dependency-status]
@@ -166,8 +166,8 @@ gettextToI18next('ua-UK', readFileSync('../locales/ua-UK/translation.po'), optio
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations.
 
-[build-badge]: https://img.shields.io/travis/i18next/i18next-gettext-converter/master.svg?style=flat-square
-[build]: https://travis-ci.org/i18next/i18next-gettext-converter
+[build-badge]: https://img.shields.io/github/workflow/status/i18next/i18next-gettext-converter/test/master?style=flat-square
+[build]: https://github.com/i18next/i18next-gettext-converter/actions
 
 [npm-badge]: https://img.shields.io/npm/v/i18next-conv.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/i18next-conv
