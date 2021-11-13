@@ -1,25 +1,25 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
-const mkdirp = require('mkdirp').sync;
-const program = require('commander');
-const {
+import path from 'path';
+import program from 'commander';
+import { mkdir, existsSync, readFileSync } from 'fs';
+import { writeFile, readFile } from 'fs/promises';
+import { createRequire } from 'module';
+import {
   red, green, blue, yellow,
-} = require('chalk');
+} from 'colorette';
 
-const plurals = require('../lib/plurals');
-
-const writeFileAsync = promisify(fs.writeFile);
-const readFileAsync = promisify(fs.readFile);
-const {
+import {
   gettextToI18next,
   i18nextToPo,
   i18nextToPot,
   i18nextToMo,
-} = require('../lib');
+  plurals,
+// https://github.com/import-js/eslint-plugin-import/issues/1649
+// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+} from 'i18next-conv';
 
+const require = createRequire(import.meta.url);
 const { version } = require('../package.json');
 
 // test calls:
@@ -67,12 +67,12 @@ const {
   ...options
 } = program;
 
-if (filter && fs.existsSync(filter)) {
+if (filter && existsSync(filter)) {
   options.filter = require(path.resolve(filter)); // eslint-disable-line global-require,import/no-dynamic-require
 }
 
-if (baseArg && fs.existsSync(baseArg)) {
-  options.base = fs.readFileSync(baseArg);
+if (baseArg && existsSync(baseArg)) {
+  options.base = readFileSync(baseArg);
 }
 
 const {
@@ -85,7 +85,7 @@ if (source && language) {
   if (pot && !base) {
     console.log(red('at least call with argument -p and -b.'));
     console.log('(call program with argument -h for help.)');
-    process.exit();
+    process.exit(); // eslint-disable-line no-process-exit
   }
 
   if (!options.quiet) console.log(yellow('start converting'));
@@ -105,7 +105,7 @@ if (source && language) {
 function processFile(locale, source, target, options) {
   if (!options.quiet) console.log((`--> reading file from: ${source}`));
 
-  return readFileAsync(source)
+  return readFile(source)
     .then((body) => {
       const dirname = path.dirname(source);
       const ext = path.extname(source);
@@ -150,20 +150,18 @@ function processFile(locale, source, target, options) {
           return null;
       }
 
-      if (!fs.existsSync(targetDir)) {
-        mkdirp(targetDir);
+      if (!existsSync(targetDir)) {
+        mkdir(targetDir, { recursive: true });
       }
 
       return converter(locale, body, options);
     })
-    .then((data) => writeFile(target, data, options))
+    .then((data) => {
+      if (!options?.quiet) console.log((`<-- writing file to: ${target}`));
+
+      return writeFile(target, data);
+    })
     .catch((err) => {
       if (err.code === 'ENOENT') console.log(red(`file ${source} was not found.`));
     });
-}
-
-function writeFile(target, data, options = {}) {
-  if (!options.quiet) console.log((`<-- writing file to: ${target}`));
-
-  return writeFileAsync(target, data);
 }

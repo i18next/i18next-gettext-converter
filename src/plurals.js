@@ -1,6 +1,6 @@
 // definition http://translate.sourceforge.net/wiki/l10n/pluralforms
 // Hebrew (he) updated in line with https://github.com/i18next/i18next/pull/1121
-module.exports = {
+export default {
   rules: {
     ach: {
       name: 'Acholi',

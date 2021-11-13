@@ -1,20 +1,20 @@
 /* eslint-disable prefer-destructuring */
-const GettextParser = require('gettext-parser');
-const arrify = require('arrify');
+import { po, mo } from 'gettext-parser';
+import arrify from 'arrify';
 
-const plurals = require('./plurals');
-const { flatten } = require('./flatten');
+import plurals from './plurals.js';
+import flatten from './flatten.js';
 
-function i18nextToPo(locale, body, options = {}) {
-  return i18nextToGettext(locale, body, GettextParser.po, identity, options);
+export function i18nextToPo(locale, body, options = {}) {
+  return i18nextToGettext(locale, body, po, identity, options);
 }
 
-function i18nextToPot(locale, body, options = {}) {
-  return i18nextToGettext(locale, body, GettextParser.po, () => '', options);
+export function i18nextToPot(locale, body, options = {}) {
+  return i18nextToGettext(locale, body, po, () => '', options);
 }
 
-function i18nextToMo(locale, body, options = {}) {
-  return i18nextToGettext(locale, body, GettextParser.mo, identity, options);
+export function i18nextToMo(locale, body, options = {}) {
+  return i18nextToGettext(locale, body, mo, identity, options);
 }
 
 function i18nextToGettext(
@@ -166,7 +166,7 @@ function parseGettext(locale, data, options = {}) {
         trans[kv.context][kv.key] = {
           msgctxt: kv.context,
           msgid,
-          msgid_plural,
+          msgid_plural, // eslint-disable-line camelcase
           msgstr: pArray,
         };
       }
@@ -239,9 +239,3 @@ function getGettextPluralPosition(ext, suffix) {
 function identity(val) {
   return val;
 }
-
-module.exports = {
-  i18nextToPot,
-  i18nextToPo,
-  i18nextToMo,
-};

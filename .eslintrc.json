@@ -12,11 +12,12 @@
     "no-console": 0,
     "no-use-before-define": 0,
     "implicit-arrow-linebreak": 0,
-    "no-underscore-dangle": ["error", { "allow": ["_normalizeDomain"] }]
+    "no-underscore-dangle": ["error", { "allow": ["_normalizeDomain"] }],
+    "import/extensions": 0
   },
   "overrides": [
     {
-      "files": ["test/{,**}/*.?(m)js"],
+      "files": ["test/{,**}/*.?(c)js"],
       "extends": ["plugin:mocha/recommended"],
       "plugins": ["mocha"],
       "env": {

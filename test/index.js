@@ -1,13 +1,15 @@
-const path = require('path');
-const { expect } = require('chai');
-const { readFileSync } = require('fs');
+import { join } from 'path';
+import { expect } from 'chai';
+import { readFileSync } from 'fs';
+import { createRequire } from 'module';
 
-const {
+import {
   i18nextToPo,
-  i18nextToPot, // eslint-disable-line no-unused-vars
   i18nextToMo,
   gettextToI18next,
-} = require('..');
+// https://github.com/import-js/eslint-plugin-import/issues/1649
+// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+} from 'i18next-conv';
 
 const testFiles = {
   en: {
@@ -109,8 +111,9 @@ function testFilter(gt, locale, callback) {
   callback(null, translations);
 }
 
+const require = createRequire(import.meta.url);
 function requireTestFile(file) {
-  return require(path.join('..', file)); // eslint-disable-line global-require,import/no-dynamic-require
+  return require(join('..', file)); // eslint-disable-line global-require,import/no-dynamic-require
 }
 
 describe('i18next-gettext-converter', () => {
