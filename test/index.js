@@ -308,7 +308,7 @@ describe('i18next-gettext-converter', () => {
         .replace(/\n/g, ' ')
         .replace(/"/g, '');
       expect(oneLine).to.include(
-        'Plural-Forms: nplurals=4; plural=(n===1 ? 0 : n===2 ? 1 : (n<0 || n>10) &&  n%10==0 ? 2 : 3)',
+        'Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : (n<0 || n>10) &&  n%10==0 ? 2 : 3)',
       );
     }));
 
