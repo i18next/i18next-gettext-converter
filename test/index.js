@@ -130,7 +130,7 @@ describe('i18next-gettext-converter', () => {
         splitNewLine: true,
       }).then(JSON.parse)).to.become(requireTestFile(testFiles.de.utf8_expected)));
 
-      it.only('ru', () => expect(gettextToI18next('ru', readFileSync(testFiles.ru.utf8), {
+      it('ru', () => expect(gettextToI18next('ru', readFileSync(testFiles.ru.utf8), {
         splitNewLine: true,
       }).then(JSON.parse)).to.become(requireTestFile(testFiles.ru.utf8_expected)));
 
@@ -204,29 +204,31 @@ describe('i18next-gettext-converter', () => {
       )));
     });
 
-    it('should skip empty values appropriately', () => Promise.all([
-      expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated)).then(JSON.parse))
-        .to.become(requireTestFile(testFiles.en.untranslated_expected)),
-      expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
+    describe('should skip empty values appropriately', () => {
+      it('base', () => expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated)).then(JSON.parse))
+        .to.become(requireTestFile(testFiles.en.untranslated_expected)));
+      it('skipUntranslated', () => expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
         skipUntranslated: true,
-      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.untranslated_skipped)),
-      expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.untranslated_skipped)));
+      it('skipUntranslated and keyasareference', () => expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
         keyasareference: true,
         skipUntranslated: true,
-      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.untranslated_skipped)),
-    ]));
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.untranslated_skipped)));
+    });
 
-    it('should skip fuzzy values appropriately', () => Promise.all([
-      expect(gettextToI18next('en', readFileSync(testFiles.en.fuzzy)).then(JSON.parse))
-        .to.become(requireTestFile(testFiles.en.fuzzy_expected)),
-      expect(gettextToI18next('en', readFileSync(testFiles.en.fuzzy), {
+    describe('should skip fuzzy values appropriately', () => {
+      it('base', () => expect(gettextToI18next('en', readFileSync(testFiles.en.fuzzy)).then(JSON.parse))
+        .to.become(requireTestFile(testFiles.en.fuzzy_expected)));
+
+      it('skipUntranslated', () => expect(gettextToI18next('en', readFileSync(testFiles.en.fuzzy), {
         skipUntranslated: true,
-      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.fuzzy_skipped)),
-      expect(gettextToI18next('en', readFileSync(testFiles.en.fuzzy), {
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.fuzzy_skipped)));
+
+      it('skipUntranslated and keyasareference', () => expect(gettextToI18next('en', readFileSync(testFiles.en.fuzzy), {
         keyasareference: true,
         skipUntranslated: true,
-      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.fuzzy_skipped)),
-    ]));
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.fuzzy_skipped)));
+    });
 
     // -- Error States & Invalid Data --
 

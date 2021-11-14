@@ -6,7 +6,7 @@ import { js2i18next } from 'gettext-converter';
 
 export default function gettextToI18next(locale, body, options = {}) {
   return addTextLocale(locale, body, options)
-    .then((translations) => js2i18next({ translations }, options))
+    .then((translations) => (translations ? js2i18next({ translations }, { ...options, locale }) : {}))
     .then((json) => JSON.stringify(json, null, 4));
 }
 
