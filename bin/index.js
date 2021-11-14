@@ -15,7 +15,6 @@ import {
   i18nextToPo,
   i18nextToPot,
   i18nextToMo,
-  plurals,
 // https://github.com/import-js/eslint-plugin-import/issues/1649
 // eslint-disable-next-line import/no-unresolved,node/no-missing-import
 } from 'i18next-conv';
@@ -60,6 +59,7 @@ program
   .option('--ctxSeparator [sep]', 'Specify the context separator', '_')
   .option('--ignorePlurals', 'Do not process the plurals')
   .option('--foldLength', 'Specify the character fold length for strings')
+  .option('--compatibilityJSON', "Set to 'v4' to generate i18next@21 compatible json files")
   .parse(process.argv);
 
 const {
@@ -93,6 +93,13 @@ if (source && language) {
 
   if (!options.quiet) console.log(yellow('start converting'));
 
+  if (options.plurals) {
+    const pluralsPath = path.join(process.cwd(), options.plurals);
+    options.plurals = require(pluralsPath); // eslint-disable-line global-require,import/no-dynamic-require
+
+    if (!options.quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
+  }
+
   processFile(language, source, target, options)
     .then(() => {
       if (!options.quiet) console.log(green('file written'));
@@ -113,13 +120,6 @@ function processFile(locale, source, target, options) {
       const dirname = path.dirname(source);
       const ext = path.extname(source);
       const filename = path.basename(source, ext);
-
-      if (options.plurals) {
-        const pluralsPath = path.join(process.cwd(), options.plurals);
-        plurals.rules = require(pluralsPath); // eslint-disable-line global-require,import/no-dynamic-require
-
-        if (!options.quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
-      }
 
       let targetDir;
       let targetExt;

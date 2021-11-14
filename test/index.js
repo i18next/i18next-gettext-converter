@@ -118,11 +118,6 @@ function requireTestFile(file) {
 
 describe('i18next-gettext-converter', () => {
   describe('gettextToI18next', () => {
-    //  it.only('tmp', () => expect(gettextToI18next('ru', readFileSync(testFiles.ru.utf8), {
-    //  splitNewLine: true,
-    //  //  compatibilityJSON: 'v4',
-    //  }).then(JSON.parse)).to.become(requireTestFile(testFiles.ru.utf8_expected)));
-
     describe('convert a utf8 PO files to JSON', () => {
       it('en', () => expect(gettextToI18next('en', readFileSync(testFiles.en.utf8)).then(JSON.parse))
         .to.become(requireTestFile(testFiles.en.utf8_expected)));
@@ -135,7 +130,7 @@ describe('i18next-gettext-converter', () => {
         splitNewLine: true,
       }).then(JSON.parse)).to.become(requireTestFile(testFiles.de.utf8_expected)));
 
-      it('ru', () => expect(gettextToI18next('ru', readFileSync(testFiles.ru.utf8), {
+      it.only('ru', () => expect(gettextToI18next('ru', readFileSync(testFiles.ru.utf8), {
         splitNewLine: true,
       }).then(JSON.parse)).to.become(requireTestFile(testFiles.ru.utf8_expected)));
 
@@ -197,7 +192,7 @@ describe('i18next-gettext-converter', () => {
         testFiles.de.utf8_msgid_not_fully_translated_expected,
       )));
 
-      it('ru', expect(gettextToI18next(
+      it('ru', () => expect(gettextToI18next(
         'ru',
         readFileSync(testFiles.ru.utf8_msgid_not_fully_translated),
         {
