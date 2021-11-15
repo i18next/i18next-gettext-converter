@@ -16,6 +16,7 @@ const testFiles = {
     utf8: './test/_testfiles/en/translation.utf8.po',
     utf8_expected_mo: './test/_testfiles/en/translation.utf8.mo',
     utf8_expected: './test/_testfiles/en/translation.utf8.json',
+    utf8_v4_expected: './test/_testfiles/en/translation-v4.utf8.json',
     utf8_msgid: './test/_testfiles/en/translation.utf8_msgid.po',
     utf8_msgid_expected: './test/_testfiles/en/translation.utf8_msgid.json',
     latin13: './test/_testfiles/en/translation.latin13.po',
@@ -54,6 +55,7 @@ const testFiles = {
   de: {
     utf8: './test/_testfiles/de/translation.utf8.po',
     utf8_expected: './test/_testfiles/de/translation.utf8.json',
+    utf8_v4_expected: './test/_testfiles/de/translation-v4.utf8.json',
     utf8_msgid: './test/_testfiles/de/translation.utf8_msgid.po',
     utf8_msgid_expected: './test/_testfiles/de/translation.utf8_msgid.json',
     utf8_msgid_not_fully_translated:
@@ -65,6 +67,7 @@ const testFiles = {
   ru: {
     utf8: './test/_testfiles/ru/translation.utf8.po',
     utf8_expected: './test/_testfiles/ru/translation.utf8.json',
+    utf8_v4_expected: './test/_testfiles/ru/translation-v4.utf8.json',
     utf8_2: './test/_testfiles/ru/translation2.utf8.po',
     utf8_2_expected: './test/_testfiles/ru/translation2.utf8.json',
     utf8_msgid_not_fully_translated:
@@ -76,6 +79,7 @@ const testFiles = {
   ja: {
     utf8: './test/_testfiles/ja/translation.utf8.po',
     utf8_expected: './test/_testfiles/ja/translation.utf8.json',
+    utf8_v4_expected: './test/_testfiles/ja/translation-v4.utf8.json',
   },
 };
 
@@ -137,6 +141,31 @@ describe('i18next-gettext-converter', () => {
       it('ja', () => expect(gettextToI18next('ja', readFileSync(testFiles.ja.utf8), {
         splitNewLine: true,
       }).then(JSON.parse)).to.become(requireTestFile(testFiles.ja.utf8_expected)));
+    });
+
+    describe('convert a utf8 PO files to JSON in v4 format', () => {
+      it('en', () => expect(gettextToI18next('en', readFileSync(testFiles.en.utf8), { compatibilityJSON: 'v4' }).then(JSON.parse))
+        .to.become(requireTestFile(testFiles.en.utf8_v4_expected)));
+
+      it('en_us', () => expect(gettextToI18next('en_us', readFileSync(testFiles.en.utf8), {
+        splitNewLine: true,
+        compatibilityJSON: 'v4',
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.utf8_v4_expected)));
+
+      it('de', () => expect(gettextToI18next('de', readFileSync(testFiles.de.utf8), {
+        splitNewLine: true,
+        compatibilityJSON: 'v4',
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.de.utf8_v4_expected)));
+
+      it('ru', () => expect(gettextToI18next('ru', readFileSync(testFiles.ru.utf8), {
+        splitNewLine: true,
+        compatibilityJSON: 'v4',
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.ru.utf8_v4_expected)));
+
+      it('ja', () => expect(gettextToI18next('ja', readFileSync(testFiles.ja.utf8), {
+        splitNewLine: true,
+        compatibilityJSON: 'v4',
+      }).then(JSON.parse)).to.become(requireTestFile(testFiles.ja.utf8_v4_expected)));
     });
 
     it('should convert a latin13 PO files to JSON, for a given domain', () =>
