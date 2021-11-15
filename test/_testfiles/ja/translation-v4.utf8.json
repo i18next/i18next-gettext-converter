@@ -1,0 +1,8 @@
+{
+    "a": {
+        "apple_other": "私はリンゴを{count}個持っています"
+    },
+    "friend_other": "{count}人の友達",
+    "friend_male_other": "{count}人の友達",
+    "friend_female_other": "{count}人のガールフレンド"
+}

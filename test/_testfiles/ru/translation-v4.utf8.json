@@ -1,0 +1,17 @@
+{
+    "a": {
+        "apple_one": "У меня есть яблоко",
+        "apple_few": "У меня {count} яблока",
+        "apple_many": "У меня {count} яблок",
+        "apple_negative__negative": "У меня нет яблока"
+    },
+    "friend_one": "Друг",
+    "friend_few": "{count} друга",
+    "friend_many": "{count} друзей",
+    "friend_male_one": "Парень",
+    "friend_male_few": "{count} парня",
+    "friend_male_many": "{count} парней",
+    "friend_female_one": "Подруга",
+    "friend_female_few": "{count} подруги",
+    "friend_female_many": "{count} подруг"
+}

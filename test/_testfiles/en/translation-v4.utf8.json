@@ -1,0 +1,15 @@
+{
+    "name": "name",
+	"name-õäöü": "t3-žš",
+    "a": {
+        "apple_one": "I have an apple",
+        "apple_other": "I have {count} apples",
+        "apple_negative": "I have no apples"
+    },
+    "friend_one": "Friend",
+    "friend_other": "{count} friends",
+    "friend_male_one": "A boyfriend",
+    "friend_male_other": "{count} boyfriends",
+    "friend_female_one": "A girlfriend",
+    "friend_female_other": "{count} girlfriends"
+}
