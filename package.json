@@ -39,7 +39,6 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "arrify": "^2.0.1",
     "colorette": "^2.0.16",
     "commander": "^8.3.0",
     "gettext-converter": "^1.2.0",
