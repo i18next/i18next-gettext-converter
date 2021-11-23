@@ -68,7 +68,7 @@ const {
   filter,
   base: baseArg,
   ...options
-} = program;
+} = program.opts();
 
 if (filter && existsSync(filter)) {
   options.filter = require(path.resolve(filter)); // eslint-disable-line global-require,import/no-dynamic-require
