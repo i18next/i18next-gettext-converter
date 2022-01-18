@@ -120,7 +120,7 @@ program
 .option('--splitNewLine', 'Silence output', false)
 .option('--ctxSeparator [sep]', 'Specify the context separator', '_')
 .option('--ignorePlurals', 'Do not process the plurals')
-.option('--compatibilityJSON', "Set to 'v4' to generate i18next@21 compatible json files")
+.option('--compatibilityJSON <ver>', "Set to 'v4' to generate i18next@21 compatible json files")
 .option('--foldLength', 'Specify the character fold length for strings', 76)
 .parse(process.argv);
 ```
