@@ -46,7 +46,7 @@
     "node-gettext": "^3.0.0"
   },
   "devDependencies": {
-    "c8": "^7.10.0",
+    "c8": "^7.11.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "eslint": "^8.7.0",
