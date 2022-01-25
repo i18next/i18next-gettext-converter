@@ -59,7 +59,7 @@ program
   .option('--ctxSeparator [sep]', 'Specify the context separator', '_')
   .option('--ignorePlurals', 'Do not process the plurals')
   .option('--foldLength', 'Specify the character fold length for strings')
-  .option('--compatibilityJSON', "Set to 'v4' to generate i18next@21 compatible json files")
+  .option('--compatibilityJSON <ver>', "Set to 'v4' to generate i18next@21 compatible json files")
   .parse(process.argv);
 
 const {
