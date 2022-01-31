@@ -47,7 +47,7 @@
     "node-gettext": "^3.0.0"
   },
   "devDependencies": {
-    "chai": "^4.3.5",
+    "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
     "eslint": "^8.7.0",
     "eslint-config-airbnb-base": "^15.0.0",
