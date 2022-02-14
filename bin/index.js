@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import path from 'path';
-import program from 'commander';
+import { program } from 'commander';
 import {
   mkdir, existsSync, readFileSync, promises as fsp,
 } from 'fs'; // node 12 does not support fs/promises
