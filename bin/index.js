@@ -88,7 +88,7 @@ if (source && language) {
   if (pot && !base) {
     console.log(red('at least call with argument -p and -b.'));
     console.log('(call program with argument -h for help.)');
-    process.exit(1);
+    process.exit(1); // eslint-disable-line no-process-exit
   }
 
   if (!options.quiet) console.log(yellow('start converting'));
@@ -104,7 +104,7 @@ if (source && language) {
     .then(() => {
       if (!options.quiet) console.log(green('file written'));
     })
-    .catch((err) => {
+    .catch((/* err */) => {
       console.log(red('failed writing file'));
       process.exitCode = 1
     });
@@ -117,18 +117,11 @@ if (source && language) {
 function processFile(locale, source, target, options) {
   if (!options.quiet) console.log((`--> reading file from: ${source}`));
 
-  return readFileAsync(source)
+  return readFile(source)
     .then((body) => {
       const dirname = path.dirname(source);
       const ext = path.extname(source);
       const filename = path.basename(source, ext);
-
-      if (options.plurals) {
-        const pluralsPath = path.join(process.cwd(), options.plurals);
-        plurals.rules = require(pluralsPath); // eslint-disable-line global-require,import/no-dynamic-require
-
-        if (!options.quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
-      }
 
       let targetDir;
       let targetExt;
@@ -181,10 +174,4 @@ function processFile(locale, source, target, options) {
       }
       throw err
     });
-}
-
-function writeFile(target, data, options = {}) {
-  if (!options.quiet) console.log((`<-- writing file to: ${target}`));
-
-  return writeFileAsync(target, data);
 }
