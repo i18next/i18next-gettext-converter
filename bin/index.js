@@ -1,25 +1,27 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
-const mkdirp = require('mkdirp').sync;
-const program = require('commander');
-const {
+import path from 'path';
+import { program } from 'commander';
+import {
+  mkdir, existsSync, readFileSync, promises as fsp,
+} from 'fs'; // node 12 does not support fs/promises
+import { createRequire } from 'module';
+import {
   red, green, blue, yellow,
-} = require('chalk');
+} from 'colorette';
 
-const plurals = require('../lib/plurals');
-
-const writeFileAsync = promisify(fs.writeFile);
-const readFileAsync = promisify(fs.readFile);
-const {
+import {
   gettextToI18next,
   i18nextToPo,
   i18nextToPot,
   i18nextToMo,
-} = require('../lib');
+// https://github.com/import-js/eslint-plugin-import/issues/1649
+// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+} from 'i18next-conv';
 
+const { writeFile, readFile } = fsp;
+
+const require = createRequire(import.meta.url);
 const { version } = require('../package.json');
 
 // test calls:
@@ -57,6 +59,7 @@ program
   .option('--ctxSeparator [sep]', 'Specify the context separator', '_')
   .option('--ignorePlurals', 'Do not process the plurals')
   .option('--foldLength', 'Specify the character fold length for strings')
+  .option('--compatibilityJSON <ver>', "Set to 'v4' to generate i18next@21 compatible json files")
   .parse(process.argv);
 
 const {
@@ -65,14 +68,14 @@ const {
   filter,
   base: baseArg,
   ...options
-} = program;
+} = program.opts();
 
-if (filter && fs.existsSync(filter)) {
+if (filter && existsSync(filter)) {
   options.filter = require(path.resolve(filter)); // eslint-disable-line global-require,import/no-dynamic-require
 }
 
-if (baseArg && fs.existsSync(baseArg)) {
-  options.base = fs.readFileSync(baseArg);
+if (baseArg && existsSync(baseArg)) {
+  options.base = readFileSync(baseArg);
 }
 
 const {
@@ -89,6 +92,13 @@ if (source && language) {
   }
 
   if (!options.quiet) console.log(yellow('start converting'));
+
+  if (options.plurals) {
+    const pluralsPath = path.join(process.cwd(), options.plurals);
+    options.plurals = require(pluralsPath); // eslint-disable-line global-require,import/no-dynamic-require
+
+    if (!options.quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
+  }
 
   processFile(language, source, target, options)
     .then(() => {
@@ -152,13 +162,17 @@ function processFile(locale, source, target, options) {
           return null;
       }
 
-      if (!fs.existsSync(targetDir)) {
-        mkdirp(targetDir);
+      if (!existsSync(targetDir)) {
+        mkdir(targetDir, { recursive: true });
       }
 
       return converter(locale, body, options);
     })
-    .then((data) => writeFile(target, data, options))
+    .then((data) => {
+      if (!options?.quiet) console.log((`<-- writing file to: ${target}`));
+
+      return writeFile(target, data);
+    })
     .catch((err) => {
       if (err.code === 'ENOENT'){
         console.log(red(`file ${source} was not found.`));
