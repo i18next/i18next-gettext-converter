@@ -1,27 +1,25 @@
 #!/usr/bin/env node
 
-import path from 'path';
-import { program } from 'commander';
-import {
-  mkdir, existsSync, readFileSync, promises as fsp,
-} from 'fs'; // node 12 does not support fs/promises
-import { createRequire } from 'module';
-import {
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+const mkdirp = require('mkdirp').sync;
+const program = require('commander');
+const {
   red, green, blue, yellow,
-} from 'colorette';
+} = require('chalk');
 
-import {
+const plurals = require('../lib/plurals');
+
+const writeFileAsync = promisify(fs.writeFile);
+const readFileAsync = promisify(fs.readFile);
+const {
   gettextToI18next,
   i18nextToPo,
   i18nextToPot,
   i18nextToMo,
-// https://github.com/import-js/eslint-plugin-import/issues/1649
-// eslint-disable-next-line import/no-unresolved,node/no-missing-import
-} from 'i18next-conv';
+} = require('../lib');
 
-const { writeFile, readFile } = fsp;
-
-const require = createRequire(import.meta.url);
 const { version } = require('../package.json');
 
 // test calls:
@@ -59,7 +57,6 @@ program
   .option('--ctxSeparator [sep]', 'Specify the context separator', '_')
   .option('--ignorePlurals', 'Do not process the plurals')
   .option('--foldLength', 'Specify the character fold length for strings')
-  .option('--compatibilityJSON <ver>', "Set to 'v4' to generate i18next@21 compatible json files")
   .parse(process.argv);
 
 const {
@@ -68,14 +65,14 @@ const {
   filter,
   base: baseArg,
   ...options
-} = program.opts();
+} = program;
 
-if (filter && existsSync(filter)) {
+if (filter && fs.existsSync(filter)) {
   options.filter = require(path.resolve(filter)); // eslint-disable-line global-require,import/no-dynamic-require
 }
 
-if (baseArg && existsSync(baseArg)) {
-  options.base = readFileSync(baseArg);
+if (baseArg && fs.existsSync(baseArg)) {
+  options.base = fs.readFileSync(baseArg);
 }
 
 const {
@@ -88,38 +85,40 @@ if (source && language) {
   if (pot && !base) {
     console.log(red('at least call with argument -p and -b.'));
     console.log('(call program with argument -h for help.)');
-    process.exit(); // eslint-disable-line no-process-exit
+    process.exit(1);
   }
 
   if (!options.quiet) console.log(yellow('start converting'));
-
-  if (options.plurals) {
-    const pluralsPath = path.join(process.cwd(), options.plurals);
-    options.plurals = require(pluralsPath); // eslint-disable-line global-require,import/no-dynamic-require
-
-    if (!options.quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
-  }
 
   processFile(language, source, target, options)
     .then(() => {
       if (!options.quiet) console.log(green('file written'));
     })
-    .catch((/* err */) => {
+    .catch((err) => {
       console.log(red('failed writing file'));
+      process.exitCode = 1
     });
 } else {
   console.log(red('at least call with argument -l and -s.'));
   console.log('(call program with argument -h for help.)');
+  process.exitCode = 1
 }
 
 function processFile(locale, source, target, options) {
   if (!options.quiet) console.log((`--> reading file from: ${source}`));
 
-  return readFile(source)
+  return readFileAsync(source)
     .then((body) => {
       const dirname = path.dirname(source);
       const ext = path.extname(source);
       const filename = path.basename(source, ext);
+
+      if (options.plurals) {
+        const pluralsPath = path.join(process.cwd(), options.plurals);
+        plurals.rules = require(pluralsPath); // eslint-disable-line global-require,import/no-dynamic-require
+
+        if (!options.quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
+      }
 
       let targetDir;
       let targetExt;
@@ -153,18 +152,25 @@ function processFile(locale, source, target, options) {
           return null;
       }
 
-      if (!existsSync(targetDir)) {
-        mkdir(targetDir, { recursive: true });
+      if (!fs.existsSync(targetDir)) {
+        mkdirp(targetDir);
       }
 
       return converter(locale, body, options);
     })
-    .then((data) => {
-      if (!options?.quiet) console.log((`<-- writing file to: ${target}`));
-
-      return writeFile(target, data);
-    })
+    .then((data) => writeFile(target, data, options))
     .catch((err) => {
-      if (err.code === 'ENOENT') console.log(red(`file ${source} was not found.`));
+      if (err.code === 'ENOENT'){
+        console.log(red(`file ${source} was not found.`));
+      } else {
+        console.log(red(err.message));
+      }
+      throw err
     });
+}
+
+function writeFile(target, data, options = {}) {
+  if (!options.quiet) console.log((`<-- writing file to: ${target}`));
+
+  return writeFileAsync(target, data);
 }
