@@ -3,7 +3,7 @@
 import path from 'path';
 import { program } from 'commander';
 import {
-  mkdir, existsSync, readFileSync, promises as fsp,
+  mkdirSync, existsSync, readFileSync, promises as fsp,
 } from 'fs'; // node 12 does not support fs/promises
 import { createRequire } from 'module';
 import {
@@ -154,7 +154,7 @@ function processFile(locale, source, target, options) {
       }
 
       if (!existsSync(targetDir)) {
-        mkdir(targetDir, { recursive: true });
+        mkdirSync(targetDir, { recursive: true });
       }
 
       return converter(locale, body, options);
