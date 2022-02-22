@@ -106,12 +106,12 @@ if (source && language) {
     })
     .catch((/* err */) => {
       console.log(red('failed writing file'));
-      process.exitCode = 1
+      process.exitCode = 1;
     });
 } else {
   console.log(red('at least call with argument -l and -s.'));
   console.log('(call program with argument -h for help.)');
-  process.exitCode = 1
+  process.exitCode = 1;
 }
 
 function processFile(locale, source, target, options) {
@@ -167,11 +167,11 @@ function processFile(locale, source, target, options) {
       return writeFile(target, data);
     })
     .catch((err) => {
-      if (err.code === 'ENOENT'){
+      if (err.code === 'ENOENT') {
         console.log(red(`file ${source} was not found.`));
       } else {
         console.log(red(err.message));
       }
-      throw err
+      throw err;
     });
 }
