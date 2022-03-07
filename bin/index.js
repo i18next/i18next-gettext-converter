@@ -88,7 +88,7 @@ if (source && language) {
   if (pot && !base) {
     console.log(red('at least call with argument -p and -b.'));
     console.log('(call program with argument -h for help.)');
-    process.exit(); // eslint-disable-line no-process-exit
+    process.exit(1); // eslint-disable-line no-process-exit
   }
 
   if (!options.quiet) console.log(yellow('start converting'));
@@ -106,10 +106,12 @@ if (source && language) {
     })
     .catch((/* err */) => {
       console.log(red('failed writing file'));
+      process.exitCode = 1;
     });
 } else {
   console.log(red('at least call with argument -l and -s.'));
   console.log('(call program with argument -h for help.)');
+  process.exitCode = 1;
 }
 
 function processFile(locale, source, target, options) {
@@ -165,6 +167,11 @@ function processFile(locale, source, target, options) {
       return writeFile(target, data);
     })
     .catch((err) => {
-      if (err.code === 'ENOENT') console.log(red(`file ${source} was not found.`));
+      if (err.code === 'ENOENT') {
+        console.log(red(`file ${source} was not found.`));
+      } else {
+        console.log(red(err.message));
+      }
+      throw err;
     });
 }
