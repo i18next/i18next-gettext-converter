@@ -43,7 +43,7 @@
     "colorette": "^2.0.16",
     "commander": "^9.0.0",
     "gettext-converter": "^1.2.0",
-    "gettext-parser": "^5.1.0",
+    "gettext-parser": "^5.1.1",
     "node-gettext": "^3.0.0"
   },
   "devDependencies": {
