@@ -58,7 +58,7 @@ program
   .option('--splitNewLine', 'Silence output', false)
   .option('--ctxSeparator [sep]', 'Specify the context separator', '_')
   .option('--ignorePlurals', 'Do not process the plurals')
-  .option('--foldLength', 'Specify the character fold length for strings')
+  .option('--foldLength <value>', 'Specify the character fold length for strings')
   .option('--compatibilityJSON <ver>', "Set to 'v4' to generate i18next@21 compatible json files")
   .parse(process.argv);
 
