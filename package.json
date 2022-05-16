@@ -39,7 +39,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "c8": "^7.11.2",
+    "c8": "^7.11.3",
     "colorette": "^2.0.16",
     "commander": "^9.2.0",
     "gettext-converter": "^1.2.2",
