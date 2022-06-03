@@ -1,15 +1,14 @@
-import { join } from 'path';
+import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { expect } from 'chai';
-import { readFileSync } from 'fs';
-import { createRequire } from 'module';
 
 import {
   i18nextToPo,
   i18nextToMo,
   gettextToI18next,
+} from 'i18next-conv'; // eslint-disable-line import/no-unresolved,n/no-missing-import
 // https://github.com/import-js/eslint-plugin-import/issues/1649
-// eslint-disable-next-line import/no-unresolved,node/no-missing-import
-} from 'i18next-conv';
 
 const testFiles = {
   en: {
@@ -101,13 +100,11 @@ function testFilter(gt, locale, callback) {
   Object.keys(translations).forEach((ctxt) => {
     Object.keys(translations[ctxt]).forEach((key) => {
       const comment = gt.getComment('messages', ctxt, key);
-      if (comment) {
-        if (
-          comment.reference
-          && comment.reference.indexOf(clientSideSource) === -1
-        ) {
-          delete translations[ctxt][key];
-        }
+      if (comment
+          && comment.reference
+          && !comment.reference.includes(clientSideSource)
+      ) {
+        delete translations[ctxt][key];
       }
     });
   });
