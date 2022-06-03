@@ -2,9 +2,8 @@
 
 import path from 'node:path';
 import { createRequire } from 'node:module';
-import {
-  mkdirSync, existsSync, readFile, writeFile,
-} from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
 import { program } from 'commander';
 import {
@@ -64,7 +63,7 @@ const {
   source,
   target,
   filter,
-  base: baseArg,
+  base,
   ...options
 } = program.opts();
 
@@ -72,23 +71,17 @@ if (filter && existsSync(filter)) {
   options.filter = require(path.resolve(filter)); // eslint-disable-line global-require,import/no-dynamic-require
 }
 
-if (baseArg && existsSync(baseArg)) {
-  options.base = await readFile(baseArg);
+if (base && existsSync(base)) {
+  options.base = await readFile(base);
 }
 
-const {
-  language,
-  pot,
-  base,
-} = options;
-
-if (source && language) {
-  if (pot && !base) {
+if (source && options.language) {
+  if (options.pot && !options.base) {
     console.log(red('at least call with argument -p and -b.'));
     console.log('(call program with argument -h for help.)');
     process.exitCode = 1;
   } else {
-    const { quiet, plurals } = options;
+    const { quiet, plurals, language } = options;
     if (!quiet) console.log(yellow('start converting'));
 
     if (plurals) {
@@ -154,11 +147,8 @@ function processFile(locale, source, target, options) {
           return null;
       }
 
-      if (!existsSync(targetDir)) {
-        mkdirSync(targetDir, { recursive: true });
-      }
-
-      return converter(locale, body, options);
+      return mkdir(targetDir, { recursive: true })
+        .then(() => converter(locale, body, options));
     })
     .then((data) => {
       if (!options?.quiet) console.log((`<-- writing file to: ${target}`));
