@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-import path from 'path';
-import { program } from 'commander';
+import path from 'node:path';
+import { createRequire } from 'node:module';
 import {
-  mkdirSync, existsSync, readFileSync, promises as fsp,
-} from 'fs'; // node 12 does not support fs/promises
-import { createRequire } from 'module';
+  mkdirSync, existsSync, readFile, writeFile,
+} from 'node:fs/promises';
+
+import { program } from 'commander';
 import {
   red, green, blue, yellow,
 } from 'colorette';
@@ -15,11 +16,8 @@ import {
   i18nextToPo,
   i18nextToPot,
   i18nextToMo,
+} from 'i18next-conv'; // eslint-disable-line import/no-unresolved,n/no-missing-import
 // https://github.com/import-js/eslint-plugin-import/issues/1649
-// eslint-disable-next-line import/no-unresolved,node/no-missing-import
-} from 'i18next-conv';
-
-const { writeFile, readFile } = fsp;
 
 const require = createRequire(import.meta.url);
 const { version } = require('../package.json');
@@ -75,7 +73,7 @@ if (filter && existsSync(filter)) {
 }
 
 if (baseArg && existsSync(baseArg)) {
-  options.base = readFileSync(baseArg);
+  options.base = await readFile(baseArg);
 }
 
 const {
@@ -88,26 +86,27 @@ if (source && language) {
   if (pot && !base) {
     console.log(red('at least call with argument -p and -b.'));
     console.log('(call program with argument -h for help.)');
-    process.exit(1); // eslint-disable-line no-process-exit
+    process.exitCode = 1;
+  } else {
+    const { quiet, plurals } = options;
+    if (!quiet) console.log(yellow('start converting'));
+
+    if (plurals) {
+      const pluralsPath = path.join(process.cwd(), plurals);
+      options.plurals = require(pluralsPath); // eslint-disable-line global-require,import/no-dynamic-require
+
+      if (!quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
+    }
+
+    processFile(language, source, target, options)
+      .then(() => {
+        if (!quiet) console.log(green('file written'));
+      })
+      .catch((/* err */) => {
+        console.log(red('failed writing file'));
+        process.exitCode = 1;
+      });
   }
-
-  if (!options.quiet) console.log(yellow('start converting'));
-
-  if (options.plurals) {
-    const pluralsPath = path.join(process.cwd(), options.plurals);
-    options.plurals = require(pluralsPath); // eslint-disable-line global-require,import/no-dynamic-require
-
-    if (!options.quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
-  }
-
-  processFile(language, source, target, options)
-    .then(() => {
-      if (!options.quiet) console.log(green('file written'));
-    })
-    .catch((/* err */) => {
-      console.log(red('failed writing file'));
-      process.exitCode = 1;
-    });
 } else {
   console.log(red('at least call with argument -l and -s.'));
   console.log('(call program with argument -h for help.)');
@@ -166,12 +165,12 @@ function processFile(locale, source, target, options) {
 
       return writeFile(target, data);
     })
-    .catch((err) => {
-      if (err.code === 'ENOENT') {
+    .catch((e) => {
+      if (e.code === 'ENOENT') {
         console.log(red(`file ${source} was not found.`));
       } else {
-        console.log(red(err.message));
+        console.log(red(e.message));
       }
-      throw err;
+      throw e;
     });
 }

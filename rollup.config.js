@@ -1,8 +1,8 @@
-import { builtinModules as builtins } from 'module';
+import { builtinModules as builtins } from 'node:module';
 import pkg from './package.json';
 
 const input = 'src/index.js';
-const external = Object.keys(pkg.dependencies).concat(builtins);
+const external = [...Object.keys(pkg.dependencies), ...builtins];
 
 export default [{
   input,

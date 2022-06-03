@@ -1,4 +1,4 @@
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 import Gettext from 'node-gettext';
 import { po } from 'gettext-parser';
@@ -16,7 +16,10 @@ export default function gettextToI18next(locale, body, options = {}) {
 function addTextLocale(locale, body, options = {}) {
   const gt = new Gettext();
   const domain = 'messages';
-  const { filter, gettextDefaultCharset = 'UTF-8' } = options;
+  const {
+    filter,
+    gettextDefaultCharset = 'UTF-8', // eslint-disable-line unicorn/text-encoding-identifier-case
+  } = options;
 
   if (body.length > 0) {
     gt.addTranslations(locale, domain, po.parse(body, gettextDefaultCharset));
