@@ -21,21 +21,6 @@ import {
 const require = createRequire(import.meta.url);
 const { version } = require('../package.json');
 
-// test calls:
-
-// gettext -> i18next
-// node bin -l en -s ./test/_testfiles/en/translation.utf8.po -t ./test/_tmp/en.json
-// node bin -l de -s ./test/_testfiles/de/translation.utf8.po -t ./test/_tmp/de.json
-// node bin -l ru -s ./test/_testfiles/ru/translation.utf8.po -t ./test/_tmp/ru.json
-
-// With filter:
-// node bin -l en -s ./test/_testfiles/en/translation.utf8.po -t ./test/_tmp/en.json -f path/to/filter.js
-
-// i18next -> gettext
-// node bin -l de -s ./test/_testfiles/de/translation.utf8.json -t ./test/_tmp/de.po
-// and back
-// node bin -l de -s ./test/_tmp/de.po -t ./test/_tmp/de.json
-
 // program
 program
   .version(version)
