@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 import { po, mo } from 'gettext-parser';
 import { i18next2js } from 'gettext-converter';
 
@@ -30,7 +29,11 @@ function i18nextToGettext(
         locale,
         // i18next2js does not support buffers
         Buffer.isBuffer(body) ? body.toString('utf8') : body,
-        { ...options, project: options.project || 'i18next-conv', setLocaleAsLanguageHeader: false },
+        {
+          ...options,
+          project: options.project ?? 'i18next-conv',
+          setLocaleAsLanguageHeader: false,
+        },
       ),
       parserOptions,
     ),

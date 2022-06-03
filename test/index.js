@@ -114,7 +114,7 @@ function testFilter(gt, locale, callback) {
 
 const require = createRequire(import.meta.url);
 function requireTestFile(file) {
-  return require(join('..', file)); // eslint-disable-line global-require,import/no-dynamic-require
+  return require(join('..', file)); // eslint-disable-line import/no-dynamic-require
 }
 
 describe('i18next-gettext-converter', () => {
