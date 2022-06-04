@@ -3,8 +3,6 @@
 [![Build Status][build-badge]][build]
 [![npm package][npm-badge]][npm]
 [![Coverage Status][coveralls-badge]][coveralls]
-[![Dependency Status][dependency-status-badge]][dependency-status]
-[![devDependency Status][dev-dependency-status-badge]][dev-dependency-status]
 
 ## Introduction
 
@@ -175,9 +173,3 @@ See the [LICENSE](LICENSE.md) file for license rights and limitations.
 
 [coveralls-badge]: https://img.shields.io/coveralls/i18next/i18next-gettext-converter/master.svg?style=flat-square
 [coveralls]: https://coveralls.io/r/i18next/i18next-gettext-converter
-
-[dependency-status-badge]: https://david-dm.org/i18next/i18next-gettext-converter.svg?style=flat-square
-[dependency-status]: https://david-dm.org/i18next/i18next-gettext-converter
-
-[dev-dependency-status-badge]: https://david-dm.org/i18next/i18next-gettext-converter/dev-status.svg?style=flat-square
-[dev-dependency-status]: https://david-dm.org/i18next/i18next-gettext-converter#info=devDependencies
