@@ -2,4 +2,3 @@ node_modules
 coverage
 npm-debug.log
 .eslintcache
-dist
