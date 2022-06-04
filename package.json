@@ -11,12 +11,8 @@
   "engines": {
     "node": ">= 14.0"
   },
-  "main": "dist/index.cjs",
   "exports": {
-    ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
-    },
+    ".": "./index.js",
     "./package.json": "./package.json"
   },
   "bin": {
@@ -24,7 +20,8 @@
   },
   "files": [
     "bin",
-    "dist"
+    "lib",
+    "index.js"
   ],
   "repository": {
     "type": "git",
@@ -32,11 +29,9 @@
   },
   "license": "SEE LICENSE IN LICENSE.MD",
   "scripts": {
-    "build": "rollup -c",
     "lint": "eslint --cache .",
     "test": "mocha",
-    "cover": "c8 npm test",
-    "prepare": "npm run build"
+    "cover": "c8 npm test"
   },
   "dependencies": {
     "c8": "^7.11.3",
@@ -56,7 +51,6 @@
     "eslint-plugin-mocha": "^10.0.5",
     "eslint-plugin-n": "^15.2.1",
     "eslint-plugin-unicorn": "^42.0.0",
-    "mocha": "^10.0.0",
-    "rollup": "^2.75.5"
+    "mocha": "^10.0.0"
   }
 }

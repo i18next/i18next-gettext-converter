@@ -15,7 +15,7 @@ import {
   i18nextToPo,
   i18nextToPot,
   i18nextToMo,
-} from 'i18next-conv'; // eslint-disable-line import/no-unresolved,n/no-missing-import
+} from 'i18next-conv'; // eslint-disable-line import/no-unresolved,n/no-extraneous-import
 // https://github.com/import-js/eslint-plugin-import/issues/1649
 
 const require = createRequire(import.meta.url);
