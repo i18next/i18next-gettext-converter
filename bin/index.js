@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import path from 'node:path';
-import { createRequire } from 'node:module';
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
@@ -18,12 +17,11 @@ import {
 } from 'i18next-conv'; // eslint-disable-line import/no-unresolved,n/no-extraneous-import
 // https://github.com/import-js/eslint-plugin-import/issues/1649
 
-const require = createRequire(import.meta.url);
-const { version } = require('../package.json');
+import pkg from "../package.json" assert { type: "json" };
 
 // program
 program
-  .version(version)
+  .version(pkg.version)
   .option('-b, --base [path]', 'Sepcify path for the base language file. only take effect with -K option', '')
   .option('-f, --filter <path>', 'Specify path to gettext filter')
   .option('-l, --language <locale>', 'Specify the language code, eg. \'en\'')
