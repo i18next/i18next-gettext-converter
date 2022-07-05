@@ -76,7 +76,7 @@ if (source && options.language) {
       if (!quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
     }
 
-    processFile(language, source, target, options)
+    await processFile(language, source, target, options)
       .then(() => {
         if (!quiet) console.log(green('file written'));
       })
