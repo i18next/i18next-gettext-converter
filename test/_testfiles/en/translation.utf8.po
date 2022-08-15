@@ -37,3 +37,4 @@ msgid "friend"
 msgid_plural "friend"
 msgstr[0] "A girlfriend"
 msgstr[1] "{count} girlfriends"
+
