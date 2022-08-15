@@ -23,3 +23,4 @@ msgctxt "female"
 msgid "friend"
 msgid_plural "friend"
 msgstr[0] "{count}人のガールフレンド"
+

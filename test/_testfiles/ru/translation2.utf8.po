@@ -32,3 +32,4 @@ msgid_plural "friend"
 msgstr[0] "Подруга"
 msgstr[1] "{count} подруги"
 msgstr[2] "{count} подруг"
+
