@@ -120,6 +120,7 @@ program
 .option('--ignorePlurals', 'Do not process the plurals')
 .option('--compatibilityJSON <ver>', "Set to 'v4' to generate i18next@21 compatible json files")
 .option('--foldLength', 'Specify the character fold length for strings', 76)
+.option('--noDate', 'Removes timestamp related lines from output file (POT-Creation-Date and PO-Revision-Date lines)')
 .parse(process.argv);
 ```
 
