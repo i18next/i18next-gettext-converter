@@ -116,20 +116,25 @@ function processFile(locale, source, target, options) {
       }
 
       switch (targetExt) {
-        case '.po':
+        case '.po': {
           converter = i18nextToPo;
           break;
-        case '.pot':
+        }
+        case '.pot': {
           converter = i18nextToPot;
           break;
-        case '.mo':
+        }
+        case '.mo': {
           converter = i18nextToMo;
           break;
-        case '.json':
+        }
+        case '.json': {
           converter = gettextToI18next;
           break;
-        default:
+        }
+        default: {
           return null;
+        }
       }
 
       return mkdir(targetDir, { recursive: true })
