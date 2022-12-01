@@ -104,15 +104,15 @@ function processFile(locale, source, target, options) {
       let targetExt;
       let converter;
 
-      if (!target) {
+      if (target) {
+        targetDir = path.dirname(target);
+        targetExt = path.extname(target);
+      } else {
         targetDir = (dirname.lastIndexOf(locale) === 0)
           ? dirname
           : path.join(dirname, locale);
         targetExt = (ext === '.json') ? '.po' : '.json';
         target = path.join(targetDir, `${filename}${targetExt}`);
-      } else {
-        targetDir = path.dirname(target);
-        targetExt = path.extname(target);
       }
 
       switch (targetExt) {
