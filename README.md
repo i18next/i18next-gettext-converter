@@ -166,7 +166,7 @@ gettextToI18next('ua-UK', readFileSync('../locales/ua-UK/translation.po'), optio
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations.
 
-[build-badge]: https://img.shields.io/github/workflow/status/i18next/i18next-gettext-converter/test/master?style=flat-square
+[build-badge]: https://img.shields.io/github/actions/workflow/status/i18next/i18next-gettext-converter/test.yml?event=push&style=flat-square
 [build]: https://github.com/i18next/i18next-gettext-converter/actions
 
 [npm-badge]: https://img.shields.io/npm/v/i18next-conv.svg?style=flat-square
