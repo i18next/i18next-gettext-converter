@@ -277,22 +277,22 @@ describe('i18next-gettext-converter', () => {
       it('en', () => expect(i18nextToPo('en', readFileSync(testFiles.en.utf8_expected), {
         splitNewLine: true,
         noDate: true,
-      })).to.become(readFileSync(testFiles.en.utf8).slice(0, -1))); // TODO: figure out last character
+      })).to.become(readFileSync(testFiles.en.utf8).subarray(0, -1))); // TODO: figure out last character
 
       it('de', () => expect(i18nextToPo('de', readFileSync(testFiles.de.utf8_expected), {
         splitNewLine: true,
         noDate: true,
-      })).to.become(readFileSync(testFiles.de.utf8).slice(0, -1))); // TODO: figure out last character
+      })).to.become(readFileSync(testFiles.de.utf8).subarray(0, -1))); // TODO: figure out last character
 
       it('ru', () => expect(i18nextToPo('ru', readFileSync(testFiles.ru.utf8_2_expected), {
         splitNewLine: true,
         noDate: true,
-      })).to.become(readFileSync(testFiles.ru.utf8_2).slice(0, -1))); // TODO: figure out last character
+      })).to.become(readFileSync(testFiles.ru.utf8_2).subarray(0, -1))); // TODO: figure out last character
 
       it('ja', () => expect(i18nextToPo('ja', readFileSync(testFiles.ja.utf8_expected), {
         splitNewLine: true,
         noDate: true,
-      })).to.become(readFileSync(testFiles.ja.utf8).slice(0, -1))); // TODO: figure out last character
+      })).to.become(readFileSync(testFiles.ja.utf8).subarray(0, -1))); // TODO: figure out last character
     });
 
     describe('convert a JSON file to utf8 PO with msgid as an original string', () => {
@@ -302,7 +302,7 @@ describe('i18next-gettext-converter', () => {
           noDate: true,
           base: readFileSync(testFiles.en.utf8_msgid_expected),
           keyasareference: true,
-        })).to.become(readFileSync(testFiles.en.utf8_msgid).slice(0, -1));
+        })).to.become(readFileSync(testFiles.en.utf8_msgid).subarray(0, -1));
       });
 
       it('de', () => {
@@ -311,7 +311,7 @@ describe('i18next-gettext-converter', () => {
           noDate: true,
           base: readFileSync(testFiles.en.utf8_msgid_expected),
           keyasareference: true,
-        })).to.become(readFileSync(testFiles.de.utf8_msgid).slice(0, -1));
+        })).to.become(readFileSync(testFiles.de.utf8_msgid).subarray(0, -1));
       });
     });
 
@@ -331,8 +331,8 @@ describe('i18next-gettext-converter', () => {
     it('should return correct nplurals for Hebrew', () => i18nextToPo('he', '{}').then((result) => {
       const oneLine = result
         .toString()
-        .replace(/\n/g, ' ')
-        .replace(/"/g, '');
+        .replaceAll('\n', ' ')
+        .replaceAll('"', '');
       expect(oneLine).to.include(
         'Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : (n<0 || n>10) &&  n%10==0 ? 2 : 3)',
       );
@@ -342,7 +342,7 @@ describe('i18next-gettext-converter', () => {
       expect(i18nextToPo('en', readFileSync(testFiles.en.nested_array_of_objects_json), {
         splitNewLine: false,
         noDate: true,
-      })).to.become(readFileSync(testFiles.en.nested_array_of_objects_po).slice(0, -1));
+      })).to.become(readFileSync(testFiles.en.nested_array_of_objects_po).subarray(0, -1));
     });
 
     describe('should return the correct plural forms for Portuguese', () => {
@@ -380,6 +380,6 @@ describe('i18next-gettext-converter', () => {
         noDate: true,
         ctxSeparator:
         '_ is default but we set it to something that is never found!!!',
-      })).to.become(readFileSync(testFiles.en.persist_plural_id_po).slice(0, -1)));
+      })).to.become(readFileSync(testFiles.en.persist_plural_id_po).subarray(0, -1)));
   });
 });
