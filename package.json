@@ -9,7 +9,7 @@
   "version": "13.1.1",
   "type": "module",
   "engines": {
-    "node": ">= 14.0"
+    "node": ">= 16.0"
   },
   "exports": {
     ".": "./index.js",
