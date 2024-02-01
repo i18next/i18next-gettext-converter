@@ -34,7 +34,7 @@
     "cover": "c8 npm test"
   },
   "dependencies": {
-    "c8": "^8.0.1",
+    "c8": "^9.1.0",
     "colorette": "^2.0.20",
     "commander": "^11.1.0",
     "gettext-converter": "^1.2.4",
