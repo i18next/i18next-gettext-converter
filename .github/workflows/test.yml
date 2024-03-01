@@ -52,3 +52,13 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
+
+  finish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close parallel build
+        uses: coverallsapp/github-action@v2
+        with:
+          parallel-finished: true
