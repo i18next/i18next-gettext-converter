@@ -233,9 +233,11 @@ describe('i18next-gettext-converter', () => {
     describe('should skip empty values appropriately', () => {
       it('base', () => expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated)).then(JSON.parse))
         .to.become(requireTestFile(testFiles.en.untranslated_expected)));
+
       it('skipUntranslated', () => expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
         skipUntranslated: true,
       }).then(JSON.parse)).to.become(requireTestFile(testFiles.en.untranslated_skipped)));
+
       it('skipUntranslated and keyasareference', () => expect(gettextToI18next('en', readFileSync(testFiles.en.untranslated), {
         keyasareference: true,
         skipUntranslated: true,
