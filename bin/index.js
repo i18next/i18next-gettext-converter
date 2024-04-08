@@ -42,6 +42,7 @@ program
   .option('--ignorePlurals', 'Do not process the plurals')
   .option('--foldLength <value>', 'Specify the character fold length for strings')
   .option('--compatibilityJSON <ver>', "Set to 'v4' to generate i18next@21 compatible json files")
+  .option('--noDate', 'Removes timestamp related lines from output file (POT-Creation-Date and PO-Revision-Date lines)')
   .parse(process.argv);
 
 const {
