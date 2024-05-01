@@ -9,7 +9,7 @@
   "version": "14.1.0",
   "type": "module",
   "engines": {
-    "node": ">= 16.0"
+    "node": ">= 18.0"
   },
   "exports": {
     ".": "./index.js",
