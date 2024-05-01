@@ -6,7 +6,7 @@
     "i18next",
     "gettext"
   ],
-  "version": "14.1.0",
+  "version": "15.0.0",
   "type": "module",
   "engines": {
     "node": ">= 18.0"
