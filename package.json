@@ -51,7 +51,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-mocha": "^10.4.3",
     "eslint-plugin-n": "^17.4.0",
-    "eslint-plugin-unicorn": "^51.0.1",
+    "eslint-plugin-unicorn": "^52.0.0",
     "mocha": "^10.4.0"
   }
 }
