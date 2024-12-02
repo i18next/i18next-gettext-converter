@@ -45,7 +45,7 @@
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.1",
     "chai": "^5.1.2",
-    "chai-as-promised": "^8.0.0",
+    "chai-as-promised": "^8.0.1",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.31.0",
