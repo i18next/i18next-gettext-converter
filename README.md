@@ -28,7 +28,7 @@ __for help:__
 i18next-conv -h
 ````
 
-__to convert a .mo or .po file to i8next json:__
+__to convert a .mo or .po file to i18next json:__
 
 ````
 i18next-conv -l [locale] -s [sourcePath] -t [targetPath]
