@@ -61,7 +61,7 @@ if (base && existsSync(base)) {
   options.base = await readFile(base);
 }
 
-if (source && options.language) {
+if (source && (options.language || target)) {
   if (options.pot && !options.base) {
     console.log(red('at least call with argument -p and -b.'));
     console.log('(call program with argument -h for help.)');
