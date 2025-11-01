@@ -30,13 +30,5 @@ jobs:
     - name: Test
       run: npm test
 
-    - uses: step-security/wait-for-secrets@v1
-      id: wait-for-secrets
-      with:
-        secrets: |
-          OTP:
-            name: 'OTP to publish package'
-            description: 'OTP from authenticator app'
-
     - name: Publish
-      run: npm publish --otp ${{ steps.wait-for-secrets.outputs.OTP }}
+      run: npm publish
