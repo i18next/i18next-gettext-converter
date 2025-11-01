@@ -3,6 +3,10 @@ on:
   release:
     types: [published]
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
   publish:
 
@@ -14,6 +18,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v6
       with:
+        node-version: '24'
         registry-url: 'https://registry.npmjs.org'
 
     - name: Install dependencies
@@ -25,6 +30,13 @@ jobs:
     - name: Test
       run: npm test
 
-    - run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - uses: step-security/wait-for-secrets@v1
+      id: wait-for-secrets
+      with:
+        secrets: |
+          OTP:
+            name: 'OTP to publish package'
+            description: 'OTP from authenticator app'
+
+    - name: Publish
+      run: npm publish --otp ${{ steps.wait-for-secrets.outputs.OTP }}
