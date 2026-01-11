@@ -4,7 +4,8 @@ updates:
       directory: /
       versioning-strategy: increase
       schedule:
-          interval: monthly
+          interval: cron
+          cronjob: "0 5 10 */2 *"
       open-pull-requests-limit: 20
       reviewers:
           - perrin4869
