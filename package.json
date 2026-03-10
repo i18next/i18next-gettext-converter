@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "c8": "^11.0.0",
-    "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
     "chai": "^6.2.2",
     "chai-as-promised": "^8.0.2",
     "eslint": "^8.57.0",
