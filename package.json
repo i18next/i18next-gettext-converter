@@ -42,7 +42,7 @@
     "p-from-callback": "^3.0.0"
   },
   "devDependencies": {
-    "c8": "^10.1.3",
+    "c8": "^11.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
     "chai": "^6.2.2",
     "chai-as-promised": "^8.0.2",
