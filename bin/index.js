@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import path from 'node:path';
-import { createRequire } from 'node:module';
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
@@ -18,12 +17,11 @@ import {
 } from 'i18next-conv'; // eslint-disable-line import/no-unresolved
 // https://github.com/import-js/eslint-plugin-import/issues/1649
 
-const require = createRequire(import.meta.url);
-const { version } = require('../package.json');
+import pkg from "../package.json" with { type: "json" };
 
 // program
 program
-  .version(version)
+  .version(pkg.version)
   .option('-b, --base [path]', 'Sepcify path for the base language file. only take effect with -K option', '')
   .option('-f, --filter <path>', 'Specify path to gettext filter')
   .option('-l, --language <locale>', 'Specify the language code, eg. \'en\'')
@@ -54,7 +52,8 @@ const {
 } = program.opts();
 
 if (filter && existsSync(filter)) {
-  options.filter = require(path.resolve(filter));
+  // eslint-disable-next-line unicorn/no-await-expression-member
+  options.filter = (await import(path.resolve(filter))).default;
 }
 
 if (base && existsSync(base)) {
@@ -72,7 +71,8 @@ if (source && (options.language || target)) {
 
     if (plurals) {
       const pluralsPath = path.join(process.cwd(), plurals);
-      options.plurals = require(pluralsPath);  
+      // eslint-disable-next-line unicorn/no-await-expression-member
+      options.plurals = (await import(pluralsPath)).default;  
 
       if (!quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
     }
