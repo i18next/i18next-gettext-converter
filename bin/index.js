@@ -54,7 +54,7 @@ const {
 } = program.opts();
 
 if (filter && existsSync(filter)) {
-  options.filter = require(path.resolve(filter)); // eslint-disable-line import/no-dynamic-require
+  options.filter = require(path.resolve(filter));
 }
 
 if (base && existsSync(base)) {
@@ -72,7 +72,7 @@ if (source && (options.language || target)) {
 
     if (plurals) {
       const pluralsPath = path.join(process.cwd(), plurals);
-      options.plurals = require(pluralsPath); // eslint-disable-line import/no-dynamic-require
+      options.plurals = require(pluralsPath);  
 
       if (!quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
     }
