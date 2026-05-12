@@ -17,7 +17,7 @@ import {
 } from 'i18next-conv'; // eslint-disable-line import/no-unresolved
 // https://github.com/import-js/eslint-plugin-import/issues/1649
 
-import pkg from "../package.json" assert { type: "json" };
+import pkg from "../package.json" with { type: "json" };
 
 // program
 program
@@ -52,7 +52,8 @@ const {
 } = program.opts();
 
 if (filter && existsSync(filter)) {
-  options.filter = require(path.resolve(filter));
+  // eslint-disable-next-line unicorn/no-await-expression-member
+  options.filter = (await import(path.resolve(filter))).default;
 }
 
 if (base && existsSync(base)) {
@@ -70,7 +71,8 @@ if (source && (options.language || target)) {
 
     if (plurals) {
       const pluralsPath = path.join(process.cwd(), plurals);
-      options.plurals = require(pluralsPath);  
+      // eslint-disable-next-line unicorn/no-await-expression-member
+      options.plurals = (await import(pluralsPath)).default;  
 
       if (!quiet) console.log(blue(`use custom plural forms ${pluralsPath}`));
     }
