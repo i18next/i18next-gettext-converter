@@ -30,7 +30,7 @@
   "license": "SEE LICENSE IN LICENSE.MD",
   "scripts": {
     "lint": "eslint --cache .",
-    "test": "mocha",
+    "test": "node --test --import ./test/setup.js",
     "cover": "c8 npm test"
   },
   "dependencies": {
@@ -51,7 +51,6 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-mocha": "^11.2.0",
     "eslint-plugin-n": "^18.0.1",
-    "eslint-plugin-unicorn": "^64.0.0",
-    "mocha": "^11.7.5"
+    "eslint-plugin-unicorn": "^64.0.0"
   }
 }

@@ -1,12 +1,14 @@
-import { join } from 'node:path';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
+import { join } from 'node:path';
+import { describe, it } from 'node:test';
+
 import { expect } from 'chai';
 
 import {
-  i18nextToPo,
-  i18nextToMo,
-  gettextToI18next,
+    gettextToI18next,
+    i18nextToMo,
+    i18nextToPo,
 } from 'i18next-conv'; // eslint-disable-line import/no-unresolved
 // https://github.com/import-js/eslint-plugin-import/issues/1649
 
@@ -298,23 +300,23 @@ describe('i18next-gettext-converter', () => {
     });
 
     describe('convert a JSON file to utf8 PO with msgid as an original string', () => {
-      it('en', () => {
+      it('en', () =>
         expect(i18nextToPo('en', readFileSync(testFiles.en.utf8_msgid_expected), {
           splitNewLine: true,
           noDate: true,
           base: readFileSync(testFiles.en.utf8_msgid_expected),
           keyasareference: true,
-        })).to.become(readFileSync(testFiles.en.utf8_msgid).subarray(0, -1));
-      });
+        })).to.become(readFileSync(testFiles.en.utf8_msgid))
+      );
 
-      it('de', () => {
+      it('de', () =>
         expect(i18nextToPo('de', readFileSync(testFiles.de.utf8_msgid_expected), {
           splitNewLine: true,
           noDate: true,
           base: readFileSync(testFiles.en.utf8_msgid_expected),
           keyasareference: true,
-        })).to.become(readFileSync(testFiles.de.utf8_msgid).subarray(0, -1));
-      });
+        })).to.become(readFileSync(testFiles.de.utf8_msgid))
+      );
     });
 
     it('should change the fold length when a foldLength option is supplied', () =>
@@ -340,15 +342,15 @@ describe('i18next-gettext-converter', () => {
       );
     }));
 
-    it('should recognize nested object arrays and recurse through them', () => {
+    it('should recognize nested object arrays and recurse through them', () =>
       expect(i18nextToPo('en', readFileSync(testFiles.en.nested_array_of_objects_json), {
         splitNewLine: false,
         noDate: true,
-      })).to.become(readFileSync(testFiles.en.nested_array_of_objects_po).subarray(0, -1));
-    });
+      })).to.become(readFileSync(testFiles.en.nested_array_of_objects_po).subarray(0, -1))
+    );
 
     describe('should return the correct plural forms for Portuguese', () => {
-      // eslint-disable-next-line mocha/no-setup-in-describe
+       
       [
         ['pt-PT', 'plural=(n != 1)'], // pt-PT = European Portuguese = nplurals=2; plural=(n != 1);
         ['pt-BR', 'plural=(n > 1)'], // pt-BR = Brazillian Portuguese = nplurals=2; plural=(n > 1);
