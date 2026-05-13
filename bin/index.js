@@ -35,7 +35,7 @@ program
   .option('--quiet', 'Silence output', false)
   .option('--gettextDefaultCharset', 'Default charset when parsing gettext files with gettext-parser')
   .option('--skipUntranslated', 'Skip untranslated keys when converting into json', false)
-  .option('--splitNewLine', 'Silence output', false)
+  .option('--splitNewLine', 'Outputs gettext multiline values as json array of strings', false)
   .option('--ctxSeparator [sep]', 'Specify the context separator', '_')
   .option('--ignorePlurals', 'Do not process the plurals')
   .option('--foldLength <value>', 'Specify the character fold length for strings')
