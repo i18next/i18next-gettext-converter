@@ -350,7 +350,6 @@ describe('i18next-gettext-converter', () => {
     );
 
     describe('should return the correct plural forms for Portuguese', () => {
-       
       [
         ['pt-PT', 'plural=(n != 1)'], // pt-PT = European Portuguese = nplurals=2; plural=(n != 1);
         ['pt-BR', 'plural=(n > 1)'], // pt-BR = Brazillian Portuguese = nplurals=2; plural=(n > 1);
