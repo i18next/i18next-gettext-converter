@@ -346,7 +346,7 @@ describe('i18next-gettext-converter', () => {
       expect(i18nextToPo('en', readFileSync(testFiles.en.nested_array_of_objects_json), {
         splitNewLine: false,
         noDate: true,
-      })).to.become(readFileSync(testFiles.en.nested_array_of_objects_po).subarray(0, -1))
+      })).to.become(readFileSync(testFiles.en.nested_array_of_objects_po))
     );
 
     describe('should return the correct plural forms for Portuguese', () => {
