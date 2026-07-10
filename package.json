@@ -39,7 +39,7 @@
     "commander": "^14.0.3",
     "gettext-converter": "^1.3.2",
     "gettext-parser": "^9.1.1",
-    "p-from-callback": "^3.0.0"
+    "p-from-callback": "^4.0.0"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
