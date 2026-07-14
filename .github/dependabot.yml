@@ -1,18 +1,18 @@
 version: 2
 updates:
-    - package-ecosystem: npm
-      directory: /
-      versioning-strategy: increase
-      schedule:
-          interval: cron
-          cronjob: "0 5 10 */2 *"
-      open-pull-requests-limit: 20
-      reviewers:
-          - perrin4869
-      assignees:
-          - perrin4869
-    - package-ecosystem: github-actions
-      directory: /
-      schedule:
-          # Check for updates to GitHub Actions every weekday
-          interval: daily
+  - package-ecosystem: npm
+    directory: /
+    versioning-strategy: increase
+    schedule:
+      interval: cron
+      cronjob: "0 5 10 */2 *"
+    open-pull-requests-limit: 20
+    reviewers:
+      - perrin4869
+    assignees:
+      - perrin4869
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      # Check for updates to GitHub Actions every weekday
+      interval: daily
