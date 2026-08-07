@@ -6,6 +6,8 @@ updates:
     schedule:
       interval: cron
       cronjob: "0 5 10 */2 *"
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 20
     groups:
       eslint:
@@ -21,3 +23,5 @@ updates:
     schedule:
       # Check for updates to GitHub Actions every weekday
       interval: daily
+    cooldown:
+      default-days: 7
