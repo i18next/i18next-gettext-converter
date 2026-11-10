@@ -38,7 +38,7 @@
     "colorette": "^2.0.20",
     "commander": "^15.0.0",
     "gettext-converter": "^1.4.1",
-    "gettext-parser": "^9.1.1",
+    "gettext-parser": "^10.0.0",
     "p-from-callback": "^4.0.0"
   },
   "devDependencies": {
