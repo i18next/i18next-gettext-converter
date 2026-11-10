@@ -34,7 +34,7 @@
     "cover": "c8 npm test"
   },
   "dependencies": {
-    "@postalsys/gettext": "^4.1.1",
+    "@postalsys/gettext": "^4.3.0",
     "colorette": "^2.0.20",
     "commander": "^15.0.0",
     "gettext-converter": "^1.4.1",
